@@ -1,8 +1,0 @@
-task tmpCleanup(type: Delete) {
-
-	delete(files("$rootDir/build/tmp"))
-	delete(file("$rootDir/archive/unspecified"))
-
-}
-
-tmpCleanup.mustRunAfter(build)
