@@ -3,6 +3,7 @@
 
 #Gradle
 !gradle/
+!gradlew
 !gradlew.bat
 !build.gradle
 !build.properties
@@ -11,6 +12,7 @@
 !.gitignore
 !.gitmodules
 
+#Submodules
 !gradle/scripts/.git
 
 #Source
@@ -18,10 +20,15 @@
 
 #Archive
 !archive/
-archive/unspecified
+
+#Scripts
+!make
+!make.bat
+!init
+!init.bat
+!update
+!update.bat
 
 #Misc
 !README.md
 !LICENSE
-!make
-!make.bat
