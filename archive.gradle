@@ -1,0 +1,87 @@
+task makeSrcJar(type: Jar) {
+
+	destinationDir = file("$rootDir/build/libs")
+	baseName = archivesBaseName
+	classifier = "src"
+	
+	includeEmptyDirs = true
+	
+	from("$rootDir/build/sources")
+
+}
+
+task makeAPIJar(type: Jar) {
+
+	destinationDir = file("$rootDir/build/libs")
+	baseName = archivesBaseName
+	classifier = "src"
+	
+	includeEmptyDirs = true
+	
+	from("$rootDir/build/sources")
+	
+	exclude('**api**')
+
+}
+
+task makeResZip(type: Zip) {
+
+	destinationDir = file("$rootDir/build/libs")
+	baseName = archivesBaseName
+	classifier = "res"
+	
+	includeEmptyDirs = true
+	
+	from("$rootDir/build/resources")
+
+}
+
+task makeJavadoc(type: Javadoc) {
+
+	source = sourceSets.main.allJava
+	destinationDir = file("$rootDir/build/javadoc")
+
+}
+
+task makeJavadocJar(type: Jar, dependsOn: makeJavadoc) {
+
+	destinationDir = file("$rootDir/build/libs")
+	baseName = archivesBaseName
+	classifier = "javadoc"
+	
+	includeEmptyDirs = true
+	
+	from("$rootDir/build/javadoc")
+
+}
+
+task makeAllZip(type: Zip, dependsOn: [makeSrcJar, makeAPIJar, makeResZip, makeJavadocJar]) {
+
+	destinationDir = file("$rootDir/build/libs")
+	baseName = archivesBaseName
+	classifier = "all"
+	
+	includeEmptyDirs = true
+	
+	from("$rootDir/build/libs")
+
+	exclude(archiveName)
+}
+
+task makeArchive(type: Copy, dependsOn: makeAllZip) {
+
+	File toCopyTo = file("$rootDir/archive/" + version);
+	toCopyTo.mkdirs();
+	
+	from(files("$rootDir/build/libs")) {
+	
+		include "**AMUN-$version.**"
+	
+	}
+	
+	into toCopyTo;
+	
+	includeEmptyDirs = true;
+}
+
+makeArchive.mustRunAfter(build)
