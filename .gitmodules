@@ -1,0 +1,3 @@
+[submodule "CommonGradleScripts"]
+	path = gradle/scripts
+	url = https://github.com/SophosMZ/GradleScripts.git

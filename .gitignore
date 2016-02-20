@@ -9,6 +9,7 @@
 
 #Git
 !.gitignore
+!.gitmodules
 
 !gradle/scripts/.git
 
