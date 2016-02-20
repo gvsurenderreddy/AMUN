@@ -1,23 +1,18 @@
-# Gradle
-/.gradle
-/build
+#Exclude all
+/*
 
-# Eclipse
-/.classpath
-/.project
-/.settings
-/bin
+#Gradle
+!gradle/
+!gradlew.bat
+!build.gradle
+!build.properties
 
-# IntelliJ IDEA
-/*.iml
-/*.ipr
-/*.iws
-/.idea
-/out
+#Git
+!.gitignore
 
-# Debugging
-/eclipse
-/run
+#Source
+!src/
 
-# OS X
-.DS_Store
+#Misc
+!README.md
+!LICENSE
