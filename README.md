@@ -6,7 +6,7 @@
 * [About](#about)
 * [Goals](#goals)
 * [Installation](#installation)
-* [Issues](#Issues and Suggestions)
+* [Issues](#Issues_and_Suggestions)
 * [License](#license)
 
 ## About
