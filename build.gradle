@@ -7,9 +7,12 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+		maven { //Lua...
+			url = "http://mvnrepository.com"
+		}
     }
-	
-	
+
+
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
@@ -25,8 +28,9 @@ repositories {
         url "http://dvs1.progwml6.com/files/maven"
     }
 	maven { //OC
-		url = "http://maven.cil.li/" 
+		url = "http://maven.cil.li/"
 	}
+	
 }
 
 apply plugin: 'java'
@@ -62,15 +66,17 @@ targetCompatibility = '1.8'
 minecraft {
     version = config.MC_version + "-" + config.FORGE_version
     runDir = "run"
-	
+
 	useDepAts = true
-    
+
     mappings = "stable_20"
     makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
 dependencies {
-	compile "li.cil.oc:OpenComputers:MC${config.MC_version}-${config.OC_version}:api" 
+	compile "org.luaj:luaj-jse:${config.LUAJ_version}"
+	compile "org.codehaus.groovy:groovy:${config.GROOVY_version}"
+	compile "li.cil.oc:OpenComputers:MC${config.MC_version}-${config.OC_version}" 
 	compile "mcp.mobius.waila:Waila:${config.WAILA_version}:dev"
 	deobfCompile "mezz.jei:jei_${config.MC_version}:${config.JEI_version}"
 }
@@ -79,13 +85,13 @@ processResources
 {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-	
+
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }

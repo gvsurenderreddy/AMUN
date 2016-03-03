@@ -10,18 +10,19 @@ import org.apache.logging.log4j.Level;
 
 import de.puzzleddev.amun.common.AMUNCommonProxy;
 import de.puzzleddev.amun.common.anno.IAMUNAnnoUtil;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationSearch;
+import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
 import de.puzzleddev.amun.common.anno.impl.AMUNAnnoUtilImpl;
-import de.puzzleddev.amun.common.anno.sub.AMUNRegisterAnnotations;
 import de.puzzleddev.amun.common.api.IAPIManager;
 import de.puzzleddev.amun.common.api.impl.APIManagerImpl;
 import de.puzzleddev.amun.common.config.IAMUNConfigUtil;
 import de.puzzleddev.amun.common.config.impl.AMUNConfigUtil;
 import de.puzzleddev.amun.common.mod.AMUNMod;
 import de.puzzleddev.amun.common.mod.AMUNModData;
+import de.puzzleddev.amun.common.script.IScriptAPI;
+import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer;
@@ -35,17 +36,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @AMUNMod
 @Mod(modid = AMUNConsts.MOD_ID, name = AMUNConsts.MOD_NAME, version = AMUNConsts.MOD_VERSION)
-//@formatter:off
-@AMUNAnnotationSearch(searchClasses = { AMUNRegisterAnnotations.class }, searchPackages = {
-		
-		"de.puzzleddev.amun.common.config.impl.load", 
-		"de.puzzleddev.amun.common.config.impl.write", 
-		"de.puzzleddev.amun.common.core", 
-		"de.puzzleddev.amun.common.anno.sub",
-		"de.puzzleddev.amun.compat"
-		
-})
-//@formatter:on
 public class AMUN
 {
 	private static AMUN m_instance;
@@ -62,7 +52,7 @@ public class AMUN
 	}
 
 	@SidedProxy(serverSide = AMUNConsts.SERVER_PROXY, clientSide = AMUNConsts.CLIENT_PROXY)
-	public static AMUNCommonProxy PROXY;
+	public static AMUNCommonProxy<?> PROXY;
 
 	@Mod.Metadata
 	public static ModMetadata METADATA;
@@ -82,6 +72,7 @@ public class AMUN
 	{
 		CONFIG = new AMUNConfigUtil();
 		ANNOTATION = new AMUNAnnoUtilImpl();
+		SCRIPT = new ScriptAPIImpl();
 
 		addLoadHook(PROXY);
 
@@ -106,12 +97,43 @@ public class AMUN
 				t.printStackTrace();
 			}
 		}
-		
-		for(ASMData c : event.getASMHarvestedData().getAll(AMUNAnnotationHolder.class.getCanonicalName()))
+
+		Set<String> sPaths = new HashSet<String>();
+		sPaths.add(AMUNAnnotation.class.getName());
+
+		for(ASMData c : event.getASMHarvestedData().getAll(AMUNAnnotation.class.getName()))
 		{
 			try
 			{
-				clss.add(AMUN.class.getClassLoader().loadClass(c.getClassName()));
+				Class<?> cls = AMUN.class.getClassLoader().loadClass(c.getClassName());
+
+				if(cls.isAnnotation())
+				{
+					clss.add(cls);
+
+					sPaths.add(c.getClassName());
+				}
+			} catch(ClassNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		Set<ASMData> asmData = new HashSet<ASMData>();
+
+		for(String path : sPaths)
+		{
+			asmData.addAll(event.getASMHarvestedData().getAll(path));
+		}
+
+		for(ASMData c : asmData)
+		{
+			try
+			{
+				if(clss.add(AMUN.class.getClassLoader().loadClass(c.getClassName())))
+				{
+					AMUNLog.info("Registering " + c.getClassName());
+				}
 			} catch(ClassNotFoundException e)
 			{
 				e.printStackTrace();
@@ -119,7 +141,7 @@ public class AMUN
 		}
 
 		ANNOTATION.constructAnnotations(clss.toArray(new Class<?>[clss.size()]));
-		
+
 		APIS = new APIManagerImpl();
 	}
 
@@ -131,9 +153,9 @@ public class AMUN
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		AMUNLog.console().setDebug(AMUNConfig.instance().m_debug);
+		AMUNLog.setDebug(AMUNConfig.instance().m_debug);
 
-		AMUNLog.console().info("Starting AMUN pre initialization");
+		AMUNLog.info("Starting AMUN pre initialization");
 
 		AMUNConsts.createMetadata(METADATA);
 		AMUNConsts.MINECRAFT_DIRECTORY = event.getModConfigurationDirectory().getParent();
@@ -154,16 +176,32 @@ public class AMUN
 		for(AMUNModData amd : m_amunMods)
 			outStrs.add("    " + amd.getModContainer().getName() + " (" + amd.getModContainer().getModId() + ")");
 
-		AMUNLog.console().logBoxed(Level.INFO, outStrs.toArray());
+		AMUNLog.logBoxed(Level.INFO, outStrs.toArray());
+
+		String scriptText = "amun.print(amun.log.info, amun.type, \"Hello World!!!\")";
+		// scriptText = "";
+
+		for(String type : SCRIPT.getScriptTypes())
+		{
+			try
+			{
+				SCRIPT.getScriptInterface(type).createScript().append(scriptText).makeRunnable().call();
+			} catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.preInit(event);
+
+		FMLCommonHandler.instance().exitJava(0, false);
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		AMUNLog.console().info("Starting AMUN initialization");
+		AMUNLog.info("Starting AMUN initialization");
 
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.init(event);
@@ -172,7 +210,7 @@ public class AMUN
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		AMUNLog.console().info("Starting AMUN post initialization");
+		AMUNLog.info("Starting AMUN post initialization");
 
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.postInit(event);
@@ -181,6 +219,8 @@ public class AMUN
 	public static IAMUNConfigUtil CONFIG;
 
 	public static IAMUNAnnoUtil ANNOTATION;
-	
+
 	public static IAPIManager APIS;
+
+	public static IScriptAPI SCRIPT;
 }

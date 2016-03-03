@@ -14,4 +14,10 @@ public class JEIAPIImpl implements JEIAPI
 	{
 		m_plugin = plugin;
 	}
+
+	@Override
+	public AMUNJEIPlugin getPlugin()
+	{
+		return m_plugin;
+	}
 }

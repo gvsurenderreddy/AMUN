@@ -68,7 +68,7 @@ public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
 			
 			if(!Modifier.isStatic(f.getModifiers()))
 				return;
-
+			
 			m_lookup.put(cls, () -> {
 				try
 				{
@@ -89,7 +89,7 @@ public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
 			
 			if(!Modifier.isStatic(m.getModifiers()))
 				return;
-
+			
 			m_lookup.put(cls, () -> {
 				try
 				{
@@ -107,7 +107,7 @@ public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
 			Constructor<?> c = data.getWrappedConstructor();
 
 			cls = c.getDeclaringClass();
-
+			
 			m_lookup.put(cls, () -> {
 				try
 				{
@@ -124,6 +124,8 @@ public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
 		m_cache.put(cls, m_lookup.get(cls).call());
 		
 		AMUNLog.console().infof("Found factory function for {}", cls);
+		AMUNLog.console().infof("Cached instance {}", m_cache.get(cls));
+		
 	}
 
 }

@@ -28,24 +28,30 @@ One other way AMUN wants to make itself configurable in the future is a scriptin
 
 ## Installation
 
-Just put this mod into the "minecraft/mods" folder, all dependent assets will be downloaded when you first launch the game.
+Just put this mod into the "minecraft/mods" folder, all dependent assets will be downloaded when you first launch the game when a mod is active that depends on assets.
 
-If you expect to play the game offline, you can download the assets from here: (Currently there are no resources to be downloaded), then unpack them into the "minecraft/amun" folder.
+If you expect to play the game offline, you can download the assets from a location provided by the mod author, then put them into the "minecraft/amun" folder.
+
+These dependencies are weak, so you can disable them. But they could enhance your experience.
 
 ## Building
 
 1. Clone this repository using
   - `git clone https://github.com/SophosMZ/AMUN.git` or
   - `git clone git@github.com:SophosMZ/AMUN.git`
-2.
+
+2. Run `make` or `bash make`
+
+Alternatively you can also use the provided archive, it should contain everything
+you are interested in.
 
 ## License
 
 * Source code and Binaries
-  - [![License](https://img.shields.io/badge/License-Apache%20License%202.0-green.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+  - [![License](https://img.shields.io/badge/License-Apache%20License%202.0-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 * Textures and Models
-  - [![License](https://img.shields.io/badge/License-CC%20BY%203.0-green.svg?style=flat)](https://creativecommons.org/licenses/by/3.0/)
+  - [![License](https://img.shields.io/badge/License-CC%20BY%203.0-brightgreen.svg?style=flat)](https://creativecommons.org/licenses/by/3.0/)
 
 * Everything else
   - [![License](https://img.shields.io/badge/License-No%20Restriction-green.svg?style=flat)](https://creativecommons.org/publicdomain/zero/1.0/)

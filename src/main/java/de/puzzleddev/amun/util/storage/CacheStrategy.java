@@ -1,5 +1,6 @@
 package de.puzzleddev.amun.util.storage;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -46,6 +47,16 @@ public enum CacheStrategy
 		{
 			return new LFUMap<K, V>(maxSize);
 		}
+	},
+	NEVER
+	{
+
+		@Override
+		public <K, V> Map<K, V> createCache(int maxSize)
+		{
+			return new HashMap<K, V>(maxSize);
+		}
+		
 	};
 
 	public abstract <K, V> Map<K, V> createCache(int maxSize);

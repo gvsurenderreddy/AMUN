@@ -11,7 +11,7 @@ public class AMUNConsts
 	public static final String MOD_NAME = "AMUN";
 	public static final String MOD_VERSION = "0.0.1";
 
-	public static final String MOD_DESCRIPTION = "\"the hidden one\"";
+	public static final String MOD_DESCRIPTION = "\"The hidden one\"";
 	public static final String MOD_URL = "";
 	public static final String MOD_UP_JSON = "";
 	public static final String MOD_LOGO = "";
@@ -24,17 +24,6 @@ public class AMUNConsts
 
 	public static final String SERVER_PROXY = "de.puzzleddev.amun.server.AMUNServerProxy";
 	public static final String CLIENT_PROXY = "de.puzzleddev.amun.client.AMUNClientProxy";
-
-	//@formatter:off
-	public static final String[] PACKAGES_TO_SEARCH = {
-			
-			"de.puzzleddev.amun.common.config.impl.load", 
-			"de.puzzleddev.amun.common.config.impl.write", 
-			"de.puzzleddev.amun.common.core", 
-			"de.puzzleddev.amun.common.anno.sub"
-			
-	};
-	//@formatter:on
 
 	public static ModMetadata createMetadata(ModMetadata md)
 	{
