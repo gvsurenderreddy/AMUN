@@ -6,7 +6,7 @@
 * [About](#about)
 * [Goals](#goals)
 * [Installation](#installation)
-* [Issues](#Issues_and_Suggestions)
+* [Issues](#issues)
 * [License](#license)
 
 ## About
@@ -59,7 +59,7 @@ These dependencies are weak, so you can disable them. But they could enhance you
 
 Alternatively you can also use the provided archive, it should contain everything you are interested in.
 
-## Issues and Suggestions
+## Issues
 
 1. Bug reports
 
