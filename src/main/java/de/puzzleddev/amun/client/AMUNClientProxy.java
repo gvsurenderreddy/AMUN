@@ -10,6 +10,8 @@ public class AMUNClientProxy extends AMUNCommonProxy<AMUNClientProxy>
 	public AMUNClientProxy()
 	{
 		super(NetworkSide.CLIENT);
+		
+		m_input = new LWJGLInput();
 	}
 	
 	public IInput getInput()

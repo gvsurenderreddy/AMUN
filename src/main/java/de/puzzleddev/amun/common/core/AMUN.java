@@ -21,11 +21,12 @@ import de.puzzleddev.amun.common.mod.AMUNModData;
 import de.puzzleddev.amun.common.script.IScriptAPI;
 import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
 import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.util.Helper;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.ModContainer.Disableable;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.discovery.ASMDataTable.ASMData;
@@ -160,6 +161,9 @@ public class AMUN
 		AMUNConsts.createMetadata(METADATA);
 		AMUNConsts.MINECRAFT_DIRECTORY = event.getModConfigurationDirectory().getParent();
 
+		if(AMUNConfig.instance().m_fixes)
+			AMUNLog.infof("Could{} disable disable button", (Helper.setDisableable(AMUNConsts.MOD_ID, Disableable.NEVER) ? "" : "'t"));
+		
 		Collection<String> outStrs = new ArrayList<String>();
 
 		//@formatter:off
@@ -194,8 +198,6 @@ public class AMUN
 
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.preInit(event);
-
-		FMLCommonHandler.instance().exitJava(0, false);
 	}
 
 	@Mod.EventHandler

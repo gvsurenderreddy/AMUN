@@ -9,23 +9,27 @@ import net.minecraftforge.fml.relauncher.Side;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class NetworkSide<PROXY extends AMUNCommonProxy>
 {
-	public static final NetworkSide<AMUNClientProxy> CLIENT = new NetworkSide(AMUNClientProxy.class, Side.CLIENT);
-	public static final NetworkSide<AMUNServerProxy> SERVER = new NetworkSide(AMUNServerProxy.class, Side.SERVER);
-	public static final NetworkSide<AMUNCommonProxy> COMMON = new NetworkSide(AMUNCommonProxy.class, Side.SERVER);
-	public static final NetworkSide<AMUNClientProxy> UNKNOWN = new NetworkSide(AMUNCommonProxy.class);
+	public static final NetworkSide<AMUNClientProxy> CLIENT = new NetworkSide(AMUNClientProxy.class, "client", Side.CLIENT);
+	public static final NetworkSide<AMUNServerProxy> SERVER = new NetworkSide(AMUNServerProxy.class, "server", Side.SERVER);
+	public static final NetworkSide<AMUNCommonProxy> COMMON = new NetworkSide(AMUNCommonProxy.class, "common", Side.SERVER);
+	public static final NetworkSide<AMUNClientProxy> UNKNOWN = new NetworkSide(AMUNCommonProxy.class, "unknown");
 
 	private Class<PROXY> m_proxyCls;
 
 	public final Side[] SIDES;
 
+	private String m_name;
+	
 	private int m_side;
 
-	private NetworkSide(Class<PROXY> proxyCls, Side... sides)
+	private NetworkSide(Class<PROXY> proxyCls, String name, Side... sides)
 	{
 		m_proxyCls = proxyCls;
 
 		SIDES = sides;
 
+		m_name = name;
+		
 		m_side = -1;
 
 		for(Side s : sides)
@@ -38,6 +42,11 @@ public class NetworkSide<PROXY extends AMUNCommonProxy>
 
 			m_side = s.ordinal();
 		}
+	}
+	
+	public String getName()
+	{
+		return m_name;
 	}
 
 	public boolean isClient()

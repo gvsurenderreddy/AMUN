@@ -10,4 +10,6 @@ public interface IInput
 	public int[] mousePos();
 	
 	public int mouseButtonState(int btn);
+	
+	public int mouseWheelPos();
 }

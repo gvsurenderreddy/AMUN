@@ -27,4 +27,7 @@ public class AMUNConfig
 	
 	@ConfigValue("debug")
 	public Boolean m_debug;
+	
+	@ConfigValue("fixes")
+	public Boolean m_fixes;
 }

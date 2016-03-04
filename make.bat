@@ -1,1 +1,1 @@
-gradle build makeArchive tmpCleanup
+gradle build makeArchive buildClean
