@@ -30,6 +30,7 @@
 !update.bat
 
 #Misc
+!extra*
 !README.md
 !CONTRIBUTING.md
 !LICENSE
