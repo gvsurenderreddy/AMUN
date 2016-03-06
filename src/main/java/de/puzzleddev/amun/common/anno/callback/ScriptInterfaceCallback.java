@@ -7,13 +7,12 @@ import de.puzzleddev.amun.common.core.AMUN;
 import de.puzzleddev.amun.common.script.IScriptInterface;
 import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
 import de.puzzleddev.amun.util.AMUNLog;
-import net.minecraftforge.fml.common.LoaderState;
 
 public class ScriptInterfaceCallback implements IAMUNAnnotationCallback<ScriptInterface>
 {
 
 	@Override
-	public void call(LoaderState state, AnnotationData<ScriptInterface> data) throws Exception
+	public void call(int state, AnnotationData<ScriptInterface> data) throws Exception
 	{
 		AMUNLog.console().infof("Found script interface candidate {} for {}", data.getWrappedClass(), data.getAnnotation().value());
 		

@@ -1,15 +1,17 @@
 package de.puzzleddev.amun.common.core;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.common.ModMetadata;
 
 public class AMUNConsts
 {
 	public static final String MOD_ID = "pd_mc_amun";
 	public static final String MOD_NAME = "AMUN";
-	public static final String MOD_VERSION = "0.0.1";
+	public static final String MOD_VERSION = "@VERSION@";
 
 	public static final String MOD_DESCRIPTION = "\"The hidden one\"";
 	public static final String MOD_URL = "";
@@ -20,7 +22,9 @@ public class AMUNConsts
 	public static final String MOD_PARENT = "";
 	public static final String[] MOD_SCREENSHOTS = new String[0];
 
-	public static String MINECRAFT_DIRECTORY = ".";
+	public static LaunchClassLoader CLASS_LOADER = null;
+	
+	public static File MINECRAFT_DIRECTORY = new File(".");
 
 	public static final String SERVER_PROXY = "de.puzzleddev.amun.server.AMUNServerProxy";
 	public static final String CLIENT_PROXY = "de.puzzleddev.amun.client.AMUNClientProxy";

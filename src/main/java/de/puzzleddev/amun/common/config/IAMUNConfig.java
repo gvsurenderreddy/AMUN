@@ -1,10 +1,12 @@
 package de.puzzleddev.amun.common.config;
 
-public interface IAMUNConfig extends IAMUNValueGetter<String>
+public interface IAMUNConfig
 {
-	public IAMUNConfigValue getRoot();
+	public <T> ConfigValue<T> get(Class<T> type, String path, String comment, ConfigValue<T> def);
 	
-	public IAMUNConfig getFallback();
+	public boolean isType(Class<?> type, String path);
 	
-	public boolean hasPath(String path);
+	public void load();
+	
+	public void save();
 }

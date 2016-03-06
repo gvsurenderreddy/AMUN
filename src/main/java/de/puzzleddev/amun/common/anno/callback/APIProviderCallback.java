@@ -11,7 +11,6 @@ import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
 import de.puzzleddev.amun.common.anno.sub.APIProvider;
 import de.puzzleddev.amun.util.AMUNLog;
-import net.minecraftforge.fml.common.LoaderState;
 
 public class APIProviderCallback implements IAMUNAnnotationCallback<APIProvider>
 {
@@ -24,7 +23,7 @@ public class APIProviderCallback implements IAMUNAnnotationCallback<APIProvider>
 	}
 
 	@Override
-	public void call(LoaderState state, AnnotationData<APIProvider> data) throws Exception
+	public void call(int state, AnnotationData<APIProvider> data) throws Exception
 	{
 		Method m = data.getWrappedMethod();
 		

@@ -10,21 +10,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.collect.Maps;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
+import de.puzzleddev.amun.common.anno.IAMUNAnnoCheck;
 import de.puzzleddev.amun.common.anno.IAMUNAnnoUtil;
 import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
 import de.puzzleddev.amun.common.anno.IAMUNAnnotationRegistry;
 import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
 import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationSearch;
-import de.puzzleddev.amun.common.anno.construct.AMUNModOnly;
+import de.puzzleddev.amun.common.anno.construct.AMUNCheck;
 import de.puzzleddev.amun.common.core.AMUN;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
-import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -55,15 +54,22 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 
 		check(base);
 
-		callAll(LoaderState.LOADING);
+		callAll(0);
+		callAll(1);
+		callAll(2);
+		callAll(3);
+		callAll(4);
 
 		for(AnnotationHolder ah : m_holders.values())
 		{
 			ah.checkRegistry();
 		}
 
-		callAll(LoaderState.NOINIT);
-		callAll(LoaderState.CONSTRUCTING);
+		callAll(5);
+		callAll(6);
+		callAll(7);
+		callAll(8);
+		callAll(9);
 	}
 
 	private void check(Class<?>[] base)
@@ -125,21 +131,38 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 		}
 	}
 
+	private static Map<Class<? extends IAMUNAnnoCheck>, IAMUNAnnoCheck> m_checks = Maps.newHashMap();
+
 	public static boolean isAllowed(Annotation[] ans)
 	{
 		for(Annotation an : ans)
 		{
-			if(an.annotationType() == AMUNModOnly.class)
+			if(an.annotationType() == AMUNCheck.class)
 			{
-				String id = ((AMUNModOnly) an).value();
-				
-				if(!Loader.isModLoaded(id) && ! ModAPIManager.INSTANCE.hasAPI(id)) return false;
-			}	
+				Class<? extends IAMUNAnnoCheck> check = ((AMUNCheck) an).check();
+				String[] data = ((AMUNCheck) an).data();
+
+				if(!m_checks.containsKey(check))
+				{
+					try
+					{
+						IAMUNAnnoCheck cobj = check.newInstance();
+
+						m_checks.put(check, cobj);
+					} catch(Throwable t)
+					{
+						t.printStackTrace();
+					}
+				}
+
+				if(!m_checks.get(check).check(data))
+					return false;
+			}
 		}
-		
+
 		return true;
 	}
-	
+
 	private boolean checkHolder(Class<?> cls) throws IOException
 	{
 		if(m_holders.containsKey(cls))
@@ -147,8 +170,9 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 
 		boolean found = false;
 
-		if(!isAllowed(cls.getAnnotations())) return false;
-		
+		if(!isAllowed(cls.getAnnotations()))
+			return false;
+
 		for(Annotation an : cls.getAnnotations())
 		{
 			if(an.annotationType().isAnnotationPresent(AMUNAnnotationHolder.class))
@@ -171,7 +195,7 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 		AnnotationHolder hold = new AnnotationHolder(amunAnno, cls);
 
 		List<Class<?>> clss = new ArrayList<Class<?>>();
-		
+
 		if(amunAnno != null)
 		{
 
@@ -204,7 +228,7 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 	}
 
 	@SuppressWarnings("unchecked")
-	private <A extends Annotation> void callAll(LoaderState state)
+	private <A extends Annotation> void callAll(int state)
 	{
 		for(AnnotationHolder amcd : m_holders.values())
 		{
@@ -218,11 +242,11 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 					if(!and.getAnnotation().annotationType().isAnnotationPresent(AMUNAnnotation.class))
 						continue;
 
-					LoaderState[] toCall = and.getAnnotation().annotationType().getAnnotation(AMUNAnnotation.class).toCall();
+					int[] toCall = and.getAnnotation().annotationType().getAnnotation(AMUNAnnotation.class).toCall();
 
 					boolean found = false;
 
-					for(LoaderState s : toCall)
+					for(int s : toCall)
 					{
 						if(s == state)
 						{
@@ -252,19 +276,19 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		callAll(LoaderState.PREINITIALIZATION);
+		callAll(1);
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event)
 	{
-		callAll(LoaderState.INITIALIZATION);
+		callAll(2);
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		callAll(LoaderState.POSTINITIALIZATION);
+		callAll(3);
 	}
 
 }

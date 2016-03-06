@@ -1,10 +1,10 @@
 package de.puzzleddev.amun.common.core;
 
 import de.puzzleddev.amun.common.anno.sub.AMUNFactory;
-import de.puzzleddev.amun.common.anno.sub.ConfigHolder;
-import de.puzzleddev.amun.common.anno.sub.ConfigValue;
+import de.puzzleddev.amun.common.anno.sub.config.AMUNConfigHolder;
+import de.puzzleddev.amun.common.anno.sub.config.AMUNConfigValue;
 
-@ConfigHolder(id = "amun", type = "json", override = "assets/pd_mc_amun/config/amun.cfg", path = "$MC$/config/AMUN/amun.cfg")
+@AMUNConfigHolder(path = "amun.cfg", type = "forge")
 public class AMUNConfig
 {
 	private static AMUNConfig m_instance;
@@ -16,18 +16,10 @@ public class AMUNConfig
 		{
 			m_instance = new AMUNConfig();
 		}
-		
+	
 		return m_instance;
 	}
 	
-	private AMUNConfig()
-	{
-		
-	}
-	
-	@ConfigValue("debug")
-	public Boolean m_debug;
-	
-	@ConfigValue("fixes")
-	public Boolean m_fixes;
+	@AMUNConfigValue(path = "development.debug", comment = "Debug Mode")
+	public Boolean m_debug = false;
 }

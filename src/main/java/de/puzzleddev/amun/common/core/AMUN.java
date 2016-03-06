@@ -14,8 +14,8 @@ import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
 import de.puzzleddev.amun.common.anno.impl.AMUNAnnoUtilImpl;
 import de.puzzleddev.amun.common.api.IAPIManager;
 import de.puzzleddev.amun.common.api.impl.APIManagerImpl;
-import de.puzzleddev.amun.common.config.IAMUNConfigUtil;
-import de.puzzleddev.amun.common.config.impl.AMUNConfigUtil;
+import de.puzzleddev.amun.common.config.IAMUNConfigAPI;
+import de.puzzleddev.amun.common.config.impl.AMUNConfigAPI;
 import de.puzzleddev.amun.common.mod.AMUNMod;
 import de.puzzleddev.amun.common.mod.AMUNModData;
 import de.puzzleddev.amun.common.script.IScriptAPI;
@@ -23,6 +23,7 @@ import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.Helper;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer;
@@ -71,8 +72,8 @@ public class AMUN
 	@Mod.EventHandler
 	public void construct(FMLConstructionEvent event)
 	{
-		CONFIG = new AMUNConfigUtil();
 		ANNOTATION = new AMUNAnnoUtilImpl();
+		CONFIG = new AMUNConfigAPI();
 		SCRIPT = new ScriptAPIImpl();
 
 		addLoadHook(PROXY);
@@ -154,15 +155,11 @@ public class AMUN
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		AMUNLog.setDebug(AMUNConfig.instance().m_debug);
-
 		AMUNLog.info("Starting AMUN pre initialization");
 
 		AMUNConsts.createMetadata(METADATA);
-		AMUNConsts.MINECRAFT_DIRECTORY = event.getModConfigurationDirectory().getParent();
 
-		if(AMUNConfig.instance().m_fixes)
-			AMUNLog.infof("Could{} disable disable button", (Helper.setDisableable(AMUNConsts.MOD_ID, Disableable.NEVER) ? "" : "'t"));
+		AMUNLog.infof("Could{} disable disable button", (Helper.setDisableable(AMUNConsts.MOD_ID, Disableable.NEVER) ? "" : "'t"));
 		
 		Collection<String> outStrs = new ArrayList<String>();
 
@@ -176,12 +173,16 @@ public class AMUN
 				"Found " + m_amunMods.size() + " mod" + (m_amunMods.size() == 1 ? "" : "s") + " supporting AMUN:")
 		);
 		//@formatter:on
-
+		
 		for(AMUNModData amd : m_amunMods)
 			outStrs.add("    " + amd.getModContainer().getName() + " (" + amd.getModContainer().getModId() + ")");
 
 		AMUNLog.logBoxed(Level.INFO, outStrs.toArray());
-
+		
+		System.out.println(AMUNConfig.instance().m_debug);
+		
+		FMLCommonHandler.instance().exitJava(0, false);
+		
 		String scriptText = "amun.print(amun.log.info, amun.type, \"Hello World!!!\")";
 		// scriptText = "";
 
@@ -218,10 +219,10 @@ public class AMUN
 			lh.postInit(event);
 	}
 
-	public static IAMUNConfigUtil CONFIG;
-
 	public static IAMUNAnnoUtil ANNOTATION;
 
+	public static IAMUNConfigAPI CONFIG;
+	
 	public static IAPIManager APIS;
 
 	public static IScriptAPI SCRIPT;

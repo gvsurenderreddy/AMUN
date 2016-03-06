@@ -8,12 +8,11 @@ import java.lang.annotation.Target;
 import de.puzzleddev.amun.common.anno.callback.AMUNCompatebilityCallback;
 import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
-import net.minecraftforge.fml.common.LoaderState;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @AMUNAnnotationHolder
-@AMUNAnnotation(value = AMUNCompatebilityCallback.class, toCall = LoaderState.CONSTRUCTING)
+@AMUNAnnotation(value = AMUNCompatebilityCallback.class, toCall = 9)
 public @interface Compatebility
 {
 	String value();

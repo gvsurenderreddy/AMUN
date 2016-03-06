@@ -7,14 +7,13 @@ import de.puzzleddev.amun.common.core.AMUN;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.ModAPIManager;
 
 public class AMUNCompatebilityCallback implements IAMUNAnnotationCallback<Compatebility>
 {
 
 	@Override
-	public void call(LoaderState state, AnnotationData<Compatebility> data) throws Exception
+	public void call(int state, AnnotationData<Compatebility> data) throws Exception
 	{
 		boolean loaded = false;
 

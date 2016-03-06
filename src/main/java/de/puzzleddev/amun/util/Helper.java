@@ -60,4 +60,52 @@ public class Helper
 		
 		return false;
 	}
+	
+	public static Boolean[] toBoxed(boolean[] lst)
+	{
+		Boolean[] res = new Boolean[lst.length];
+		
+		for(int i = 0; i < res.length; i++)
+		{
+			res[i] = lst[i];
+		}
+		
+		return res;
+	}
+	
+	public static Double[] toBoxed(double[] lst)
+	{
+		Double[] res = new Double[lst.length];
+		
+		for(int i = 0; i < res.length; i++)
+		{
+			res[i] = lst[i];
+		}
+		
+		return res;
+	}
+	
+	public static Integer[] toBoxed(int[] lst)
+	{
+		Integer[] res = new Integer[lst.length];
+		
+		for(int i = 0; i < res.length; i++)
+		{
+			res[i] = lst[i];
+		}
+		
+		return res;
+	}
+	
+	public static Float[] toBoxed(float[] lst)
+	{
+		Float[] res = new Float[lst.length];
+		
+		for(int i = 0; i < res.length; i++)
+		{
+			res[i] = lst[i];
+		}
+		
+		return res;
+	}
 }

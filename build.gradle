@@ -55,12 +55,14 @@ minecraft {
 
     mappings = "stable_20"
     makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    replace "@VERSION@", project.version
 }
 
 dependencies {
 	compile "org.luaj:luaj-jse:${config.LUAJ_version}"
 	compile "org.codehaus.groovy:groovy:${config.GROOVY_version}"
-	compile "li.cil.oc:OpenComputers:MC${config.MC_version}-${config.OC_version}"
+	compile "li.cil.oc:OpenComputers:MC${config.MC_version}-${config.OC_version}:api"
 	compile "mcp.mobius.waila:Waila:${config.WAILA_version}:dev"
 	deobfCompile "mezz.jei:jei_${config.MC_version}:${config.JEI_version}"
 }
@@ -79,4 +81,17 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+def __manifest = {
+
+  attributes FMLCorePlugin: "de.puzzleddev.amun.common.core.preload.AMUNFMLPlugin"
+  attributes FMLCorePluginContainsFMLMod: "true"
+
+}
+
+jar {
+
+  manifest __manifest
+
 }

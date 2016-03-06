@@ -1,13 +1,13 @@
 package de.puzzleddev.amun.compat;
 
+import de.puzzleddev.amun.common.anno.check.ModOnlyCheck;
+import de.puzzleddev.amun.common.anno.construct.AMUNCheck;
 import de.puzzleddev.amun.common.anno.sub.AMUNFactory;
 import de.puzzleddev.amun.common.anno.sub.APIProvider;
 import de.puzzleddev.amun.common.anno.sub.Compatebility;
-import de.puzzleddev.amun.common.core.AMUN;
 import de.puzzleddev.amun.compat.waila.WailaAPI;
 import de.puzzleddev.amun.compat.waila.WailaAPIImpl;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
-import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @AMUNFactory
+@AMUNCheck(check = ModOnlyCheck.class, data = "WailaAPI")
 @Compatebility("WailaAPI")
 public class WAILACompat implements IAMUNLoadHook
 {
@@ -29,11 +30,6 @@ public class WAILACompat implements IAMUNLoadHook
 		}
 
 		return m_instance;
-	}
-
-	public static void register(IWailaRegistrar reg)
-	{
-		AMUN.APIS.get(WailaAPI.class).setRegistrar(reg);
 	}
 	
 	@Override

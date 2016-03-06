@@ -7,11 +7,10 @@ import java.lang.annotation.Target;
 
 import de.puzzleddev.amun.common.anno.callback.APIProviderCallback;
 import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import net.minecraftforge.fml.common.LoaderState;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-@AMUNAnnotation(value = APIProviderCallback.class, toCall = LoaderState.NOINIT)
+@AMUNAnnotation(value = APIProviderCallback.class, toCall = 0)
 public @interface APIProvider
 {
 	

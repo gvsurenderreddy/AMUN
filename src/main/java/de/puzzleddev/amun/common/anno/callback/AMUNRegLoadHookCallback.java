@@ -7,13 +7,12 @@ import de.puzzleddev.amun.common.core.AMUN;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
 
 public class AMUNRegLoadHookCallback implements IAMUNAnnotationCallback<AMUNRegisterLoadHooks>
 {
 
 	@Override
-	public void call(LoaderState state, AnnotationData<AMUNRegisterLoadHooks> data) throws Exception
+	public void call(int state, AnnotationData<AMUNRegisterLoadHooks> data) throws Exception
 	{
 		for(String search : data.getAnnotation().hooks())
 		{

@@ -6,13 +6,12 @@ import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
 import de.puzzleddev.amun.common.anno.sub.AMUNRegisterAnnotations;
 import de.puzzleddev.amun.common.core.AMUN;
 import de.puzzleddev.amun.util.AMUNLog;
-import net.minecraftforge.fml.common.LoaderState;
 
 public class AMUNRegAnnoCallback implements IAMUNAnnotationCallback<AMUNRegisterAnnotations>
 {
 
 	@Override
-	public void call(LoaderState state, AnnotationData<AMUNRegisterAnnotations> data) throws Exception
+	public void call(int state, AnnotationData<AMUNRegisterAnnotations> data) throws Exception
 	{
 		for(Class<?> an : data.getAnnotation().value())
 		{

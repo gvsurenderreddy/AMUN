@@ -8,12 +8,11 @@ import java.lang.annotation.Target;
 import de.puzzleddev.amun.common.anno.callback.ScriptInterfaceCallback;
 import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
-import net.minecraftforge.fml.common.LoaderState;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @AMUNAnnotationHolder
-@AMUNAnnotation(value = ScriptInterfaceCallback.class, toCall = LoaderState.CONSTRUCTING)
+@AMUNAnnotation(value = ScriptInterfaceCallback.class, toCall = 0)
 public @interface ScriptInterface
 {
 	String value();

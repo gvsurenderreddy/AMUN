@@ -1,5 +1,7 @@
 package de.puzzleddev.amun.compat;
 
+import de.puzzleddev.amun.common.anno.check.ModOnlyCheck;
+import de.puzzleddev.amun.common.anno.construct.AMUNCheck;
 import de.puzzleddev.amun.common.anno.sub.AMUNFactory;
 import de.puzzleddev.amun.common.anno.sub.APIProvider;
 import de.puzzleddev.amun.common.anno.sub.Compatebility;
@@ -12,6 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @AMUNFactory
+@AMUNCheck(check = ModOnlyCheck.class, data = "JEI")
 @Compatebility("JEI")
 public class JEICompat implements IAMUNLoadHook
 {

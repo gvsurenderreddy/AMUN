@@ -11,9 +11,7 @@ import com.google.common.collect.Maps;
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
 import de.puzzleddev.amun.common.anno.sub.AMUNFactory;
-import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.functional.Function;
-import net.minecraftforge.fml.common.LoaderState;
 
 public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
 {
@@ -38,7 +36,7 @@ public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
 	}
 
 	@Override
-	public void call(LoaderState state, AnnotationData<AMUNFactory> data) throws Exception
+	public void call(int state, AnnotationData<AMUNFactory> data) throws Exception
 	{
 		Class<?> cls = null;
 		
@@ -120,12 +118,8 @@ public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
 				return null;
 			});
 		}
-
+		
 		m_cache.put(cls, m_lookup.get(cls).call());
-		
-		AMUNLog.console().infof("Found factory function for {}", cls);
-		AMUNLog.console().infof("Cached instance {}", m_cache.get(cls));
-		
 	}
 
 }
