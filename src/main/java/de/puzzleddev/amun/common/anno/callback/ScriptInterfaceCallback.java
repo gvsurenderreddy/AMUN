@@ -18,7 +18,7 @@ public class ScriptInterfaceCallback implements IAMUNAnnotationCallback<ScriptIn
 		
 		Object inter = FactoryCallback.get(data.getWrappedClass());
 		
-		if(inter == null)
+		if(!FactoryCallback.has(data.getWrappedClass()))
 		{
 			AMUNLog.console().infof("Rejected {} because it is null", data.getWrappedClass());
 			

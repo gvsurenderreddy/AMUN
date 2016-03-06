@@ -12,7 +12,7 @@ import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @AMUNAnnotationHolder
-@AMUNAnnotation(value = ScriptInterfaceCallback.class, toCall = 0)
+@AMUNAnnotation(value = ScriptInterfaceCallback.class, toCall = 5)
 public @interface ScriptInterface
 {
 	String value();

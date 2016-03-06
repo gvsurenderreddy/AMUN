@@ -16,7 +16,7 @@ public class ClassLoadedCheck implements IAMUNAnnoCheck
 		{
 			return false;
 		}
-
+		
 		return true;
 	}
 }

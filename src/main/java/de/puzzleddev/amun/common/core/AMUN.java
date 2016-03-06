@@ -23,7 +23,6 @@ import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.Helper;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer;
@@ -180,8 +179,6 @@ public class AMUN
 		AMUNLog.logBoxed(Level.INFO, outStrs.toArray());
 		
 		System.out.println(AMUNConfig.instance().m_debug);
-		
-		FMLCommonHandler.instance().exitJava(0, false);
 		
 		String scriptText = "amun.print(amun.log.info, amun.type, \"Hello World!!!\")";
 		// scriptText = "";
