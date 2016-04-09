@@ -1,9 +1,7 @@
 package de.puzzleddev.amun.client.resources.model.impl;
 
 import de.puzzleddev.amun.client.resources.model.ISimpleBlockModelBuilder;
-import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 
@@ -14,7 +12,7 @@ public class SimpleBlockModelBuilderImpl implements ISimpleBlockModelBuilder
 	@Override
 	public IBakedModel build(ModelBakeEvent event)
 	{
-		return ModelUtil.changeIcon(event.modelRegistry.getObject(new DefaultStateMapper().putStateModelLocations(Blocks.bedrock).get(Blocks.bedrock.getDefaultState())), event.modelManager.getTextureMap().getTextureExtry(m_loc.toString()));
+		return ModelUtil.changeIcon(event.modelManager.getMissingModel(), event.modelManager.getTextureMap().getTextureExtry(m_loc.toString()));
 	}
 
 	@Override

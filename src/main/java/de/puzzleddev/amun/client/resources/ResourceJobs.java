@@ -6,7 +6,9 @@ import java.util.Map;
 
 import de.puzzleddev.amun.client.resources.model.impl.SimpleBlockModelBuilderImpl;
 import de.puzzleddev.amun.client.resources.model.impl.SimpleItemModelBuilderImpl;
+import de.puzzleddev.amun.client.resources.model.impl.TexturedModel;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -17,6 +19,7 @@ import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameData;
 
+@SuppressWarnings("unused")
 public class ResourceJobs
 {
 	private ResourceJobs()
@@ -117,8 +120,8 @@ public class ResourceJobs
 		public void onModel(ModelBakeEvent event)
 		{
 			Map<IBlockState, ModelResourceLocation> map = new DefaultStateMapper().putStateModelLocations(m_state.getBlock());
-
-			event.modelRegistry.putObject(map.get(m_state), new SimpleBlockModelBuilderImpl().setTexture(m_tex).build(event));
+			IBakedModel model = new TexturedModel(event.modelManager.getTextureMap().getTextureExtry(m_tex.toString()), event);
+			event.modelRegistry.putObject(map.get(m_state), model);
 		}
 
 	}
@@ -141,7 +144,15 @@ public class ResourceJobs
 		@Override
 		public void onModel(ModelBakeEvent event)
 		{
-			event.modelRegistry.putObject(new ModelResourceLocation(GameData.getItemRegistry().getNameForObject(m_item), "inventory"), new SimpleItemModelBuilderImpl().setTexture(m_tex).build(event));
+			IBakedModel model = new TexturedModel(event.modelManager.getTextureMap().getTextureExtry(m_tex.toString()), event);
+			ModelResourceLocation loc = new ModelResourceLocation(new ResourceLocation(GameData.getItemRegistry().getNameForObject(m_item) + "_" + m_dam), "inventory");
+			
+			event.modelRegistry.putObject(loc, model);
+			
+			if(Minecraft.getMinecraft().getRenderItem() != null)
+			{
+				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(m_item, m_dam, loc);
+			}
 		}
 
 	}

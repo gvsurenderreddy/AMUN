@@ -1,6 +1,9 @@
 package de.puzzleddev.amun.client.resources.model.impl;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,18 +11,30 @@ import javax.vecmath.Matrix4f;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraftforge.client.model.IModelPart;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
+import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 /**
  * All credit goes to retema (https://github.com/rwtema)
@@ -208,5 +223,84 @@ public class ModelUtil
 		}
 
 		return result;
+	}
+
+	public static IBakedModel createSimpleBlockModel(TextureAtlasSprite sprite)
+	{
+		return changeIcon(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getMissingModel(), sprite);
+	}
+
+	private static final String clsName = "BakedItemModel";
+	private static Constructor<?> BIM_CONSTRUCT;
+	private static ImmutableMap<TransformType, TRSRTransformation> STD_TRANS;
+
+	@SuppressWarnings("unchecked")
+	public static IBakedModel createSimpleItemModel(TextureAtlasSprite sprite)
+	{
+		ItemLayerModel mod = createItemLayerModel(ImmutableMap.of("layer0", sprite.getIconName()));
+
+		if(STD_TRANS == null)
+		{
+			try
+			{
+				Class<?> cls = null;
+
+				for(Class<?> c : ItemLayerModel.class.getDeclaredClasses())
+				{
+					if(c.getSimpleName().equals(clsName))
+					{
+						cls = c;
+						break;
+					}
+				}
+
+				BIM_CONSTRUCT = cls.getDeclaredConstructor(ImmutableList.class, TextureAtlasSprite.class, VertexFormat.class, ImmutableMap.class, IFlexibleBakedModel.class);
+				BIM_CONSTRUCT.setAccessible(true);
+
+				Field f = ReflectionHelper.findField(cls, "transforms");
+				f.setAccessible(true);
+
+				STD_TRANS = (ImmutableMap<TransformType, TRSRTransformation>) f.get(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(Items.flint_and_steel)));
+			} catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+		Optional<TRSRTransformation> transform = mod.getDefaultState().apply(Optional.<IModelPart> absent());
+
+		for(int i = 0; i < mod.getTextures().size(); i++)
+		{
+			builder.addAll(mod.getQuadsForSprite(i, sprite, DefaultVertexFormats.ITEM, transform));
+		}
+
+		try
+		{
+			return (IBakedModel) BIM_CONSTRUCT.newInstance(builder.build(), sprite, DefaultVertexFormats.ITEM, STD_TRANS, null);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public static ItemLayerModel createItemLayerModel(ImmutableMap<String, String> textures)
+	{
+		ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
+		for(int i = 0; i < textures.size(); i++)
+		{
+			if(textures.containsKey("layer" + i))
+			{
+				builder.add(new ResourceLocation(textures.get("layer" + i)));
+			}
+		}
+		return new ItemLayerModel(builder.build());
+	}
+
+	public static IBakedModel newEmptyModel()
+	{
+		return new SimpleBakedModel(Collections.emptyList(), Collections.emptyList(), false, false, Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite(), ItemCameraTransforms.DEFAULT);
 	}
 }

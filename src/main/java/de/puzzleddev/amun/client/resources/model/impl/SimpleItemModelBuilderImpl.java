@@ -22,7 +22,7 @@ public class SimpleItemModelBuilderImpl implements ISimpleItemModelBuilder
 	public SimpleItemModelBuilderImpl setTexture(ResourceLocation loc)
 	{
 		m_loc = loc;
-		
+
 		return this;
 	}
 
