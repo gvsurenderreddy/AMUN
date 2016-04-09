@@ -18,9 +18,28 @@ import de.puzzleddev.amun.common.core.preload.IDataInterpreter;
 import de.puzzleddev.amun.util.AMUNLog;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 
+/**
+ * 
+ * Loads jars from the internet and adds them to the classpath.<br>
+ * This happens before the main mod initialization is run.<br>
+ * <br>
+ * This expects a very specific order in which the functions are called:
+ * <ol>
+ * <li>accepts (on all files)</li>
+ * <li>interpret (only for files which passes the previous step)</li>
+ * <li>finalzeCall</li>
+ * </ol>
+ * 
+ * @author tim4242
+ */
 public class LibraryLoaderInterpreter implements IDataInterpreter
 {
 
+	/**
+	 * One element to download.
+	 * 
+	 * @author tim4242
+	 */
 	private class DownElem
 	{
 		public URL m_start;
@@ -32,6 +51,9 @@ public class LibraryLoaderInterpreter implements IDataInterpreter
 		}
 	}
 
+	/**
+	 * All the libraries that a re a dependency this launch.
+	 */
 	private List<DownElem> m_downloadElements;
 
 	public LibraryLoaderInterpreter()
@@ -39,12 +61,21 @@ public class LibraryLoaderInterpreter implements IDataInterpreter
 		m_downloadElements = Lists.newArrayList();
 	}
 
+	/**
+	 * Should be called on all possible files.
+	 * 
+	 * @return If the file is acceptable.
+	 */
 	@Override
 	public boolean accepts(String dataLocation)
 	{
 		return dataLocation.endsWith("libraries.txt");
 	}
 
+	/**
+	 * Reads all libraries from a file.<br>
+	 * @param dataLocation File which passes {@link LibraryLoaderInterpreter#accepts}
+	 */
 	@Override
 	public void interpret(LaunchClassLoader loader, String dataLocation) throws Exception
 	{
@@ -77,6 +108,9 @@ public class LibraryLoaderInterpreter implements IDataInterpreter
 		}
 	}
 
+	/**
+	 * Can only be called once after all {@link LibraryLoaderInterpreter#interpret} calls have been completed.
+	 */
 	@Override
 	public void finalzeCall()
 	{

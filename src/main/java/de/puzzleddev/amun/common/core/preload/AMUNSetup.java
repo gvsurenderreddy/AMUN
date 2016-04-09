@@ -18,6 +18,11 @@ import de.puzzleddev.amun.util.AMUNLog;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.relauncher.IFMLCallHook;
 
+/**
+ * 
+ * 
+ * @author tim4242
+ */
 public class AmunSetup implements IFMLCallHook
 {
 

@@ -42,6 +42,13 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+/**
+ * Main mod file of Amun.<br>
+ * <br>
+ * This contains most of the initialization of Amun, just the preloading is in {@link de.puzzleddev.amun.common.core.preload.AmunSetup AmunSetup}.
+ * 
+ * @author tim4242
+ */
 @AmunAnnotationHolder
 @AmunMod
 @Mod(modid = AmunConsts.MOD_ID, name = AmunConsts.MOD_NAME, version = AmunConsts.MOD_VERSION)
