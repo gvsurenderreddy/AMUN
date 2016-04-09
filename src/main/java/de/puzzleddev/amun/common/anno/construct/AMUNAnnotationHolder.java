@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@AMUNAnnotationHolder
-public @interface AMUNAnnotationHolder
+@AmunAnnotationHolder
+public @interface AmunAnnotationHolder
 {
 	
 }

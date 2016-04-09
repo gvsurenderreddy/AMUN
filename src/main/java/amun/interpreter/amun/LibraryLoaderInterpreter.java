@@ -13,7 +13,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.google.common.collect.Lists;
 
-import de.puzzleddev.amun.common.core.AMUNConsts;
+import de.puzzleddev.amun.common.core.AmunConsts;
 import de.puzzleddev.amun.common.core.preload.IDataInterpreter;
 import de.puzzleddev.amun.util.AMUNLog;
 import net.minecraft.launchwrapper.LaunchClassLoader;
@@ -71,7 +71,7 @@ public class LibraryLoaderInterpreter implements IDataInterpreter
 				continue;
 			}
 
-			el.m_end = new File(AMUNConsts.MINECRAFT_DIRECTORY, "amun/" + split[1]);
+			el.m_end = new File(AmunConsts.MINECRAFT_DIRECTORY, "amun/" + split[1]);
 
 			m_downloadElements.add(el);
 		}
@@ -110,11 +110,10 @@ public class LibraryLoaderInterpreter implements IDataInterpreter
 
 				}
 
-				AMUNConsts.CLASS_LOADER.addURL(elm.m_end.toURI().toURL());
+				AmunConsts.CLASS_LOADER.addURL(elm.m_end.toURI().toURL());
 
 			} catch(IOException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

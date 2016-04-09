@@ -2,20 +2,20 @@ package de.puzzleddev.amun.common.core.preload;
 
 import com.google.common.eventbus.EventBus;
 
-import de.puzzleddev.amun.common.core.AMUNConsts;
+import de.puzzleddev.amun.common.core.AmunConsts;
 import net.minecraftforge.fml.common.DummyModContainer;
 import net.minecraftforge.fml.common.LoadController;
 import net.minecraftforge.fml.common.ModMetadata;
 
-public class AMUNCore extends DummyModContainer
+public class AmunCore extends DummyModContainer
 {
 	public ModMetadata m_metadata;
 	
-	public AMUNCore()
+	public AmunCore()
 	{
 		super(new ModMetadata());
 		
-		AMUNConsts.createMetadata(super.getMetadata());
+		AmunConsts.createMetadata(super.getMetadata());
 		
 		super.getMetadata().modId += "_core";
 		super.getMetadata().name += "|Core";

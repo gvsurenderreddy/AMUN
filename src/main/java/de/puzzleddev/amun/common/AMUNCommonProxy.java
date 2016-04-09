@@ -7,11 +7,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class AMUNCommonProxy<PROXY extends AMUNCommonProxy<PROXY>> implements IAMUNLoadHook
+public class AmunCommonProxy<PROXY extends AmunCommonProxy<PROXY>> implements IAMUNLoadHook
 {
 	private final NetworkSide<PROXY> m_side;
 
-	protected AMUNCommonProxy(NetworkSide<PROXY> side)
+	protected AmunCommonProxy(NetworkSide<PROXY> side)
 	{
 		m_side = side;
 	}

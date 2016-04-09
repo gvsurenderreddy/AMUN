@@ -1,0 +1,54 @@
+package de.puzzleddev.amun.common.content.item;
+
+import java.util.Collection;
+import java.util.Collections;
+
+import de.puzzleddev.amun.common.mod.IAmunMod;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+
+public class AmunItem extends Item implements IAmunItem
+{
+	private ModelResourceLocation m_renderer;
+	private IAmunMod m_ownerMod;
+	
+	public AmunItem(IAmunMod mod, String name, ModelResourceLocation renderer)
+	{
+		setUnlocalizedName(mod.getUniquifier().call(mod, name));
+		
+		m_ownerMod = mod;
+		m_renderer = renderer;
+	}
+	
+	@Override
+	public String getUniqueName()
+	{
+		return getUnlocalizedName();
+	}
+
+	@Override
+	public IAmunMod getOwningMod()
+	{
+		return m_ownerMod;
+	}
+
+	@Override
+	public Item getItem()
+	{
+		return this;
+	}
+
+	@Override
+	public Collection<ResourceLocation> getVariants()
+	{
+		return Collections.emptyList();
+	}
+
+	@Override
+	public ModelResourceLocation getRendererLocation()
+	{
+		return m_renderer;
+	}
+
+}

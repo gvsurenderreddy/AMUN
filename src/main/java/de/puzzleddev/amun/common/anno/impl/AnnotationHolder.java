@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationSearch;
-import de.puzzleddev.amun.common.core.AMUN;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationSearch;
+import de.puzzleddev.amun.common.core.Amun;
 
 public class AnnotationHolder
 {
@@ -16,10 +16,10 @@ public class AnnotationHolder
 
 	private Collection<AnnotationData<?>> m_data;
 
-	private AMUNAnnotationSearch m_annotation;
+	private AmunAnnotationSearch m_annotation;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public AnnotationHolder(AMUNAnnotationSearch aan, Class<?> cls)
+	public AnnotationHolder(AmunAnnotationSearch aan, Class<?> cls)
 	{
 		m_cls = cls;
 
@@ -34,7 +34,7 @@ public class AnnotationHolder
 
 		for(Method me : cls.getMethods())
 		{
-			if(!AMUNAnnoUtilImpl.isAllowed(me.getAnnotations())) continue;
+			if(!AmunAnnoUtilImpl.isAllowed(me.getAnnotations())) continue;
 			
 			for(Annotation an : me.getAnnotations())
 			{
@@ -44,7 +44,7 @@ public class AnnotationHolder
 
 		for(Field fi : cls.getFields())
 		{
-			if(!AMUNAnnoUtilImpl.isAllowed(fi.getAnnotations())) continue;
+			if(!AmunAnnoUtilImpl.isAllowed(fi.getAnnotations())) continue;
 			
 			for(Annotation an : fi.getAnnotations())
 			{
@@ -59,7 +59,7 @@ public class AnnotationHolder
 
 		for(AnnotationData<?> ad : m_data)
 		{
-			if(AMUN.ANNOTATION.getRegistry().has(ad.getAnnotation().annotationType()))
+			if(Amun.ANNOTATION.getRegistry().has(ad.getAnnotation().annotationType()))
 			{
 				res.add(ad);
 			}
@@ -78,7 +78,7 @@ public class AnnotationHolder
 		return m_data;
 	}
 
-	public AMUNAnnotationSearch getAnnotation()
+	public AmunAnnotationSearch getAnnotation()
 	{
 		return m_annotation;
 	}

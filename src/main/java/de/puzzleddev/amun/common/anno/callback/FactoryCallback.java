@@ -9,11 +9,11 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
-import de.puzzleddev.amun.common.anno.sub.AMUNFactory;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
+import de.puzzleddev.amun.common.anno.sub.AmunFactory;
 import de.puzzleddev.amun.util.functional.Function;
 
-public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
+public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 {
 
 	private static Map<Class<?>, Function.NoArg<Object>> m_lookup = Maps.newHashMap();
@@ -36,7 +36,7 @@ public class FactoryCallback implements IAMUNAnnotationCallback<AMUNFactory>
 	}
 
 	@Override
-	public void call(int state, AnnotationData<AMUNFactory> data) throws Exception
+	public void call(int state, AnnotationData<AmunFactory> data) throws Exception
 	{
 		Class<?> cls = null;
 		

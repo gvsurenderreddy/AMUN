@@ -3,14 +3,14 @@ package de.puzzleddev.amun.common.anno.sub;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import de.puzzleddev.amun.common.anno.callback.AMUNRegLoadHookCallback;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
+import de.puzzleddev.amun.common.anno.callback.AmunRegLoadHookCallback;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
 @Retention(RetentionPolicy.RUNTIME)
-@AMUNAnnotationHolder
-@AMUNAnnotation(value = AMUNRegLoadHookCallback.class, toCall = 9)
-public @interface AMUNRegisterLoadHooks
+@AmunAnnotationHolder
+@AmunAnnotation(value = AmunRegLoadHookCallback.class, toCall = 9)
+public @interface AmunRegisterLoadHooks
 {
 	String[] hooks() default "";
 }

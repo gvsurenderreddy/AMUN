@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import de.puzzleddev.amun.common.anno.sub.AMUNFactory;
+import de.puzzleddev.amun.common.anno.sub.AmunFactory;
 import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
 import de.puzzleddev.amun.util.resource.AbstractResourceCodec;
 
-@AMUNFactory
+@AmunFactory
 @ResourceCodec
 public class FileCodec extends AbstractResourceCodec<File>
 {

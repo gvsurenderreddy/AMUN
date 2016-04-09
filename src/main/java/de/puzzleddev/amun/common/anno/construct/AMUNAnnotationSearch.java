@@ -4,8 +4,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-@AMUNAnnotationHolder
-public @interface AMUNAnnotationSearch
+@AmunAnnotationHolder
+public @interface AmunAnnotationSearch
 {
 	Class<?>[] searchClasses() default {};
 	String[] searchPackages() default {};

@@ -1,9 +1,9 @@
 package de.puzzleddev.amun.common.config;
 
-import de.puzzleddev.amun.common.anno.sub.config.AMUNConfigHolder;
+import de.puzzleddev.amun.common.config.anno.AMUNConfigHolder;
 import de.puzzleddev.amun.common.config.impl.ConfigHolder;
 
-public interface IAMUNConfigAPI
+public interface IAmunConfigAPI
 {
 	public IConfigProvider<?, ?> getProvider(String type);
 	

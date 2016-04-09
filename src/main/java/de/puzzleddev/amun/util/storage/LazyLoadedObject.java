@@ -1,5 +1,7 @@
 package de.puzzleddev.amun.util.storage;
 
+import de.puzzleddev.amun.util.functional.Function;
+
 public class LazyLoadedObject<T>
 {
 	private boolean m_called;

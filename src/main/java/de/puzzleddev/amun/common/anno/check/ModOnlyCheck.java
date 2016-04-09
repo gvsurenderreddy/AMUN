@@ -1,10 +1,10 @@
 package de.puzzleddev.amun.common.anno.check;
 
-import de.puzzleddev.amun.common.anno.IAMUNAnnoCheck;
+import de.puzzleddev.amun.common.anno.IAmunAnnoCheck;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 
-public class ModOnlyCheck implements IAMUNAnnoCheck
+public class ModOnlyCheck implements IAmunAnnoCheck
 {
 
 	@Override

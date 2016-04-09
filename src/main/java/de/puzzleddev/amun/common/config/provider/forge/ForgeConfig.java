@@ -1,14 +1,16 @@
 package de.puzzleddev.amun.common.config.provider.forge;
 
+import java.lang.reflect.Array;
+
 import de.puzzleddev.amun.common.config.ConfigValue;
-import de.puzzleddev.amun.common.config.IAMUNConfig;
+import de.puzzleddev.amun.common.config.IAmunConfig;
 import de.puzzleddev.amun.util.Helper;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.common.config.Property.Type;
 
-public class ForgeConfig implements IAMUNConfig
+public class ForgeConfig implements IAmunConfig
 {
 	private Configuration m_config;
 
@@ -64,18 +66,18 @@ public class ForgeConfig implements IAMUNConfig
 
 		if(cls == Boolean.class || cls == Boolean[].class)
 			type = Type.BOOLEAN;
-		else if(cls == Double.class || cls == Boolean[].class)
+		else if(cls == Double.class || cls == Double[].class)
 			type = Type.DOUBLE;
-		else if(cls == Integer.class || cls == Boolean[].class)
+		else if(cls == Integer.class || cls == Integer[].class)
 			type = Type.INTEGER;
-		else if(cls == String.class || cls == Boolean[].class)
+		else if(cls == String.class || cls == String[].class)
 			type = Type.STRING;
 
 		Property res = null;
 
 		if(list)
 		{
-			Object[] tmp = ((Object[]) prop.getData());
+			Object[] tmp = getArray(prop.getData());
 
 			String[] obj = new String[tmp.length];
 
@@ -94,30 +96,45 @@ public class ForgeConfig implements IAMUNConfig
 		return res;
 	}
 
+	public static Object[] getArray(Object val)
+	{
+		if(val instanceof Object[])
+			return (Object[]) val;
+		
+		int arrlength = Array.getLength(val);
+		
+		Object[] outputArray = new Object[arrlength];
+		
+		for(int i = 0; i < arrlength; ++i)
+		{
+			outputArray[i] = Array.get(val, i);
+		}
+		
+		return outputArray;
+	}
+
 	public static String[] splitPathName(String path)
 	{
-		String[] split = path.split("\\.");
-
-		StringBuilder builder = new StringBuilder();
-
-		for(int i = 0; i < split.length - 1; i++)
+		for(int i = path.length() - 1; i >= 0; i--)
 		{
-			builder.append(split[i]);
-			builder.append('.');
+			if(path.charAt(i) == '.')
+			{
+				return new String[] {path.substring(0, i), path.substring(i + 1)};
+			}
 		}
-
-		return new String[] { builder.toString().substring(0, builder.length() - 1), split[split.length - 1] };
+		
+		return new String[] {Configuration.CATEGORY_GENERAL, path};
 	}
 
 	@Override
 	public <T> ConfigValue<T> get(Class<T> type, String path, String comment, ConfigValue<T> def)
-	{	
+	{
 		String[] s = splitPathName(path);
 
 		Property defp = toProperty(def);
 
 		Property prop = null;
-		
+
 		if(defp.isList())
 		{
 			prop = m_config.get(s[0], s[1], defp.getStringList(), comment, defp.getType());
@@ -141,7 +158,7 @@ public class ForgeConfig implements IAMUNConfig
 			return false;
 
 		if(!cat.containsKey(s[1]))
-			;
+			return false;
 
 		ConfigValue<?> cv = toCValue(cat.get(s[1]));
 

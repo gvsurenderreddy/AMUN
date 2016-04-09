@@ -1,13 +1,13 @@
 package de.puzzleddev.amun.common.anno.callback;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.resource.AMUNResource;
 import de.puzzleddev.amun.util.resource.IResourceCodec;
 
-public class ResourceCodecCallback implements IAMUNAnnotationCallback<ResourceCodec>
+public class ResourceCodecCallback implements IAmunAnnotationCallback<ResourceCodec>
 {
 	@Override
 	public void call(int state, AnnotationData<ResourceCodec> data) throws Exception

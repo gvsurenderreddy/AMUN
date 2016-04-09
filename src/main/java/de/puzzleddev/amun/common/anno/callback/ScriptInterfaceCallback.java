@@ -1,14 +1,14 @@
 package de.puzzleddev.amun.common.anno.callback;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.sub.ScriptInterface;
-import de.puzzleddev.amun.common.core.AMUN;
+import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.common.script.IScriptInterface;
 import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
 import de.puzzleddev.amun.util.AMUNLog;
 
-public class ScriptInterfaceCallback implements IAMUNAnnotationCallback<ScriptInterface>
+public class ScriptInterfaceCallback implements IAmunAnnotationCallback<ScriptInterface>
 {
 
 	@Override
@@ -32,7 +32,7 @@ public class ScriptInterfaceCallback implements IAMUNAnnotationCallback<ScriptIn
 			return;
 		}
 		
-		((ScriptAPIImpl) AMUN.SCRIPT).addScriptInterface(data.getAnnotation().value(), (IScriptInterface) inter);
+		((ScriptAPIImpl) Amun.SCRIPT).addScriptInterface(data.getAnnotation().value(), (IScriptInterface) inter);
 		
 		AMUNLog.console().infof("Found script interface {} for {}", data.getWrappedClass(), data.getAnnotation().value());
 	}

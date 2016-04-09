@@ -7,7 +7,7 @@ import java.util.List;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.common.ModMetadata;
 
-public class AMUNConsts
+public class AmunConsts
 {
 	public static final String MOD_ID = "pd_mc_amun";
 	public static final String MOD_NAME = "AMUN";

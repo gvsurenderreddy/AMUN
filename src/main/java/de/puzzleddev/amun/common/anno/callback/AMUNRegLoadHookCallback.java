@@ -1,18 +1,18 @@
 package de.puzzleddev.amun.common.anno.callback;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
-import de.puzzleddev.amun.common.anno.sub.AMUNRegisterLoadHooks;
-import de.puzzleddev.amun.common.core.AMUN;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
+import de.puzzleddev.amun.common.anno.sub.AmunRegisterLoadHooks;
+import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
 import net.minecraftforge.fml.common.Loader;
 
-public class AMUNRegLoadHookCallback implements IAMUNAnnotationCallback<AMUNRegisterLoadHooks>
+public class AmunRegLoadHookCallback implements IAmunAnnotationCallback<AmunRegisterLoadHooks>
 {
 
 	@Override
-	public void call(int state, AnnotationData<AMUNRegisterLoadHooks> data) throws Exception
+	public void call(int state, AnnotationData<AmunRegisterLoadHooks> data) throws Exception
 	{
 		for(String search : data.getAnnotation().hooks())
 		{
@@ -38,7 +38,7 @@ public class AMUNRegLoadHookCallback implements IAMUNAnnotationCallback<AMUNRegi
 		
 		IAMUNLoadHook obj = (IAMUNLoadHook) FactoryCallback.get(cls);
 		
-		AMUN.instance().addLoadHook(obj);
+		Amun.instance().addLoadHook(obj);
 		
 		AMUNLog.console().info("Registered load hook " + cls.getSimpleName());
 	}

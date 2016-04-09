@@ -1,27 +1,27 @@
 package de.puzzleddev.amun.common.anno.callback;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import de.puzzleddev.amun.common.anno.sub.AMUNRegisterAnnotations;
-import de.puzzleddev.amun.common.core.AMUN;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
+import de.puzzleddev.amun.common.anno.sub.AmunRegisterAnnotations;
+import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.util.AMUNLog;
 
-public class AMUNRegAnnoCallback implements IAMUNAnnotationCallback<AMUNRegisterAnnotations>
+public class AmunRegAnnoCallback implements IAmunAnnotationCallback<AmunRegisterAnnotations>
 {
 
 	@Override
-	public void call(int state, AnnotationData<AMUNRegisterAnnotations> data) throws Exception
+	public void call(int state, AnnotationData<AmunRegisterAnnotations> data) throws Exception
 	{
 		for(Class<?> an : data.getAnnotation().value())
 		{
-			if(an.isAnnotationPresent(AMUNAnnotation.class))
+			if(an.isAnnotationPresent(AmunAnnotation.class))
 			{
-				IAMUNAnnotationCallback<?> obj = an.getAnnotation(AMUNAnnotation.class).value().newInstance();
+				IAmunAnnotationCallback<?> obj = an.getAnnotation(AmunAnnotation.class).value().newInstance();
 
 				AMUNLog.console().info("Registering annotation " + an.getSimpleName());
 				
-				AMUN.ANNOTATION.getRegistry().setRaw(an, obj);
+				Amun.ANNOTATION.getRegistry().setRaw(an, obj);
 			}
 		}
 	}

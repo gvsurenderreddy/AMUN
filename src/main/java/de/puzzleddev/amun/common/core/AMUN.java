@@ -8,21 +8,28 @@ import java.util.Set;
 
 import org.apache.logging.log4j.Level;
 
-import de.puzzleddev.amun.common.AMUNCommonProxy;
-import de.puzzleddev.amun.common.anno.IAMUNAnnoUtil;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import de.puzzleddev.amun.common.anno.impl.AMUNAnnoUtilImpl;
+import de.puzzleddev.amun.common.AmunCommonProxy;
+import de.puzzleddev.amun.common.anno.IAmunAnnoUtil;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
+import de.puzzleddev.amun.common.anno.impl.AmunAnnoUtilImpl;
 import de.puzzleddev.amun.common.api.IAPIManager;
 import de.puzzleddev.amun.common.api.impl.APIManagerImpl;
-import de.puzzleddev.amun.common.config.IAMUNConfigAPI;
+import de.puzzleddev.amun.common.config.IAmunConfigAPI;
 import de.puzzleddev.amun.common.config.impl.AMUNConfigAPI;
-import de.puzzleddev.amun.common.mod.AMUNMod;
-import de.puzzleddev.amun.common.mod.AMUNModData;
+import de.puzzleddev.amun.common.content.RegisterContent;
+import de.puzzleddev.amun.common.core.content.DebugItem;
+import de.puzzleddev.amun.common.mod.AmunMod;
+import de.puzzleddev.amun.common.mod.AmunModManagerImpl;
+import de.puzzleddev.amun.common.mod.IAmunMod;
+import de.puzzleddev.amun.common.mod.IAmunModManager;
 import de.puzzleddev.amun.common.script.IScriptAPI;
 import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.Helper;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
+import de.puzzleddev.amun.util.functional.Function;
+import de.puzzleddev.amun.util.functional.Function.TwoArg;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer;
@@ -35,78 +42,81 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@AMUNMod
-@Mod(modid = AMUNConsts.MOD_ID, name = AMUNConsts.MOD_NAME, version = AMUNConsts.MOD_VERSION)
-public class AMUN
+@AmunAnnotationHolder
+@AmunMod
+@Mod(modid = AmunConsts.MOD_ID, name = AmunConsts.MOD_NAME, version = AmunConsts.MOD_VERSION)
+public class Amun implements IAmunMod
 {
-	private static AMUN m_instance;
+	private static Amun m_instance;
 
 	@Mod.InstanceFactory
-	public static AMUN instance()
+	public static Amun instance()
 	{
 		if(m_instance == null)
 		{
-			m_instance = new AMUN();
+			m_instance = new Amun();
 		}
 
 		return m_instance;
 	}
 
-	@SidedProxy(serverSide = AMUNConsts.SERVER_PROXY, clientSide = AMUNConsts.CLIENT_PROXY)
-	public static AMUNCommonProxy<?> PROXY;
+	@SidedProxy(serverSide = AmunConsts.SERVER_PROXY, clientSide = AmunConsts.CLIENT_PROXY)
+	public static AmunCommonProxy<?> PROXY;
 
 	@Mod.Metadata
 	public static ModMetadata METADATA;
 
-	private Collection<AMUNModData> m_amunMods;
-
 	private Collection<IAMUNLoadHook> m_loadHooks;
+	
+	private ModContainer m_container;
+	
+	public static Function.TwoArg<String, IAmunMod, String> DEFAULT_UNIQUIFIER = (mod, str) -> mod.getContainer().getModId() + "_" + str;
+	
+	public static Function.TwoArg<String, IAmunMod, String> INVERS_UNIQUIFIER = (mod, str) -> str + "_" + mod.getContainer().getModId();
+	
+	public static Function.TwoArg<String, IAmunMod, String> VANILLA_STYLE_UNIQUIFIER = (mod, str) -> mod.getContainer().getModId() + ":" + str;
 
-	private AMUN()
+	public static IAmunAnnoUtil ANNOTATION;
+
+	public static IAmunConfigAPI CONFIG;
+	
+	public static IAPIManager APIS;
+
+	public static IScriptAPI SCRIPT;
+	
+	public static IAmunModManager MODS;
+	
+	@RegisterContent
+	public static DebugItem DEBUG_ITEM;
+
+	private Amun()
 	{
-		m_amunMods = new ArrayList<AMUNModData>();
 		m_loadHooks = new ArrayList<IAMUNLoadHook>();
 	}
 
 	@Mod.EventHandler
 	public void construct(FMLConstructionEvent event)
 	{
-		ANNOTATION = new AMUNAnnoUtilImpl();
+		m_container = Loader.instance().activeModContainer();
+		
+		ANNOTATION = new AmunAnnoUtilImpl();
 		CONFIG = new AMUNConfigAPI();
 		SCRIPT = new ScriptAPIImpl();
+		MODS = new AmunModManagerImpl();
 
 		addLoadHook(PROXY);
 
+		MODS.construction(event);
+		
 		Set<Class<?>> clss = new HashSet<Class<?>>();
-
-		for(ModContainer mc : Loader.instance().getModList())
-		{
-			if(mc.getMod() == null)
-				continue;
-
-			try
-			{
-				if(mc.getMod().getClass().isAnnotationPresent(AMUNMod.class))
-				{
-					m_amunMods.add(new AMUNModData(mc.getMod().getClass()));
-
-					clss.add(mc.getMod().getClass());
-				}
-
-			} catch(Throwable t)
-			{
-				t.printStackTrace();
-			}
-		}
-
 		Set<String> sPaths = new HashSet<String>();
-		sPaths.add(AMUNAnnotation.class.getName());
+		sPaths.add(AmunAnnotation.class.getName());
 
-		for(ASMData c : event.getASMHarvestedData().getAll(AMUNAnnotation.class.getName()))
+		for(ASMData c : event.getASMHarvestedData().getAll(AmunAnnotation.class.getName()))
 		{
 			try
 			{
-				Class<?> cls = AMUN.class.getClassLoader().loadClass(c.getClassName());
+				Class<?> cls = Amun.class.getClassLoader().loadClass(c.getClassName());
 
 				if(cls.isAnnotation())
 				{
@@ -131,7 +141,7 @@ public class AMUN
 		{
 			try
 			{
-				if(clss.add(AMUN.class.getClassLoader().loadClass(c.getClassName())))
+				if(clss.add(Amun.class.getClassLoader().loadClass(c.getClassName())))
 				{
 					AMUNLog.info("Registering " + c.getClassName());
 				}
@@ -156,9 +166,9 @@ public class AMUN
 	{
 		AMUNLog.info("Starting AMUN pre initialization");
 
-		AMUNConsts.createMetadata(METADATA);
+		AmunConsts.createMetadata(METADATA);
 
-		AMUNLog.infof("Could{} disable disable button", (Helper.setDisableable(AMUNConsts.MOD_ID, Disableable.NEVER) ? "" : "'t"));
+		AMUNLog.infof("Could{} disable disable button", (Helper.setDisableable(AmunConsts.MOD_ID, Disableable.NEVER) ? "" : "'t"));
 		
 		Collection<String> outStrs = new ArrayList<String>();
 
@@ -166,22 +176,20 @@ public class AMUN
 		outStrs.addAll(Arrays.asList(
 				"Running AMUN", 
 				AMUNLog.BOX_SPERATOR, 
-				"Version: " + AMUNConsts.MOD_VERSION, 
-				"By: " + AMUNConsts.MOD_AUTHORS,
+				"Version: " + AmunConsts.MOD_VERSION, 
+				"By: " + AmunConsts.MOD_AUTHORS,
 				AMUNLog.BOX_SPERATOR,
-				"Found " + m_amunMods.size() + " mod" + (m_amunMods.size() == 1 ? "" : "s") + " supporting AMUN:")
+				"Found " + MODS.getAllMods().size() + " mod" + (MODS.getAllMods().size() == 1 ? "" : "s") + " supporting AMUN:")
 		);
 		//@formatter:on
 		
-		for(AMUNModData amd : m_amunMods)
-			outStrs.add("    " + amd.getModContainer().getName() + " (" + amd.getModContainer().getModId() + ")");
+		for(IAmunMod amd : MODS.getAllMods())
+			outStrs.add("    " + amd.getContainer().getName() + " (" + amd.getContainer().getModId() + ")");
 
 		AMUNLog.logBoxed(Level.INFO, outStrs.toArray());
 		
-		System.out.println(AMUNConfig.instance().m_debug);
-		
 		String scriptText = "amun.print(amun.log.info, amun.type, \"Hello World!!!\")";
-		// scriptText = "";
+		scriptText = "";
 
 		for(String type : SCRIPT.getScriptTypes())
 		{
@@ -216,11 +224,15 @@ public class AMUN
 			lh.postInit(event);
 	}
 
-	public static IAMUNAnnoUtil ANNOTATION;
+	@Override
+	public ModContainer getContainer()
+	{
+		return m_container;
+	}
 
-	public static IAMUNConfigAPI CONFIG;
-	
-	public static IAPIManager APIS;
-
-	public static IScriptAPI SCRIPT;
+	@Override
+	public TwoArg<String, IAmunMod, String> getUniquifier()
+	{
+		return DEFAULT_UNIQUIFIER;
+	}
 }

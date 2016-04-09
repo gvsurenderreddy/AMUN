@@ -1,8 +1,8 @@
 package de.puzzleddev.amun.common.anno.check;
 
-import de.puzzleddev.amun.common.anno.IAMUNAnnoCheck;
+import de.puzzleddev.amun.common.anno.IAmunAnnoCheck;
 
-public class ClassLoadedCheck implements IAMUNAnnoCheck
+public class ClassLoadedCheck implements IAmunAnnoCheck
 {
 	@Override
 	public boolean check(String[] data)

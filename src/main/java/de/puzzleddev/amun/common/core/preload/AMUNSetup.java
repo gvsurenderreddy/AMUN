@@ -13,12 +13,12 @@ import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 import com.google.common.reflect.ClassPath.ResourceInfo;
 
-import de.puzzleddev.amun.common.core.AMUNConsts;
+import de.puzzleddev.amun.common.core.AmunConsts;
 import de.puzzleddev.amun.util.AMUNLog;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.relauncher.IFMLCallHook;
 
-public class AMUNSetup implements IFMLCallHook
+public class AmunSetup implements IFMLCallHook
 {
 
 	@Override
@@ -33,8 +33,8 @@ public class AMUNSetup implements IFMLCallHook
 	@Override
 	public void injectData(Map<String, Object> data)
 	{
-		AMUNConsts.CLASS_LOADER = (LaunchClassLoader) data.get("classLoader");
-		AMUNConsts.MINECRAFT_DIRECTORY = (File) data.get("mcLocation");
+		AmunConsts.CLASS_LOADER = (LaunchClassLoader) data.get("classLoader");
+		AmunConsts.MINECRAFT_DIRECTORY = (File) data.get("mcLocation");
 
 		List<String> lst = new ArrayList<String>();
 
@@ -55,7 +55,7 @@ public class AMUNSetup implements IFMLCallHook
 
 		try
 		{
-			ClassPath path = ClassPath.from(AMUNConsts.CLASS_LOADER);
+			ClassPath path = ClassPath.from(AmunConsts.CLASS_LOADER);
 			Set<ResourceInfo> resources = path.getResources();
 
 			for(ClassInfo info : path.getTopLevelClassesRecursive(INTERPRETER_PREFIX))
@@ -77,9 +77,9 @@ public class AMUNSetup implements IFMLCallHook
 				}
 			}
 
-			AMUNDataInterpreter.collectInterpreters(AMUNConsts.CLASS_LOADER, classFiles);
+			AmunDataInterpreter.collectInterpreters(AmunConsts.CLASS_LOADER, classFiles);
 
-			AMUNDataInterpreter.processResources(path, AMUNConsts.CLASS_LOADER, dataFiles);
+			AmunDataInterpreter.processResources(path, AmunConsts.CLASS_LOADER, dataFiles);
 
 		} catch(Exception e)
 		{
@@ -88,6 +88,6 @@ public class AMUNSetup implements IFMLCallHook
 		
 		AMUNLog.logBoxed(Level.INFO, lst.toArray());
 		
-		AMUNDataInterpreter.finalizeInterpreter();
+		AmunDataInterpreter.finalizeInterpreter();
 	}
 }

@@ -5,14 +5,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import de.puzzleddev.amun.common.anno.callback.AMUNCompatebilityCallback;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
+import de.puzzleddev.amun.common.anno.callback.AmunCompatebilityCallback;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@AMUNAnnotationHolder
-@AMUNAnnotation(value = AMUNCompatebilityCallback.class, toCall = 9)
+@AmunAnnotationHolder
+@AmunAnnotation(value = AmunCompatebilityCallback.class, toCall = 9)
 public @interface Compatebility
 {
 	String value();

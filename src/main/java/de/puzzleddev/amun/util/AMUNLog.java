@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.common.collect.Maps;
 
-import de.puzzleddev.amun.common.core.AMUNConsts;
+import de.puzzleddev.amun.common.core.AmunConsts;
 import de.puzzleddev.amun.util.functional.Function;
 
 public class AMUNLog
@@ -29,7 +29,7 @@ public class AMUNLog
 	{
 		if(m_logger == null)
 		{
-			m_logger = LogManager.getLogger(AMUNConsts.MOD_NAME);
+			m_logger = LogManager.getLogger(AmunConsts.MOD_NAME);
 		}
 
 		return getOrDefault("std_console", (lev, debug, data) -> {

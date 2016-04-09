@@ -19,20 +19,13 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 ext.configFile = file("build.properties")
 
-configFile.withReader {
-
-	def prop = new Properties();
-	prop.load(it);
-	project.ext.config = new ConfigSlurper().parse(prop);
-
-}
+apply from: "$rootDir/gradle/scripts/common.gradle"
 
 version = "${config.MC_version}-${config.AMUN_version}"
 group = "de.puzzleddev.amun"
 archivesBaseName = "AMUN"
 
 apply from: "$rootDir/gradle/scripts/archive.gradle"
-apply from: "$rootDir/gradle/scripts/common.gradle"
 apply from: "$rootDir/gradle/scripts/repositories.gradle"
 
 /*
@@ -44,8 +37,6 @@ plugins {
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
-
-println(makeAllZip.archivePath)
 
 minecraft {
     version = config.MC_version + "-" + config.FORGE_version
@@ -85,7 +76,7 @@ processResources
 
 def __manifest = {
 
-  attributes FMLCorePlugin: "de.puzzleddev.amun.common.core.preload.AMUNFMLPlugin"
+  attributes FMLCorePlugin: "de.puzzleddev.amun.common.core.preload.AmunFMLPlugin"
   attributes FMLCorePluginContainsFMLMod: "true"
 
 }

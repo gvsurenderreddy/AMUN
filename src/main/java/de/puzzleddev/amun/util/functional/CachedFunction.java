@@ -9,11 +9,16 @@ public class CachedFunction<RETURN, ARG1> implements Function.OneArg<RETURN, ARG
 	private Map<ARG1, RETURN> m_cache;
 	private Function.OneArg<RETURN, ARG1> m_func;
 
-	public CachedFunction(Function.OneArg<RETURN, ARG1> func, CacheStrategy cs, int cacheSize)
+	public CachedFunction(Function.OneArg<RETURN, ARG1> func, Map<ARG1, RETURN> cache)
 	{
 		m_func = func;
 
-		m_cache = cs.createCache(cacheSize);
+		m_cache = cache;
+	}
+	
+	public CachedFunction(Function.OneArg<RETURN, ARG1> func, CacheStrategy cs, int cacheSize)
+	{
+		this(func, cs.createCache(cacheSize));
 	}
 
 	public CachedFunction(Function.OneArg<RETURN, ARG1> func, CacheStrategy cs)
@@ -24,6 +29,11 @@ public class CachedFunction<RETURN, ARG1> implements Function.OneArg<RETURN, ARG
 	public CachedFunction(Function.OneArg<RETURN, ARG1> func)
 	{
 		this(func, CacheStrategy.LFU);
+	}
+	
+	public void clearCache()
+	{
+		m_cache.clear();
 	}
 
 	@Override

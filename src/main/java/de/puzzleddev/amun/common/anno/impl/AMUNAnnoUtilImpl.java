@@ -15,32 +15,32 @@ import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.IAMUNAnnoCheck;
-import de.puzzleddev.amun.common.anno.IAMUNAnnoUtil;
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationRegistry;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationSearch;
-import de.puzzleddev.amun.common.anno.construct.AMUNCheck;
-import de.puzzleddev.amun.common.core.AMUN;
+import de.puzzleddev.amun.common.anno.IAmunAnnoCheck;
+import de.puzzleddev.amun.common.anno.IAmunAnnoUtil;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationRegistry;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationSearch;
+import de.puzzleddev.amun.common.anno.construct.AmunCheck;
+import de.puzzleddev.amun.common.core.Amun;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
+public class AmunAnnoUtilImpl implements IAmunAnnoUtil
 {
 
-	public AMUNAnnoUtilImpl()
+	public AmunAnnoUtilImpl()
 	{
-		m_reg = new AMUNAnnotationRegistryImpl();
+		m_reg = new AmunAnnotationRegistryImpl();
 		m_holders = new HashMap<Class<?>, AnnotationHolder>();
 	}
 
-	private IAMUNAnnotationRegistry m_reg;
+	private IAmunAnnotationRegistry m_reg;
 
 	@Override
-	public IAMUNAnnotationRegistry getRegistry()
+	public IAmunAnnotationRegistry getRegistry()
 	{
 		return m_reg;
 	}
@@ -50,7 +50,7 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 	@Override
 	public void constructAnnotations(Class<?>[] base)
 	{
-		AMUN.instance().addLoadHook(this);
+		Amun.instance().addLoadHook(this);
 
 		check(base);
 
@@ -91,13 +91,13 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 
 	private boolean checkAnnotation(Class<?> cls)
 	{
-		if(cls.isAnnotation() && cls.isAnnotationPresent(AMUNAnnotation.class))
+		if(cls.isAnnotation() && cls.isAnnotationPresent(AmunAnnotation.class))
 		{
-			IAMUNAnnotationCallback<?> obj = null;
+			IAmunAnnotationCallback<?> obj = null;
 
 			try
 			{
-				Constructor<? extends IAMUNAnnotationCallback<?>> con = cls.getAnnotation(AMUNAnnotation.class).value().getConstructor();
+				Constructor<? extends IAmunAnnotationCallback<?>> con = cls.getAnnotation(AmunAnnotation.class).value().getConstructor();
 
 				if(con == null)
 					return false;
@@ -110,7 +110,7 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 				return false;
 			}
 
-			AMUN.ANNOTATION.getRegistry().setRaw(cls, obj);
+			Amun.ANNOTATION.getRegistry().setRaw(cls, obj);
 
 			return true;
 		}
@@ -124,29 +124,29 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 	{
 		try
 		{
-			CLASS_PATH = ClassPath.from(AMUNAnnoUtilImpl.class.getClassLoader());
+			CLASS_PATH = ClassPath.from(AmunAnnoUtilImpl.class.getClassLoader());
 		} catch(IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
 
-	private static Map<Class<? extends IAMUNAnnoCheck>, IAMUNAnnoCheck> m_checks = Maps.newHashMap();
+	private static Map<Class<? extends IAmunAnnoCheck>, IAmunAnnoCheck> m_checks = Maps.newHashMap();
 
 	public static boolean isAllowed(Annotation[] ans)
 	{
 		for(Annotation an : ans)
 		{
-			if(an.annotationType() == AMUNCheck.class)
+			if(an.annotationType() == AmunCheck.class)
 			{
-				Class<? extends IAMUNAnnoCheck> check = ((AMUNCheck) an).check();
-				String[] data = ((AMUNCheck) an).data();
+				Class<? extends IAmunAnnoCheck> check = ((AmunCheck) an).check();
+				String[] data = ((AmunCheck) an).data();
 
 				if(!m_checks.containsKey(check))
 				{
 					try
 					{
-						IAMUNAnnoCheck cobj = check.newInstance();
+						IAmunAnnoCheck cobj = check.newInstance();
 
 						m_checks.put(check, cobj);
 					} catch(Throwable t)
@@ -175,7 +175,7 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 
 		for(Annotation an : cls.getAnnotations())
 		{
-			if(an.annotationType().isAnnotationPresent(AMUNAnnotationHolder.class))
+			if(an.annotationType().isAnnotationPresent(AmunAnnotationHolder.class))
 			{
 				found = true;
 				break;
@@ -185,11 +185,11 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 		if(!found)
 			return false;
 
-		AMUNAnnotationSearch amunAnno = null;
+		AmunAnnotationSearch amunAnno = null;
 
-		if(cls.isAnnotationPresent(AMUNAnnotationSearch.class))
+		if(cls.isAnnotationPresent(AmunAnnotationSearch.class))
 		{
-			amunAnno = cls.getAnnotation(AMUNAnnotationSearch.class);
+			amunAnno = cls.getAnnotation(AmunAnnotationSearch.class);
 		}
 
 		AnnotationHolder hold = new AnnotationHolder(amunAnno, cls);
@@ -239,10 +239,10 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 			{
 				try
 				{
-					if(!and.getAnnotation().annotationType().isAnnotationPresent(AMUNAnnotation.class))
+					if(!and.getAnnotation().annotationType().isAnnotationPresent(AmunAnnotation.class))
 						continue;
 
-					int[] toCall = and.getAnnotation().annotationType().getAnnotation(AMUNAnnotation.class).toCall();
+					int[] toCall = and.getAnnotation().annotationType().getAnnotation(AmunAnnotation.class).toCall();
 
 					boolean found = false;
 
@@ -258,10 +258,10 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 					if(!found)
 						continue;
 
-					if(AMUN.ANNOTATION.getRegistry().has(and.getAnnotation().annotationType()))
+					if(Amun.ANNOTATION.getRegistry().has(and.getAnnotation().annotationType()))
 					{
-						IAMUNAnnotationCallback<A> calBack = (IAMUNAnnotationCallback<A>) AMUN.ANNOTATION.getRegistry().get(and.getAnnotation().annotationType());
-
+						IAmunAnnotationCallback<A> calBack = (IAmunAnnotationCallback<A>) Amun.ANNOTATION.getRegistry().get(and.getAnnotation().annotationType());
+						
 						calBack.call(state, (AnnotationData<A>) and);
 					}
 
@@ -276,19 +276,19 @@ public class AMUNAnnoUtilImpl implements IAMUNAnnoUtil
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		callAll(1);
+		callAll(10);
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event)
 	{
-		callAll(2);
+		callAll(11);
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		callAll(3);
+		callAll(12);
 	}
 
 }

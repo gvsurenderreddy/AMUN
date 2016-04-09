@@ -3,10 +3,10 @@ package de.puzzleddev.amun.common.config;
 import java.io.File;
 import java.io.IOException;
 
-import de.puzzleddev.amun.common.core.AMUNConsts;
+import de.puzzleddev.amun.common.core.AmunConsts;
 import de.puzzleddev.amun.util.resource.AMUNResource;
 
-public interface IConfigProvider<CODEC extends IConfigValueCodec, CONFIG extends IAMUNConfig>
+public interface IConfigProvider<CODEC extends IConfigValueCodec, CONFIG extends IAmunConfig>
 {
 	public void registerCodec(CODEC codec);
 	
@@ -31,6 +31,6 @@ public interface IConfigProvider<CODEC extends IConfigValueCodec, CONFIG extends
 	
 	public default CONFIG getConfig(String localPath)
 	{
-		return getConfig(new File(AMUNConsts.MINECRAFT_DIRECTORY, "config/" + localPath));
+		return getConfig(new File(AmunConsts.MINECRAFT_DIRECTORY, "config/" + localPath));
 	}
 }

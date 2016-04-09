@@ -3,13 +3,13 @@ package de.puzzleddev.amun.common.config.provider;
 import java.io.File;
 import java.util.Collection;
 
-import de.puzzleddev.amun.common.config.IAMUNConfig;
+import de.puzzleddev.amun.common.config.IAmunConfig;
 import de.puzzleddev.amun.common.config.IConfigProvider;
 import de.puzzleddev.amun.common.config.IConfigValueCodec;
 import de.puzzleddev.amun.util.functional.Function;
 import de.puzzleddev.amun.util.resource.AMUNResource;
 
-public class BaseConfigProvider<CODEC extends IConfigValueCodec, CONFIG extends IAMUNConfig> implements IConfigProvider<CODEC, CONFIG>
+public class BaseConfigProvider<CODEC extends IConfigValueCodec, CONFIG extends IAmunConfig> implements IConfigProvider<CODEC, CONFIG>
 {
 	private Collection<CODEC> m_codecs;
 	private Function.OneArg<CONFIG, AMUNResource<File>> m_configFactory;

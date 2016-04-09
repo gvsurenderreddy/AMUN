@@ -1,15 +1,15 @@
 package de.puzzleddev.amun.common.anno.callback;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.sub.Compatebility;
-import de.puzzleddev.amun.common.core.AMUN;
+import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 
-public class AMUNCompatebilityCallback implements IAMUNAnnotationCallback<Compatebility>
+public class AmunCompatebilityCallback implements IAmunAnnotationCallback<Compatebility>
 {
 
 	@Override
@@ -36,7 +36,7 @@ public class AMUNCompatebilityCallback implements IAMUNAnnotationCallback<Compat
 
 					loaded = true;
 
-					AMUN.instance().addLoadHook(lh);
+					Amun.instance().addLoadHook(lh);
 
 					break;
 				}

@@ -1,27 +1,28 @@
 package de.puzzleddev.amun.common.mod;
 
+import de.puzzleddev.amun.util.Helper;
 import de.puzzleddev.amun.util.except.MissingAnnotationException;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer;
 
-public class AMUNModData
+public class AmunModData
 {
 	private ModContainer m_mc;
 
-	public AMUNModData(Class<?> mod) throws MissingAnnotationException
+	public AmunModData(Class<?> mod) throws MissingAnnotationException
 	{
 
-		if(!mod.isAnnotationPresent(AMUNMod.class))
+		if(!mod.isAnnotationPresent(AmunMod.class))
 		{
-			throw new MissingAnnotationException(mod, AMUNMod.class);
+			throw new MissingAnnotationException(mod, AmunMod.class);
 		}
 
 		String id = null;
 
-		if(!mod.getAnnotation(AMUNMod.class).modid().isEmpty())
+		if(!mod.getAnnotation(AmunMod.class).modid().isEmpty())
 		{
-			id = mod.getAnnotation(AMUNMod.class).modid();
+			id = mod.getAnnotation(AmunMod.class).modid();
 
 			if(!Loader.isModLoaded(id))
 				id = null;
@@ -40,6 +41,8 @@ public class AMUNModData
 		{
 			if(mc.getModId().equals(id))
 			{
+				if(!Helper.contains(mc.getMod().getClass().getInterfaces(), IAmunMod.class)) break;
+				
 				m_mc = mc;
 
 				break;

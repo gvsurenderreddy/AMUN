@@ -8,7 +8,7 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.Name;
 
 @Name("AMUN|FMLPlugin")
 @MCVersion("1.8.9")
-public class AMUNFMLPlugin implements IFMLLoadingPlugin
+public class AmunFMLPlugin implements IFMLLoadingPlugin
 {
 	public static final String[] TRANSFORMER_CLASSES = new String[] {};
 	
@@ -21,13 +21,13 @@ public class AMUNFMLPlugin implements IFMLLoadingPlugin
 	@Override
 	public String getModContainerClass()
 	{
-		return AMUNCore.class.getName();
+		return AmunCore.class.getName();
 	}
 
 	@Override
 	public String getSetupClass()
 	{
-		return AMUNSetup.class.getName();
+		return AmunSetup.class.getName();
 	}
 
 	@Override

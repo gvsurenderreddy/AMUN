@@ -1,20 +1,20 @@
 package de.puzzleddev.amun.common.core;
 
-import de.puzzleddev.amun.common.anno.sub.AMUNFactory;
-import de.puzzleddev.amun.common.anno.sub.config.AMUNConfigHolder;
-import de.puzzleddev.amun.common.anno.sub.config.AMUNConfigValue;
+import de.puzzleddev.amun.common.anno.sub.AmunFactory;
+import de.puzzleddev.amun.common.config.anno.AMUNConfigHolder;
+import de.puzzleddev.amun.common.config.anno.AMUNConfigValue;
 
-@AMUNConfigHolder(path = "amun.cfg", type = "forge")
-public class AMUNConfig
+@AMUNConfigHolder(path = "AMUN/main.cfg", type = "forge")
+public class AmunConfig
 {
-	private static AMUNConfig m_instance;
+	private static AmunConfig m_instance;
 	
-	@AMUNFactory
-	public static AMUNConfig instance()
+	@AmunFactory
+	public static AmunConfig instance()
 	{
 		if(m_instance == null)
 		{
-			m_instance = new AMUNConfig();
+			m_instance = new AmunConfig();
 		}
 	
 		return m_instance;
@@ -22,4 +22,7 @@ public class AMUNConfig
 	
 	@AMUNConfigValue(path = "development.debug", comment = "Debug Mode")
 	public Boolean m_debug = false;
+	
+	@AMUNConfigValue(path = "property", comment = "Property in the main category")
+	public Integer m_property = 14;
 }

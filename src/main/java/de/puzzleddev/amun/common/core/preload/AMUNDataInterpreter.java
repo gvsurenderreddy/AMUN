@@ -10,7 +10,7 @@ import com.google.common.reflect.ClassPath.ClassInfo;
 import de.puzzleddev.amun.util.AMUNLog;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 
-public class AMUNDataInterpreter
+public class AmunDataInterpreter
 {
 	private static Collection<IDataInterpreter> m_interpreter = Lists.newArrayList();
 

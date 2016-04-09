@@ -1,18 +1,18 @@
 package de.puzzleddev.amun.util;
 
 import de.puzzleddev.amun.client.AMUNClientProxy;
-import de.puzzleddev.amun.common.AMUNCommonProxy;
-import de.puzzleddev.amun.common.core.AMUN;
+import de.puzzleddev.amun.common.AmunCommonProxy;
+import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.server.AMUNServerProxy;
 import net.minecraftforge.fml.relauncher.Side;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public class NetworkSide<PROXY extends AMUNCommonProxy>
+public class NetworkSide<PROXY extends AmunCommonProxy>
 {
 	public static final NetworkSide<AMUNClientProxy> CLIENT = new NetworkSide(AMUNClientProxy.class, "client", Side.CLIENT);
 	public static final NetworkSide<AMUNServerProxy> SERVER = new NetworkSide(AMUNServerProxy.class, "server", Side.SERVER);
-	public static final NetworkSide<AMUNCommonProxy> COMMON = new NetworkSide(AMUNCommonProxy.class, "common", Side.SERVER);
-	public static final NetworkSide<AMUNClientProxy> UNKNOWN = new NetworkSide(AMUNCommonProxy.class, "unknown");
+	public static final NetworkSide<AmunCommonProxy> COMMON = new NetworkSide(AmunCommonProxy.class, "common", Side.SERVER);
+	public static final NetworkSide<AMUNClientProxy> UNKNOWN = new NetworkSide(AmunCommonProxy.class, "unknown");
 
 	private Class<PROXY> m_proxyCls;
 
@@ -71,7 +71,7 @@ public class NetworkSide<PROXY extends AMUNCommonProxy>
 
 	public PROXY getProxy()
 	{
-		AMUNCommonProxy proxy = AMUN.PROXY;
+		AmunCommonProxy proxy = Amun.PROXY;
 
 		if(proxy.getClass() == m_proxyCls)
 			return (PROXY) proxy;

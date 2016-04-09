@@ -1,6 +1,6 @@
 package de.puzzleddev.amun.common.config;
 
-public interface IAMUNConfig
+public interface IAmunConfig
 {
 	public <T> ConfigValue<T> get(Class<T> type, String path, String comment, ConfigValue<T> def);
 	

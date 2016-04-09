@@ -1,6 +1,6 @@
 package de.puzzleddev.amun.common.anno;
 
-public interface IAMUNAnnoCheck
+public interface IAmunAnnoCheck
 {
 	public boolean check(String[] data);
 }

@@ -1,0 +1,39 @@
+{
+
+  "mc_background" : {
+
+    "StartX" : 0,
+    "StartY" : 0,
+    "Width" : 48,
+    "Height" : 48
+
+  },
+
+  "amun_background" : {
+
+    "StartX" : 48,
+    "StartY" : 0,
+    "Width" : 48,
+    "Height" : 48
+
+  },
+
+  "mc_button" : {
+
+    "StartX" : 0,
+    "StartY" : 48,
+    "Width" : 200,
+    "Height" : 20
+
+  },
+
+  "mc_button_down" : {
+
+    "StartX" : 0,
+    "StartY" : 69,
+    "Width" : 200,
+    "Height" : 20
+
+  }
+
+}

@@ -5,13 +5,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import de.puzzleddev.amun.common.anno.IAMUNAnnotationCallback;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
-public @interface AMUNAnnotation
+public @interface AmunAnnotation
 {
 	
-	Class<? extends IAMUNAnnotationCallback<?>> value(); 
+	Class<? extends IAmunAnnotationCallback<?>> value(); 
 	int[] toCall() default {1, 2, 3};
 }

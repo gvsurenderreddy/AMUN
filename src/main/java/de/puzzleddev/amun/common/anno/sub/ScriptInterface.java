@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import de.puzzleddev.amun.common.anno.callback.ScriptInterfaceCallback;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@AMUNAnnotationHolder
-@AMUNAnnotation(value = ScriptInterfaceCallback.class, toCall = 5)
+@AmunAnnotationHolder
+@AmunAnnotation(value = ScriptInterfaceCallback.class, toCall = 5)
 public @interface ScriptInterface
 {
 	String value();

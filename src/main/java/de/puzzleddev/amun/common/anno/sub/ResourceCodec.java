@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import de.puzzleddev.amun.common.anno.callback.ResourceCodecCallback;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@AMUNAnnotationHolder
-@AMUNAnnotation(value = ResourceCodecCallback.class, toCall = 2)
+@AmunAnnotationHolder
+@AmunAnnotation(value = ResourceCodecCallback.class, toCall = 2)
 public @interface ResourceCodec
 {
 

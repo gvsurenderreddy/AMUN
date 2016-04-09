@@ -4,11 +4,11 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
-import de.puzzleddev.amun.common.anno.sub.config.AMUNConfigHolder;
-import de.puzzleddev.amun.common.config.IAMUNConfigAPI;
+import de.puzzleddev.amun.common.config.IAmunConfigAPI;
 import de.puzzleddev.amun.common.config.IConfigProvider;
+import de.puzzleddev.amun.common.config.anno.AMUNConfigHolder;
 
-public class AMUNConfigAPI implements IAMUNConfigAPI
+public class AMUNConfigAPI implements IAmunConfigAPI
 {
 	private Map<String, IConfigProvider<?, ?>> m_providers;
 	private Map<Class<?>, ConfigHolder> m_holders;

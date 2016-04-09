@@ -4,14 +4,14 @@ import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import de.puzzleddev.amun.common.anno.callback.AMUNRegAnnoCallback;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotation;
-import de.puzzleddev.amun.common.anno.construct.AMUNAnnotationHolder;
+import de.puzzleddev.amun.common.anno.callback.AmunRegAnnoCallback;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
+import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
 @Retention(RetentionPolicy.RUNTIME)
-@AMUNAnnotationHolder
-@AMUNAnnotation(value = AMUNRegAnnoCallback.class, toCall = 0)
-public @interface AMUNRegisterAnnotations
+@AmunAnnotationHolder
+@AmunAnnotation(value = AmunRegAnnoCallback.class, toCall = 0)
+public @interface AmunRegisterAnnotations
 {
 	Class<? extends Annotation>[] value();
 }
