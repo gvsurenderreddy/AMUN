@@ -32,12 +32,12 @@ One other way AMUN wants to make itself configurable in the future is a scriptin
 If you want a more specific (but not exhaustive) list, have one:
 
 - [x] Flexible annotation system
-- [ ] Extensible scripting system (partly done)
+- [x] Extensible scripting system
 - [ ] Extensive mod integration (partly done)
 - [ ] Easy to use GUI framework
 - [ ] Easy to implement but adaptable in world networks
 - [ ] Annotation based wrapper for networking
-- [ ] Flexible file serialization / deserialization
+- [x] Flexible file serialization / deserialization
 - [ ] Extensible recipe system, that automatically integrates with recipe mods
 - [ ] More to come...
 

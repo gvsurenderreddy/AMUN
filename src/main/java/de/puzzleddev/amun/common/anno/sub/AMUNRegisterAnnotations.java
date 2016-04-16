@@ -8,6 +8,11 @@ import de.puzzleddev.amun.common.anno.callback.AmunRegAnnoCallback;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
+/**
+ * Registers an annotation.
+ * 
+ * @author tim4242
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @AmunAnnotationHolder
 @AmunAnnotation(value = AmunRegAnnoCallback.class, toCall = 0)
