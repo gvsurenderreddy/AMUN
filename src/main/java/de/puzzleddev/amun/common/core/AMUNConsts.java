@@ -62,7 +62,7 @@ public class AmunConsts
 	
 	/**
 	 * The people who made this possible.<br>
-	 * Where do I start... Ahh I know: Babbage.
+	 * Where do I start... Ahh I know: Babbage or maybe Lovelace. Mmmm decisions.
 	 */
 	public static final String MOD_CREDITS = "The FML team";
 	
