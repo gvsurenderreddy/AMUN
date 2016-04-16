@@ -8,14 +8,26 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * Default implementation of {@link IAmunItem}.
+ * 
+ * @author tim4242
+ */
 public class AmunItem extends Item implements IAmunItem
 {
+	/**
+	 * The {@link ModelResourceLocation} used to render this item.
+	 */
 	private ModelResourceLocation m_renderer;
+	
+	/**
+	 * The mod owning this item.
+	 */
 	private IAmunMod m_ownerMod;
 	
 	public AmunItem(IAmunMod mod, String name, ModelResourceLocation renderer)
 	{
-		setUnlocalizedName(mod.getUniquifier().call(mod, name));
+		setUnlocalizedName(mod.getConstants().getUniquifier().call(mod, name));
 		
 		m_ownerMod = mod;
 		m_renderer = renderer;

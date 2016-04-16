@@ -6,6 +6,11 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer;
 
+/**
+ * Raw amun mod loading.
+ * 
+ * @author tim4242
+ */
 public class AmunModData
 {
 	private ModContainer m_mc;
@@ -50,6 +55,9 @@ public class AmunModData
 		}
 	}
 
+	/**
+	 * @return The amun mods mod container or null if no mod was loaded. 
+	 */
 	public ModContainer getModContainer()
 	{
 		return m_mc;

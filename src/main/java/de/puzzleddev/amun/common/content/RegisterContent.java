@@ -8,6 +8,11 @@ import java.lang.annotation.Target;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
+/**
+ * Marks a class to be registered by the appropriate content registrar.
+ * 
+ * @author tim4242
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @AmunAnnotationHolder

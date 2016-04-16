@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
-import de.puzzleddev.amun.common.anno.construct.AmunAnnotationSearch;
 import de.puzzleddev.amun.common.core.Amun;
 
 public class AnnotationHolder
@@ -16,16 +15,12 @@ public class AnnotationHolder
 
 	private Collection<AnnotationData<?>> m_data;
 
-	private AmunAnnotationSearch m_annotation;
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public AnnotationHolder(AmunAnnotationSearch aan, Class<?> cls)
+	public AnnotationHolder(Class<?> cls)
 	{
 		m_cls = cls;
 
 		m_data = new ArrayList<AnnotationData<?>>();
-
-		m_annotation = aan;
 
 		for(Annotation an : cls.getAnnotations())
 		{
@@ -34,7 +29,7 @@ public class AnnotationHolder
 
 		for(Method me : cls.getMethods())
 		{
-			if(!AmunAnnoUtilImpl.isAllowed(me.getAnnotations())) continue;
+			if(!AmunAnnotationManagerImpl.isAllowed(me.getAnnotations())) continue;
 			
 			for(Annotation an : me.getAnnotations())
 			{
@@ -44,7 +39,7 @@ public class AnnotationHolder
 
 		for(Field fi : cls.getFields())
 		{
-			if(!AmunAnnoUtilImpl.isAllowed(fi.getAnnotations())) continue;
+			if(!AmunAnnotationManagerImpl.isAllowed(fi.getAnnotations())) continue;
 			
 			for(Annotation an : fi.getAnnotations())
 			{
@@ -76,10 +71,5 @@ public class AnnotationHolder
 	public Collection<AnnotationData<?>> getAnnotations()
 	{
 		return m_data;
-	}
-
-	public AmunAnnotationSearch getAnnotation()
-	{
-		return m_annotation;
 	}
 }

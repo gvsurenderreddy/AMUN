@@ -7,6 +7,11 @@ import de.puzzleddev.amun.common.core.Amun;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * TODO: make this a real debugging tool.
+ * 
+ * @author tim4242
+ */
 @AmunFactory
 public class DebugItem extends AmunItem implements IAmunItemTextured
 {

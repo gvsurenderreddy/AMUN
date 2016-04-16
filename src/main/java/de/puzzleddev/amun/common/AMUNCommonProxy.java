@@ -7,8 +7,17 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+/**
+ * Base class for amuns proxies.
+ * 
+ * @author tim4242
+ * @param <PROXY> This type.
+ */
 public class AmunCommonProxy<PROXY extends AmunCommonProxy<PROXY>> implements IAMUNLoadHook
 {
+	/**
+	 * The {@link NetworkSide} this is on.
+	 */
 	private final NetworkSide<PROXY> m_side;
 
 	protected AmunCommonProxy(NetworkSide<PROXY> side)
@@ -34,9 +43,12 @@ public class AmunCommonProxy<PROXY extends AmunCommonProxy<PROXY>> implements IA
 		AMUNLog.infof("Post initialization on {} side", getSide().getName());
 	}
 
+	/**
+	 * @return This {@link NetworkSide} instance.
+	 */
 	public NetworkSide<PROXY> getSide()
 	{
 		return m_side;
-	};
+	}
 
 }

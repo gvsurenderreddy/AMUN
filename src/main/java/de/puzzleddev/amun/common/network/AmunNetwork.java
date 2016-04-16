@@ -6,6 +6,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
+/**
+ * TODO: EVERYTHING!!!
+ * 
+ * @author tim4242
+ */
 public class AmunNetwork
 {
 	private static int m_networkIndex = 0;

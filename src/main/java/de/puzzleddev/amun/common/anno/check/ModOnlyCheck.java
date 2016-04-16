@@ -4,6 +4,11 @@ import de.puzzleddev.amun.common.anno.IAmunAnnoCheck;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 
+/**
+ * Checks if some mods or APIs are loaded.
+ * 
+ * @author tim4242
+ */
 public class ModOnlyCheck implements IAmunAnnoCheck
 {
 
@@ -15,7 +20,12 @@ public class ModOnlyCheck implements IAmunAnnoCheck
 			return true;
 		}
 
-		return Loader.isModLoaded(data[0]) || ModAPIManager.INSTANCE.hasAPI(data[0]);
+		for(String s : data)
+		{
+			if(!(Loader.isModLoaded(s) || ModAPIManager.INSTANCE.hasAPI(s))) return false;
+		}
+		
+		return true;
 	}
 
 }

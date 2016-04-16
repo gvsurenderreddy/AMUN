@@ -3,35 +3,30 @@ package de.puzzleddev.amun.common.anno.impl;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.google.common.collect.Maps;
-import com.google.common.reflect.ClassPath;
-import com.google.common.reflect.ClassPath.ClassInfo;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnoCheck;
-import de.puzzleddev.amun.common.anno.IAmunAnnoUtil;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
+import de.puzzleddev.amun.common.anno.IAmunAnnotationManager;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationRegistry;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
-import de.puzzleddev.amun.common.anno.construct.AmunAnnotationSearch;
 import de.puzzleddev.amun.common.anno.construct.AmunCheck;
 import de.puzzleddev.amun.common.core.Amun;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class AmunAnnoUtilImpl implements IAmunAnnoUtil
+public class AmunAnnotationManagerImpl implements IAmunAnnotationManager
 {
-
-	public AmunAnnoUtilImpl()
+	/**
+	 * Sets up all necessary variables.
+	 */
+	public AmunAnnotationManagerImpl()
 	{
 		m_reg = new AmunAnnotationRegistryImpl();
 		m_holders = new HashMap<Class<?>, AnnotationHolder>();
@@ -118,19 +113,6 @@ public class AmunAnnoUtilImpl implements IAmunAnnoUtil
 		return false;
 	}
 
-	private static ClassPath CLASS_PATH = null;
-
-	static
-	{
-		try
-		{
-			CLASS_PATH = ClassPath.from(AmunAnnoUtilImpl.class.getClassLoader());
-		} catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
 	private static Map<Class<? extends IAmunAnnoCheck>, IAmunAnnoCheck> m_checks = Maps.newHashMap();
 
 	public static boolean isAllowed(Annotation[] ans)
@@ -185,44 +167,9 @@ public class AmunAnnoUtilImpl implements IAmunAnnoUtil
 		if(!found)
 			return false;
 
-		AmunAnnotationSearch amunAnno = null;
-
-		if(cls.isAnnotationPresent(AmunAnnotationSearch.class))
-		{
-			amunAnno = cls.getAnnotation(AmunAnnotationSearch.class);
-		}
-
-		AnnotationHolder hold = new AnnotationHolder(amunAnno, cls);
-
-		List<Class<?>> clss = new ArrayList<Class<?>>();
-
-		if(amunAnno != null)
-		{
-
-			if(hold.getAnnotation().searchClasses().length > 0)
-			{
-				clss.addAll(Arrays.asList(hold.getAnnotation().searchClasses()));
-			}
-
-			if(hold.getAnnotation().searchPackages().length > 0)
-			{
-				for(String pkg : hold.getAnnotation().searchPackages())
-				{
-					Set<ClassInfo> set = CLASS_PATH.getTopLevelClasses(pkg);
-
-					for(ClassInfo ci : set)
-					{
-						clss.add(ci.load());
-					}
-				}
-			}
-
-		}
+		AnnotationHolder hold = new AnnotationHolder(cls);
 
 		m_holders.put(cls, hold);
-
-		if(!clss.isEmpty())
-			check(clss.toArray(new Class<?>[0]));
 
 		return true;
 	}

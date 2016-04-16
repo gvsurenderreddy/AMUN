@@ -9,12 +9,24 @@ import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 import de.puzzleddev.amun.common.config.anno.callback.ConfigHolderCallback;
 
+/**
+ * Identifies a class as a config holder.
+ * 
+ * @author tim4242
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 @AmunAnnotationHolder
 @AmunAnnotation(value = ConfigHolderCallback.class, toCall = {5, 9})
 public @interface AMUNConfigHolder
 {
+	/**
+	 * The type of provider to use.
+	 */
 	String type();
+	
+	/**
+	 * The local path to place the config file at, relative to minecrafts config folder.
+	 */
 	String path();
 }

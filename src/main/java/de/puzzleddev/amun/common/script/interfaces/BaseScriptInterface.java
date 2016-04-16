@@ -10,11 +10,27 @@ import de.puzzleddev.amun.util.functional.CachedFunction;
 import de.puzzleddev.amun.util.functional.Function;
 import de.puzzleddev.amun.util.storage.CacheStrategy;
 
+/**
+ * Standard implementation of a script interface.
+ * 
+ * @author tim4242
+ * @param <T> The type of script this creates.
+ */
 public class BaseScriptInterface<T extends IScript> implements IScriptInterface
 {
-
+	/**
+	 * Function to create a {@link IScript} instance.
+	 */
 	private final Function.NoArg<T> m_construct;
+	
+	/**
+	 * Function to check if this interface is available.
+	 */
 	private final Function.OneArg<Boolean, Boolean> m_checkAvail;
+	
+	/**
+	 * The current standard libraries. 
+	 */
 	private final Map<String, IScriptLibrary> m_stdLibs;
 
 	public BaseScriptInterface(Function.NoArg<T> construct, Function.NoArg<Boolean> avail)
@@ -24,6 +40,12 @@ public class BaseScriptInterface<T extends IScript> implements IScriptInterface
 		m_stdLibs = new HashMap<String, IScriptLibrary>();
 	}
 
+	/**
+	 * Creates a availability check for if a class exists.
+	 * 
+	 * @param construct
+	 * @param className
+	 */
 	public BaseScriptInterface(Function.NoArg<T> construct, String className)
 	{
 		this(construct, () -> {
@@ -40,6 +62,11 @@ public class BaseScriptInterface<T extends IScript> implements IScriptInterface
 		});
 	}
 
+	/**
+	 * Creates a disabled interface.
+	 * 
+	 * @param construct
+	 */
 	public BaseScriptInterface(Function.NoArg<T> construct)
 	{
 		this(construct, () -> false);
@@ -65,7 +92,7 @@ public class BaseScriptInterface<T extends IScript> implements IScriptInterface
 	}
 
 	@Override
-	public boolean isAvaliable()
+	public boolean isAvailable()
 	{
 		return m_checkAvail.call(false);
 	}

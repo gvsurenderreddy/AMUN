@@ -7,6 +7,11 @@ import de.puzzleddev.amun.common.content.AmunRegistrar;
 import de.puzzleddev.amun.common.content.IContentRegistrar;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Registers {@link IAmunBlock IAmunBlocks}.
+ * 
+ * @author tim4242
+ */
 @AmunFactory
 @AmunRegistrar(IAmunBlock.class)
 public class BlockRegistrar implements IContentRegistrar<IAmunBlock>

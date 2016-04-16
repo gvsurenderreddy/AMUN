@@ -10,6 +10,11 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Registers {@link IAmunItem IAmunItems}.
+ * 
+ * @author tim4242
+ */
 @AmunFactory
 @AmunRegistrar(IAmunItem.class)
 public class ItemRegistrar implements IContentRegistrar<IAmunItem>

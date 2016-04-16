@@ -6,10 +6,21 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.Name;
 
-@Name("AMUN|FMLPlugin")
-@MCVersion("1.8.9")
+import de.puzzleddev.amun.common.core.AmunConsts;
+
+/**
+ * The first entry point, from here the preloading is run.
+ * 
+ * @author tim4242
+ */
+@Name(AmunConsts.FML_PLUGIN_NAME)
+@MCVersion("1.8.9") //This will have to be updated independently
 public class AmunFMLPlugin implements IFMLLoadingPlugin
 {
+	/**
+	 * The transformers.<br>
+	 * Currently I don't need any bytecode manipulation.
+	 */
 	public static final String[] TRANSFORMER_CLASSES = new String[] {};
 	
 	@Override

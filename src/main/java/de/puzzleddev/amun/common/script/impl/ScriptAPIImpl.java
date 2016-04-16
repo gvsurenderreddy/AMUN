@@ -25,9 +25,10 @@ public class ScriptAPIImpl implements IScriptAPI
 		return m_interfaces.keySet();
 	}
 
+	@Override
 	public void addScriptInterface(String type, IScriptInterface inter)
 	{
-		if(!inter.isAvaliable())
+		if(!inter.isAvailable())
 		{
 			return;
 		}

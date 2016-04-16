@@ -2,6 +2,11 @@ package de.puzzleddev.amun.common.anno.check;
 
 import de.puzzleddev.amun.common.anno.IAmunAnnoCheck;
 
+/**
+ * Class that checks if some classes are loaded.
+ * 
+ * @author tim4242
+ */
 public class ClassLoadedCheck implements IAmunAnnoCheck
 {
 	@Override
@@ -9,12 +14,15 @@ public class ClassLoadedCheck implements IAmunAnnoCheck
 	{
 		if(data.length < 1) return true;
 		
-		try
+		for(String s : data)
 		{
-			Class.forName(data[0]);
-		} catch(Throwable t)
-		{
-			return false;
+			try
+			{
+				Class.forName(s);
+			} catch(Throwable t)
+			{
+				return false;
+			}
 		}
 		
 		return true;

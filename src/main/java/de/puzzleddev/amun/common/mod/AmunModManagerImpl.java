@@ -31,7 +31,11 @@ public class AmunModManagerImpl implements IAmunModManager
 					
 					if(data.getModContainer() != null)
 					{
-						m_mods.add((IAmunMod) mc.getMod());
+						IAmunMod mod = (IAmunMod) mc.getMod();
+						
+						mod.getConstants().m_modData = data;
+						
+						m_mods.add(mod);
 					}
 				}
 
@@ -53,7 +57,7 @@ public class AmunModManagerImpl implements IAmunModManager
 	{
 		for(IAmunMod m : m_mods)
 		{
-			if(m.getContainer().getModId().equals(id)) return m;
+			if(m.getConstants().getModContainer().getModId().equals(id)) return m;
 		}
 		
 		return null;
