@@ -4,8 +4,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Cache strategies.
+ * 
+ * @author tim4242
+ */
 public enum CacheStrategy
 {
+	/**
+	 * Least recently used.
+	 */
 	LRU
 	{
 		@Override
@@ -23,6 +31,9 @@ public enum CacheStrategy
 			};
 		}
 	},
+	/**
+	 * Most recently used.
+	 */
 	MRU
 	{
 		@Override
@@ -40,6 +51,9 @@ public enum CacheStrategy
 			};
 		}
 	},
+	/**
+	 * Least frequently used.
+	 */
 	LFU
 	{
 		@Override
@@ -48,6 +62,9 @@ public enum CacheStrategy
 			return new LFUMap<K, V>(maxSize);
 		}
 	},
+	/**
+	 * Never forgets a value.
+	 */
 	NEVER
 	{
 
@@ -59,5 +76,11 @@ public enum CacheStrategy
 		
 	};
 
+	/**
+	 * Creates a cache map.
+	 * 
+	 * @param maxSize The max cache size.
+	 * @return The cache map.
+	 */
 	public abstract <K, V> Map<K, V> createCache(int maxSize);
 }

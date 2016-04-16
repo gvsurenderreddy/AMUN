@@ -11,6 +11,11 @@ import com.google.common.collect.Maps;
 import de.puzzleddev.amun.common.core.AmunConsts;
 import de.puzzleddev.amun.util.functional.Function;
 
+/**
+ * Static logger class.
+ * 
+ * @author tim4242
+ */
 public class AMUNLog
 {
 	private static AAMUNLog getOrDefault(String key, Function.VoidThreeArg<Level, Boolean, Object[]> logFunc, Function.VoidFourArg<Level, Boolean, String, Object[]> logfFunc)
@@ -23,8 +28,14 @@ public class AMUNLog
 		return m_logs.get(key);
 	}
 
+	/**
+	 * The current logger.
+	 */
 	private static Logger m_logger;
 
+	/**
+	 * @return The console logger.
+	 */
 	public static AAMUNLog console()
 	{
 		if(m_logger == null)
@@ -63,15 +74,28 @@ public class AMUNLog
 		});
 	}
 
+	/**
+	 * All registered loggers.
+	 */
 	private static Map<String, AAMUNLog> m_logs = Maps.newHashMap();
 
+	/**
+	 * The default string.
+	 */
 	private static String m_default;
 
 	static
 	{
-		console();
+		console(); //Creates the console logger
 	}
 	
+	/**
+	 * Adds a logger.
+	 * 
+	 * @param id The name.
+	 * @param log The logger to add.
+	 * @return The registered logger.
+	 */
 	public static AAMUNLog addLog(String id, AAMUNLog log)
 	{
 		m_logs.put(id, log);
@@ -84,6 +108,11 @@ public class AMUNLog
 		return log;
 	}
 
+	/**
+	 * Sets the default logger.
+	 * 
+	 * @param def The string to set as default logger.
+	 */
 	public static void setDefault(String def)
 	{
 		if(m_logs.containsKey(def))
@@ -92,6 +121,9 @@ public class AMUNLog
 		}
 	}
 
+	/**
+	 * @return The default logger.
+	 */
 	public static AAMUNLog getDefault()
 	{
 		return m_logs.get(m_default);

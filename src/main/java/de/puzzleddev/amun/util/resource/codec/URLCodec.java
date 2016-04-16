@@ -9,6 +9,11 @@ import de.puzzleddev.amun.common.anno.sub.AmunFactory;
 import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
 import de.puzzleddev.amun.util.resource.AbstractResourceCodec;
 
+/**
+ * COdec for URLs.
+ * 
+ * @author tim4242
+ */
 @AmunFactory
 @ResourceCodec
 public class URLCodec extends AbstractResourceCodec<URL>

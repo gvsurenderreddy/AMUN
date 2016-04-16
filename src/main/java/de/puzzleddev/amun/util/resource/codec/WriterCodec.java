@@ -11,6 +11,11 @@ import de.puzzleddev.amun.common.anno.sub.AmunFactory;
 import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
 import de.puzzleddev.amun.util.resource.AbstractResourceCodec;
 
+/**
+ * Codec for writers.
+ * 
+ * @author tim4242
+ */
 @AmunFactory
 @ResourceCodec
 public class WriterCodec extends AbstractResourceCodec<Writer>

@@ -7,22 +7,61 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Map with least frequently used behavior.
+ * 
+ * @author tim4242
+ * @param <K> The key type.
+ * @param <V> The value type.
+ */
 public class LFUMap<K, V> implements Map<K, V>
 {
+	/**
+	 * Cache entry.
+	 * 
+	 * @author tim4242
+	 */
 	class CacheEntry
 	{
+		/**
+		 * The data.
+		 */
 		private V m_data;
+		
+		/**
+		 * The frequency.
+		 */
 		private int m_freq;
 	}
 	
+	/**
+	 * Backing map.
+	 */
 	private LinkedHashMap<K, CacheEntry> m_map;
 	
+	/**
+	 * Maximum size.
+	 */
 	private int m_maxSize;
 	
+	/**
+	 * Value cache.
+	 */
 	private Collection<V> m_valueCache = new ArrayList<V>();
+	
+	/**
+	 * If the value cache should be rebuild next time it's requested.
+	 */
 	private boolean m_valueCacheRebuild = true;
 	
+	/**
+	 * Entry cache.
+	 */
 	private Set<Map.Entry<K, V>> m_entriesCache = new HashSet<Map.Entry<K, V>>();
+	
+	/**
+	 * If the entry cache should be rebuild next time it's requested.
+	 */
 	private boolean m_entriesCacheRebuild = true;
 	
 	public LFUMap(int maxSize)
@@ -126,6 +165,7 @@ public class LFUMap<K, V> implements Map<K, V>
 	public void clear()
 	{
 		m_map.clear();
+		rebuildCaches();
 	}
 
 	@Override
@@ -152,6 +192,11 @@ public class LFUMap<K, V> implements Map<K, V>
 		return m_valueCache;
 	}
 
+	/**
+	 * Local Entry implementation.
+	 * 
+	 * @author tim4242
+	 */
 	private class EntryImpl implements Map.Entry<K, V>
 	{
 
@@ -182,6 +227,9 @@ public class LFUMap<K, V> implements Map<K, V>
 		
 	}
 	
+	/**
+	 * Rebuilds the value and entry cache.
+	 */
 	private void rebuildCaches()
 	{
 		m_valueCacheRebuild = true;

@@ -17,6 +17,13 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3i;
 import net.minecraftforge.common.util.Constants.NBT;
 
+/**
+ * IO types for NBT data.<br>
+ * 
+ * TODO: Comment it (I definitely won't)
+ * 
+ * @author tim4242
+ */
 public class NBTIOTypes extends IOTypesImpl<NBTBase>
 {
 	private static NBTIOTypes m_instance;

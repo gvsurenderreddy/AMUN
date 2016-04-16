@@ -5,9 +5,21 @@ import org.apache.logging.log4j.Level;
 
 import de.puzzleddev.amun.util.functional.Function;
 
+/**
+ * Functional wrapper for {@link AAMUNLog}.
+ * 
+ * @author tim4242
+ */
 public class FunctionalAMUNLog extends AAMUNLog
 {
+	/**
+	 * The normal logger function.
+	 */
 	private Function.VoidThreeArg<Level, Boolean, Object[]> m_logFunction;
+	
+	/**
+	 * The formatted logger function.
+	 */
 	private Function.VoidFourArg<Level, Boolean, String, Object[]> m_logfFunction;
 
 	public FunctionalAMUNLog(String id, Function.VoidThreeArg<Level, Boolean, Object[]> logFunc, Function.VoidFourArg<Level, Boolean, String, Object[]> logfFunc)

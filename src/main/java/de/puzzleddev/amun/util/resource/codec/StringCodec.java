@@ -9,6 +9,11 @@ import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
 import de.puzzleddev.amun.util.StringInputStream;
 import de.puzzleddev.amun.util.resource.AbstractResourceCodec;
 
+/**
+ * Codec for strings.
+ * 
+ * @author tim4242
+ */
 @AmunFactory
 @ResourceCodec
 public class StringCodec extends AbstractResourceCodec<String>

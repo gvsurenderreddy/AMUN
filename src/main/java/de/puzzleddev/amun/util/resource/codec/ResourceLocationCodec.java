@@ -10,6 +10,11 @@ import de.puzzleddev.amun.util.resource.AbstractResourceCodec;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * Codec for resource locations.
+ * 
+ * @author tim4242
+ */
 @AmunFactory
 @ResourceCodec
 public class ResourceLocationCodec extends AbstractResourceCodec<ResourceLocation>

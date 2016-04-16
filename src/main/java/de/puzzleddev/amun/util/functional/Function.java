@@ -1,5 +1,10 @@
 package de.puzzleddev.amun.util.functional;
 
+/**
+ * Function interfaces.
+ * 
+ * @author tim4242
+ */
 public final class Function
 {
 	private Function(){}

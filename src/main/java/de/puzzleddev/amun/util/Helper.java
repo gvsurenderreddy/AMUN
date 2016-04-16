@@ -11,8 +11,17 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.ModContainer.Disableable;
 
+/**
+ * Random helper methods.
+ * 
+ * @author tim4242
+ */
 public class Helper
 {
+	/**
+	 * @param id The id to search for.
+	 * @return The mod with the given id or null if none are found.
+	 */
 	public static ModContainer getModContainer(String id)
 	{
 		for(ModContainer mc : Loader.instance().getModList())
@@ -24,8 +33,18 @@ public class Helper
 		return null;
 	}
 
+	/**
+	 * The field in FMLModContainer that contains the Disableable property.
+	 */
 	private static Field FML_MC_DIS_F = null;
 
+	/**
+	 * Sets the disable ability of a FMLModContainer.
+	 * 
+	 * @param id The id to search for.
+	 * @param d The Disableable to set to.
+	 * @return If it was successful.
+	 */
 	public static boolean setDisableable(String id, Disableable d)
 	{
 		if(FML_MC_DIS_F == null)
@@ -64,7 +83,11 @@ public class Helper
 
 		return false;
 	}
-
+	
+	/**
+	 * @param lst The native list.
+	 * @return The same list but boxed.
+	 */
 	public static Boolean[] toBoxed(boolean[] lst)
 	{
 		Boolean[] res = new Boolean[lst.length];
@@ -77,6 +100,10 @@ public class Helper
 		return res;
 	}
 
+	/**
+	 * @param lst The native list.
+	 * @return The same list but boxed.
+	 */
 	public static Double[] toBoxed(double[] lst)
 	{
 		Double[] res = new Double[lst.length];
@@ -89,6 +116,10 @@ public class Helper
 		return res;
 	}
 
+	/**
+	 * @param lst The native list.
+	 * @return The same list but boxed.
+	 */
 	public static Integer[] toBoxed(int[] lst)
 	{
 		Integer[] res = new Integer[lst.length];
@@ -101,6 +132,10 @@ public class Helper
 		return res;
 	}
 
+	/**
+	 * @param lst The native list.
+	 * @return The same list but boxed.
+	 */
 	public static Float[] toBoxed(float[] lst)
 	{
 		Float[] res = new Float[lst.length];
@@ -113,6 +148,11 @@ public class Helper
 		return res;
 	}
 	
+	/**
+	 * @param haystack The array to search.
+	 * @param needle The value to search for.
+	 * @return If the haystack contains the needle.
+	 */
 	public static <T> boolean contains(T[] haystack, T needle)
 	{
 		for(T t : haystack)
@@ -123,6 +163,10 @@ public class Helper
 		return false;
 	}
 	
+	/**
+	 * @param arrs The arrays to merge.
+	 * @return A newly created array containing all the values in the given arrays in order.
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T[] merge(T[]... arrs)
 	{

@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import de.puzzleddev.amun.common.anno.IAmunAnnoCheck;
 
 /**
- * 
+ * Does a check, if the check fails the annotation holder isn't registered.
  * 
  * @author tim4242
  */

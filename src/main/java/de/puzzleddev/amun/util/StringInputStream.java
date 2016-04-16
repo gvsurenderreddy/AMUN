@@ -3,11 +3,26 @@ package de.puzzleddev.amun.util;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * {@link java.io.InputStream InputStream} implementation for strings.
+ * 
+ * @author tim4242
+ */
 public class StringInputStream extends InputStream
 {
+	/**
+	 * The string.
+	 */
 	private final String m_string;
+	
+	/**
+	 * The current index.
+	 */
 	private int m_index;
 	
+	/**
+	 * The mark.
+	 */
 	private int m_mark;
 	
 	public StringInputStream(String string)
@@ -15,6 +30,9 @@ public class StringInputStream extends InputStream
 		m_string = string;
 	}
 	
+	/**
+	 * @return If the stream is at the end of the string.
+	 */
 	private boolean isAtEnd()
 	{
 		return m_index >= m_string.length();
