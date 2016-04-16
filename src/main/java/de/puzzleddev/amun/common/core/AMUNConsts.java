@@ -53,7 +53,7 @@ public class AmunConsts
 	/**
 	 * Still need a logo, maybe a triangle?
 	 */
-	public static final String MOD_LOGO = "";
+	public static final String MOD_LOGO = "/assets/pd_mc_amun/textures/logo.png";
 	
 	/**
 	 * The author(s) currently only me.
