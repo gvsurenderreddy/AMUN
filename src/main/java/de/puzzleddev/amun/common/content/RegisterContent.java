@@ -14,7 +14,7 @@ import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
  * @author tim4242
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.TYPE})
 @AmunAnnotationHolder
 @AmunAnnotation(value = ContentRegisterCallback.class, toCall = 10)
 public @interface RegisterContent

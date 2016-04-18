@@ -18,6 +18,8 @@ import de.puzzleddev.amun.common.api.impl.APIManagerImpl;
 import de.puzzleddev.amun.common.config.IAmunConfigAPI;
 import de.puzzleddev.amun.common.config.impl.AMUNConfigAPI;
 import de.puzzleddev.amun.common.content.RegisterContent;
+import de.puzzleddev.amun.common.content.recipe.AmunRecipeRegistryImpl;
+import de.puzzleddev.amun.common.content.recipe.IAmunRecipeRegistry;
 import de.puzzleddev.amun.common.core.content.DebugItem;
 import de.puzzleddev.amun.common.mod.AmunMod;
 import de.puzzleddev.amun.common.mod.AmunModManagerImpl;
@@ -140,6 +142,11 @@ public class Amun implements IAmunMod
 	public static IAmunModManager MODS;
 	
 	/**
+	 * <b>The</b> {@link IAmunRecipeRegistry} instance.
+	 */
+	public static IAmunRecipeRegistry RECIPE;
+	
+	/**
 	 * The debug item instance, it makes little sense to out source this.
 	 */
 	@RegisterContent
@@ -167,8 +174,10 @@ public class Amun implements IAmunMod
 		CONFIG = new AMUNConfigAPI();
 		SCRIPT = new ScriptAPIImpl();
 		MODS = new AmunModManagerImpl();
+		RECIPE = new AmunRecipeRegistryImpl();
 
 		addLoadHook(PROXY); //Make the proxy a load hook
+		addLoadHook(RECIPE);
 
 		MODS.construction(event); //Search for Amun mods
 		
@@ -291,7 +300,7 @@ public class Amun implements IAmunMod
 	public void init(FMLInitializationEvent event)
 	{
 		AMUNLog.info("Starting AMUN initialization"); //Notify the user
-
+		
 		//Runs the loading hooks
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.init(event);
@@ -301,7 +310,7 @@ public class Amun implements IAmunMod
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		AMUNLog.info("Starting AMUN post initialization"); //Notify the user
-
+		
 		//Runs the loading hooks
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.postInit(event);

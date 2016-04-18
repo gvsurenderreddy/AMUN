@@ -13,7 +13,7 @@
 
 AMUN is a mod for Minecraft providing common functionality for other mods (specifically mods by SophosMZ, or its developers, but of course it can be used by anyone).
 
-It also claims to be the most commented mod in existence, 1821/9742 lines are commented.
+It also claims to be the most commented mod in existence, 2018/10441 lines are commented.
 
 At the moment AMUN is under heavy development, no branch has any guarantee of working or even launching. This may change in the near future but at the moment there is no definite launch date.
 
@@ -40,7 +40,7 @@ If you want a more specific (but not exhaustive) list, have one:
 - [ ] Easy to implement but adaptable in world networks
 - [ ] Annotation based wrapper for networking
 - [x] Flexible file serialization / deserialization
-- [ ] Extensible recipe system, that automatically integrates with recipe mods
+- [x] Extensible recipe system, that automatically integrates with recipe mods (partly done)
 - [ ] More to come...
 
 ## Installation
@@ -124,107 +124,110 @@ Alternatively you can also use the provided archive, it should contain everythin
 
 ```java
 
-  import java.io.File;
+import java.io.File;
 import java.io.FilenameFilter;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 public class CommentCounter
 {
-private static long LINES = 0;
-private static long COMMNENT_LINES = 0;
+	private static long LINES = 0;
+	private static long COMMNENT_LINES = 0;
 
-private static boolean IN_MULTILINE = false;
+	private static boolean IN_MULTILINE = false;
 
-private static void readLines(File f) throws Exception
-{
-  System.out.println("Searching in file " + f);
+	private static void readLines(File f) throws Exception
+	{
+		System.out.println("Searching in file " + f);
 
-  Files.lines(f.toPath()).forEach((_line) ->
-  {
-    String line = _line.trim();
+		Files.lines(f.toPath()).forEach((_line) ->
+		{
+			String line = _line.trim();
 
-    LINES++;
+			LINES++;
 
-    if(line.endsWith("*/"))
-    {
-      IN_MULTILINE = false;
-      COMMNENT_LINES++;
-    }
-    else if(line.startsWith("/*"))
-    {
-      IN_MULTILINE = true;
-      COMMNENT_LINES++;
-    }
-    else if(IN_MULTILINE)
-    {
-      COMMNENT_LINES++;
-    }
-    else if(line.startsWith("//"))
-    {
-      COMMNENT_LINES++;
-    }
-  });
+			if(line.endsWith("*/"))
+			{
+				IN_MULTILINE = false;
+				COMMNENT_LINES++;
+			}
+			else if(line.startsWith("/*"))
+			{
+				IN_MULTILINE = true;
+				COMMNENT_LINES++;
+			}
+			else if(IN_MULTILINE)
+			{
+				COMMNENT_LINES++;
+			}
+			else if(line.startsWith("//"))
+			{
+				COMMNENT_LINES++;
+			}
+		});
 
-  IN_MULTILINE = false;
-}
+		IN_MULTILINE = false;
+	}
 
-private static void iterateFolder(File root, FilenameFilter filter) throws Exception
-{
-  System.out.println("Iterating over directory "  + root);
+	private static void iterateFolder(File root, FilenameFilter filter) throws Exception
+	{
+		System.out.println("Iterating over directory "  + root);
 
-  for(File f : root.listFiles(filter))
-  {
-    if(f.isFile())
-    {
-      readLines(f);
-    }
-  }
+		for(File f : root.listFiles(filter))
+		{
+			if(f.isFile())
+			{
+				readLines(f);
+			}
+		}
 
-  for(File f : root.listFiles())
-  {
-    if(f.isDirectory())
-    {
-      iterateFolder(f, filter);
-    }
-  }
-}
+		for(File f : root.listFiles())
+		{
+			if(f.isDirectory())
+			{
+				iterateFolder(f, filter);
+			}
+		}
+	}
 
-public static void main(String[] args) throws Exception
-{
-  File root = new File(args[0]);
-  FilenameFilter filter = new FilenameFilter()
-  {
-    @Override
-    public boolean accept(File dir, String name)
-    {
-      return true;
-    }
-  };
+	public static void main(String[] args) throws Exception
+	{
+		System.out.println(Arrays.asList(args));
 
-  if(args.length >= 2)
-  {
-    filter = new FilenameFilter()
-    {
-      @Override
-      public boolean accept(File dir, String name)
-      {
-        return name.endsWith("." + args[1]);
-      }
-    };
-  }
+		File root = new File(args[0]);
+		FilenameFilter filter = new FilenameFilter()
+		{
+			@Override
+			public boolean accept(File dir, String name)
+			{
+				return true;
+			}
+		};
 
-  if(root.exists() && root.isDirectory())
-  {
-    iterateFolder(root, filter);
-  }
-  else
-  {
-    System.out.println("Root isn't a directory");
-    System.exit(-1);
-  }
+		if(args.length >= 2)
+		{
+			filter = new FilenameFilter()
+			{
+				@Override
+				public boolean accept(File dir, String name)
+				{
+					return name.endsWith("." + args[1]);
+				}
+			};
+		}
 
-  System.out.printf("%d/%d are commented", COMMNENT_LINES, LINES);
-}
+		if(root.exists() && root.isDirectory())
+		{
+			iterateFolder(root, filter);
+		}
+		else
+		{
+			System.out.println(root + " isn't a directory");
+			System.exit(-1);
+		}
+
+		System.out.printf("%d/%d are commented", COMMNENT_LINES, LINES);
+	}
 }
 
 ```

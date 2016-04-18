@@ -124,4 +124,7 @@ public class AmunConsts
 	
 	//Who am I even talking to. I knew I was insane!
 	//Hey neighbor I won the bet.
+	
+	public static final String VANILLA_CRAFTING_RECIPE_ID = "vanilla_crafting_table";
+	public static final String VANILLA_FURNACE_RECIPE_ID = "vanilla_furnace";
 }
