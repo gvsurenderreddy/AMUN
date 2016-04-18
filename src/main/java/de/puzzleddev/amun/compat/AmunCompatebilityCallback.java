@@ -1,8 +1,8 @@
-package de.puzzleddev.amun.common.anno.callback;
+package de.puzzleddev.amun.compat;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
-import de.puzzleddev.amun.common.anno.sub.Compatebility;
+import de.puzzleddev.amun.common.anno.callback.FactoryCallback;
 import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.IAMUNLoadHook;

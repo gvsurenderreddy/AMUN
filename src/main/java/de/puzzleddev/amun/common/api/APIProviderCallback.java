@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.common.anno.callback;
+package de.puzzleddev.amun.common.api;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -9,7 +9,6 @@ import com.google.common.collect.Maps;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
-import de.puzzleddev.amun.common.anno.sub.APIProvider;
 import de.puzzleddev.amun.util.AMUNLog;
 
 public class APIProviderCallback implements IAmunAnnotationCallback<APIProvider>

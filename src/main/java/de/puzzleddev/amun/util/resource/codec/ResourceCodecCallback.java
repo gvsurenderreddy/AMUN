@@ -1,8 +1,8 @@
-package de.puzzleddev.amun.common.anno.callback;
+package de.puzzleddev.amun.util.resource.codec;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
-import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
+import de.puzzleddev.amun.common.anno.callback.FactoryCallback;
 import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.resource.AMUNResource;
 import de.puzzleddev.amun.util.resource.IResourceCodec;

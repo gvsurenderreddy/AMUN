@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import de.puzzleddev.amun.common.anno.callback.APIProviderCallback;
+import de.puzzleddev.amun.common.api.APIProviderCallback;
 import de.puzzleddev.amun.common.api.IAPIManager;
 
 public class APIManagerImpl implements IAPIManager

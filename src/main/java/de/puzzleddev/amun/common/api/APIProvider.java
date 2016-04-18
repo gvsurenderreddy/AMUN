@@ -1,11 +1,10 @@
-package de.puzzleddev.amun.common.anno.sub;
+package de.puzzleddev.amun.common.api;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import de.puzzleddev.amun.common.anno.callback.APIProviderCallback;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 
 /**

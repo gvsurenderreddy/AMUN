@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.net.URL;
 
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
-import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
 import de.puzzleddev.amun.util.resource.AbstractResourceCodec;
 
 /**

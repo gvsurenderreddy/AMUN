@@ -13,7 +13,7 @@
 
 AMUN is a mod for Minecraft providing common functionality for other mods (specifically mods by SophosMZ, or its developers, but of course it can be used by anyone).
 
-It also claims to be the most commented mod in existence, 2018/10441 lines are commented.
+It also claims to be the most commented mod in existence, 2033/10456 lines are commented.
 
 At the moment AMUN is under heavy development, no branch has any guarantee of working or even launching. This may change in the near future but at the moment there is no definite launch date.
 

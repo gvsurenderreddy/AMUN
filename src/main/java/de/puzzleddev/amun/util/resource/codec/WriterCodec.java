@@ -8,7 +8,6 @@ import java.io.Writer;
 import org.apache.commons.io.output.WriterOutputStream;
 
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
-import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
 import de.puzzleddev.amun.util.resource.AbstractResourceCodec;
 
 /**

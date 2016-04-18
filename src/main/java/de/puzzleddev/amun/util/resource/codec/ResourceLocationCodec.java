@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
-import de.puzzleddev.amun.common.anno.sub.ResourceCodec;
 import de.puzzleddev.amun.util.resource.AbstractResourceCodec;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
