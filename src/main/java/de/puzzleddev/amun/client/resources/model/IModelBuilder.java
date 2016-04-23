@@ -6,4 +6,4 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 public interface IModelBuilder
 {
 	public IBakedModel build(ModelBakeEvent event);
-}	
+}

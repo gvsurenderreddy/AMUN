@@ -100,16 +100,16 @@ public class ForgeConfig implements IAmunConfig
 	{
 		if(val instanceof Object[])
 			return (Object[]) val;
-		
+
 		int arrlength = Array.getLength(val);
-		
+
 		Object[] outputArray = new Object[arrlength];
-		
+
 		for(int i = 0; i < arrlength; ++i)
 		{
 			outputArray[i] = Array.get(val, i);
 		}
-		
+
 		return outputArray;
 	}
 
@@ -119,11 +119,11 @@ public class ForgeConfig implements IAmunConfig
 		{
 			if(path.charAt(i) == '.')
 			{
-				return new String[] {path.substring(0, i), path.substring(i + 1)};
+				return new String[] { path.substring(0, i), path.substring(i + 1) };
 			}
 		}
-		
-		return new String[] {Configuration.CATEGORY_GENERAL, path};
+
+		return new String[] { Configuration.CATEGORY_GENERAL, path };
 	}
 
 	@Override

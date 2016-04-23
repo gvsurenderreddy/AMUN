@@ -10,7 +10,8 @@ import java.lang.reflect.Method;
  * One annotation with some metadata.
  * 
  * @author tim4242
- * @param <A> The metadata this is wrapping.
+ * @param <A>
+ *            The metadata this is wrapping.
  */
 public class AnnotationData<A extends Annotation>
 {
@@ -18,23 +19,26 @@ public class AnnotationData<A extends Annotation>
 	 * Where this annotation is placed.
 	 */
 	private final ElementType m_type;
-	
+
 	/**
 	 * The anotation this is wrapping.
 	 */
 	private final A m_anno;
-	
+
 	/**
 	 * The object this is placed on, if available.
 	 */
 	private final Object m_obj;
-	
+
 	/**
 	 * Main constructor.
 	 * 
-	 * @param type The type of element this is placed on.
-	 * @param anno The annotation this is wrapping.
-	 * @param obj The object this is attached to or null.
+	 * @param type
+	 *            The type of element this is placed on.
+	 * @param anno
+	 *            The annotation this is wrapping.
+	 * @param obj
+	 *            The object this is attached to or null.
 	 */
 	public AnnotationData(ElementType type, A anno, Object obj)
 	{
@@ -42,7 +46,7 @@ public class AnnotationData<A extends Annotation>
 		m_anno = anno;
 		m_obj = obj;
 	}
-	
+
 	/**
 	 * Constructor for classes.
 	 */
@@ -50,7 +54,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		this(ElementType.TYPE, anno, cls);
 	}
-	
+
 	/**
 	 * Constructor for fields.
 	 */
@@ -58,7 +62,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		this(ElementType.FIELD, anno, field);
 	}
-	
+
 	/**
 	 * Constructor for methods.
 	 */
@@ -66,7 +70,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		this(ElementType.METHOD, anno, method);
 	}
-	
+
 	/**
 	 * Constructor for constructors.
 	 */
@@ -74,7 +78,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		this(ElementType.CONSTRUCTOR, anno, construct);
 	}
-	
+
 	/**
 	 * @return The element this is placed on.
 	 */
@@ -82,7 +86,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return m_type;
 	}
-	
+
 	/**
 	 * @return The annotation this wrapps.
 	 */
@@ -90,7 +94,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return m_anno;
 	}
-	
+
 	/**
 	 * @return If this is placed on a class.
 	 */
@@ -98,7 +102,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return m_type == ElementType.TYPE;
 	}
-	
+
 	/**
 	 * @return If this is placed on a field.
 	 */
@@ -106,7 +110,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return m_type == ElementType.FIELD;
 	}
-	
+
 	/**
 	 * @return If this is placed on a method.
 	 */
@@ -114,7 +118,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return m_type == ElementType.METHOD;
 	}
-	
+
 	/**
 	 * @return If this is placed on a constructor.
 	 */
@@ -122,9 +126,10 @@ public class AnnotationData<A extends Annotation>
 	{
 		return m_type == ElementType.CONSTRUCTOR;
 	}
-	
+
 	/**
-	 * @param b If this should return null.
+	 * @param b
+	 *            If this should return null.
 	 * @return The element or null.
 	 */
 	@SuppressWarnings("unchecked")
@@ -132,7 +137,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return b ? (T) m_obj : null;
 	}
-	
+
 	/**
 	 * @return The class this is placed on.
 	 */
@@ -140,7 +145,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return getOrNull(isClass());
 	}
-	
+
 	/**
 	 * @return The field this is placed on.
 	 */
@@ -148,7 +153,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return getOrNull(isField());
 	}
-	
+
 	/**
 	 * @return The method this is placed on.
 	 */
@@ -156,7 +161,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return getOrNull(isMethod());
 	}
-	
+
 	/**
 	 * @return The constructor this is placed on.
 	 */
@@ -164,7 +169,7 @@ public class AnnotationData<A extends Annotation>
 	{
 		return getOrNull(isConstructor());
 	}
-	
+
 	/**
 	 * Standard to string method.
 	 */
@@ -172,4 +177,4 @@ public class AnnotationData<A extends Annotation>
 	{
 		return "{Type: " + m_type + ", Anno: " + m_anno + ", Obj: " + m_obj + "}";
 	}
-}	
+}

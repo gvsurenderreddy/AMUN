@@ -23,13 +23,13 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 	{
 		return m_lookup.get(key);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static <T> T get(Class<T> cls)
 	{
 		return (T) m_cache.get(cls);
 	}
-	
+
 	public static boolean has(Class<?> cls)
 	{
 		return m_lookup.containsKey(cls);
@@ -39,13 +39,13 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 	public void call(int state, AnnotationData<AmunFactory> data) throws Exception
 	{
 		Class<?> cls = null;
-		
+
 		if(data.isClass())
 		{
 			Constructor<?> c = data.getWrappedClass().getConstructor();
 
 			cls = c.getDeclaringClass();
-			
+
 			m_lookup.put(cls, () -> {
 				try
 				{
@@ -63,10 +63,10 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 			Field f = data.getWrappedField();
 
 			cls = f.getDeclaringClass();
-			
+
 			if(!Modifier.isStatic(f.getModifiers()))
 				return;
-			
+
 			m_lookup.put(cls, () -> {
 				try
 				{
@@ -84,10 +84,10 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 			Method m = data.getWrappedMethod();
 
 			cls = m.getDeclaringClass();
-			
+
 			if(!Modifier.isStatic(m.getModifiers()))
 				return;
-			
+
 			m_lookup.put(cls, () -> {
 				try
 				{
@@ -105,7 +105,7 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 			Constructor<?> c = data.getWrappedConstructor();
 
 			cls = c.getDeclaringClass();
-			
+
 			m_lookup.put(cls, () -> {
 				try
 				{
@@ -118,7 +118,7 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 				return null;
 			});
 		}
-		
+
 		m_cache.put(cls, m_lookup.get(cls).call());
 	}
 

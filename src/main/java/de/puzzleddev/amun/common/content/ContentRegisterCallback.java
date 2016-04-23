@@ -56,7 +56,7 @@ public class ContentRegisterCallback implements IAmunAnnotationCallback<Register
 					if(FactoryCallback.has(data.getWrappedClass()))
 					{
 						((IContentRegistrar<Object>) getRegistrar(cls)).register(FactoryCallback.get(data.getWrappedClass()));
-						
+
 						return;
 					}
 				}

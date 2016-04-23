@@ -7,12 +7,12 @@ import net.minecraft.client.Minecraft;
 public class SpriteDrawable implements IDrawable
 {
 	private ISprite m_sprite;
-	
+
 	public SpriteDrawable(ISprite sprite)
 	{
 		m_sprite = sprite;
 	}
-	
+
 	@Override
 	public int getWidth()
 	{

@@ -208,7 +208,7 @@ public class AmunAnnotationManagerImpl implements IAmunAnnotationManager
 					if(Amun.ANNOTATION.getRegistry().has(and.getAnnotation().annotationType()))
 					{
 						IAmunAnnotationCallback<A> calBack = (IAmunAnnotationCallback<A>) Amun.ANNOTATION.getRegistry().get(and.getAnnotation().annotationType());
-						
+
 						calBack.call(state, (AnnotationData<A>) and);
 					}
 

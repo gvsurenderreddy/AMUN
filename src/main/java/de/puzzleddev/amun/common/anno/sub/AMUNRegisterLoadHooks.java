@@ -20,5 +20,5 @@ public @interface AmunRegisterLoadHooks
 	/**
 	 * @return The classes to register.
 	 */
-	String[] hooks() default "";
+	String[]hooks() default "";
 }

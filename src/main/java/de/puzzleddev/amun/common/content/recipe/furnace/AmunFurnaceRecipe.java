@@ -17,12 +17,12 @@ public class AmunFurnaceRecipe implements IAmunRecipe
 	 * Output item stack.
 	 */
 	private final ItemStack m_out;
-	
+
 	/**
 	 * Input item stack.
 	 */
 	private final ItemStack m_in;
-	
+
 	/**
 	 * Amount of experience gained from smelting.
 	 */
@@ -38,7 +38,7 @@ public class AmunFurnaceRecipe implements IAmunRecipe
 	@Override
 	public void register()
 	{
-		GameRegistry.addSmelting(m_in, m_out, m_exp); //Registers this recipe.
+		GameRegistry.addSmelting(m_in, m_out, m_exp); // Registers this recipe.
 	}
 
 	/**
@@ -52,73 +52,76 @@ public class AmunFurnaceRecipe implements IAmunRecipe
 		 * The type to register at.
 		 */
 		private final IAmunRecipeType<AmunFurnaceRecipe, AmunFurnaceRecipe.Builder> m_type;
-		
+
 		/**
 		 * Output item stack.
 		 */
 		private ItemStack m_out;
-		
+
 		/**
 		 * Input item stack.
 		 */
 		private ItemStack m_in;
-		
+
 		/**
 		 * Amount of experience gained from smelting.
 		 */
 		private float m_exp;
-		
+
 		public Builder(IAmunRecipeType<AmunFurnaceRecipe, AmunFurnaceRecipe.Builder> type)
 		{
 			m_type = type;
 		}
-		
+
 		@Override
 		public AmunFurnaceRecipe build()
 		{
 			AmunFurnaceRecipe rec = new AmunFurnaceRecipe(m_out, m_in, m_exp);
-			
+
 			m_type.addRecipe(rec);
-			
+
 			return rec;
 		}
 
 		/**
 		 * Sets the output item stack.
 		 * 
-		 * @param stack The stack to set.
+		 * @param stack
+		 *            The stack to set.
 		 * @return this.
 		 */
 		public Builder setOutput(ItemStack stack)
 		{
 			m_out = stack;
-			
+
 			return this;
 		}
-		
+
 		/**
 		 * Sets the input item stack.
 		 * 
-		 * @param stack The stack to set.
+		 * @param stack
+		 *            The stack to set.
 		 * @return this.
 		 */
 		public Builder setInput(ItemStack stack)
 		{
 			m_in = stack;
-			
+
 			return this;
 		}
-		
+
 		/**
 		 * Sets the experience gained.
 		 * 
-		 * @param exp The experience to set.
+		 * @param exp
+		 *            The experience to set.
 		 * @return
 		 */
 		public Builder setExperience(float exp)
 		{
 			m_exp = exp;
-			
+
 			return this;
 		}
 	}

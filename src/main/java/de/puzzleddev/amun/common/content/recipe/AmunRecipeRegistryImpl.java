@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import de.puzzleddev.amun.compat.registries.recipe.IRecipeHelperMod;
 import de.puzzleddev.amun.util.IBuilder;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -13,10 +15,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class AmunRecipeRegistryImpl implements IAmunRecipeRegistry
 {
 	private List<IAmunRecipeType<?, ?>> m_types;
+	private List<IRecipeHelperMod> m_mods;
 
 	public AmunRecipeRegistryImpl()
 	{
 		m_types = Lists.newArrayList();
+		m_mods = Lists.newArrayList();
 	}
 
 	@Override
@@ -24,7 +28,6 @@ public class AmunRecipeRegistryImpl implements IAmunRecipeRegistry
 	{
 	}
 
-	
 	@Override
 	public void init(FMLInitializationEvent event)
 	{
@@ -65,9 +68,9 @@ public class AmunRecipeRegistryImpl implements IAmunRecipeRegistry
 			if(t.getClass().equals(type))
 			{
 				return true;
-			}	
+			}
 		}
-		
+
 		return false;
 	}
 
@@ -91,7 +94,28 @@ public class AmunRecipeRegistryImpl implements IAmunRecipeRegistry
 	{
 		if(has(type))
 			return getRecipeType(type).getRecipes();
-		
-		return null; 
+
+		return null;
+	}
+
+	@Override
+	public void addRecipeMod(IRecipeHelperMod mod)
+	{
+		m_mods.add(mod);
+	}
+
+	@Override
+	public Collection<IRecipeHelperMod> getAllRecipeMods()
+	{
+		return m_mods;
+	}
+
+	@Override
+	public void addHiddenItem(ItemStack stack)
+	{
+		for(IRecipeHelperMod m : getAllRecipeMods())
+		{
+			m.addHiddenItem(stack);
+		}
 	}
 }

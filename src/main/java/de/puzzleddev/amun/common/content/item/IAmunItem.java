@@ -13,17 +13,18 @@ import net.minecraft.util.ResourceLocation;
  * @author tim4242
  */
 public interface IAmunItem extends IAmunContent
-{	
+{
 	/**
-	 * @return The {@link net.minecraft.item.Item Item} instance this is associate to.
+	 * @return The {@link net.minecraft.item.Item Item} instance this is
+	 *         associate to.
 	 */
 	public Item getItem();
-	
+
 	/**
 	 * @return All available variants.
 	 */
 	public Collection<ResourceLocation> getVariants();
-	
+
 	/**
 	 * @return The renderer that should be used to render this item.
 	 */

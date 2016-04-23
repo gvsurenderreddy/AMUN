@@ -20,7 +20,7 @@ public class BlockRegistrar implements IContentRegistrar<IAmunBlock>
 	public void register(IAmunBlock obj)
 	{
 		GameRegistry.registerBlock(obj.getBlock(), obj.getUniqueName());
-		
+
 		if(obj instanceof IAmunBlockTextured)
 		{
 			ResourceEventHandler.instance().registerModelJob(new ResourceJobs.RegisterTexturedBlock(obj.getBlock().getDefaultState(), ((IAmunBlockTextured) obj).getTexture()));

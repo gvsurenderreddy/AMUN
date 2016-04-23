@@ -12,7 +12,7 @@ public class BaseAmunContent implements IAmunContent
 		m_owningMod = mod;
 		m_uniqueName = mod.getConstants().getUniquifier().call(mod, name);
 	}
-	
+
 	@Override
 	public String getUniqueName()
 	{

@@ -16,7 +16,7 @@ public class ConfigProviderCallback implements IAmunAnnotationCallback<AMUNConfi
 		{
 			return;
 		}
-		
+
 		Amun.CONFIG.registerProvider(data.getAnnotation().value(), (IConfigProvider<?, ?>) FactoryCallback.get(data.getWrappedClass()));
 	}
 }

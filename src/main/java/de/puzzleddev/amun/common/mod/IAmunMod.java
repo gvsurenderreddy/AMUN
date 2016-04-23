@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.ModMetadata;
  * @author tim4242
  */
 public interface IAmunMod
-{	
+{
 	/**
 	 * Class representing the data exposed by a amun mod.<br>
 	 * This is still an incubating feature things will change drastically.
@@ -24,7 +24,7 @@ public interface IAmunMod
 		 * THe mod data instance this was created from.
 		 */
 		AmunModData m_modData;
-		
+
 		/**
 		 * @return The {@link ModContainer} that contains this amun mod.
 		 */
@@ -32,7 +32,7 @@ public interface IAmunMod
 		{
 			return m_modData.getModContainer();
 		}
-		
+
 		/**
 		 * @return The {@link ModMetadata} instance exposed by this amun mod.
 		 */
@@ -40,13 +40,13 @@ public interface IAmunMod
 		{
 			return getModContainer().getMetadata();
 		}
-		
+
 		/**
 		 * @return The uniquifier used by this mod.
 		 */
 		public abstract Function.TwoArg<String, IAmunMod, String> getUniquifier();
 	}
-	
+
 	/**
 	 * Default implementation of {@link AmunModConstants}.
 	 * 
@@ -55,19 +55,19 @@ public interface IAmunMod
 	public class AmunModConstantsImpl extends AmunModConstants
 	{
 		private TwoArg<String, IAmunMod, String> m_unique;
-		
+
 		public AmunModConstantsImpl(TwoArg<String, IAmunMod, String> unique)
 		{
 			m_unique = unique;
 		}
-		
+
 		@Override
 		public TwoArg<String, IAmunMod, String> getUniquifier()
 		{
 			return m_unique;
 		}
 	}
-	
+
 	/**
 	 * @return THe amun mods mod container.
 	 */
@@ -75,7 +75,7 @@ public interface IAmunMod
 	{
 		return getConstants().getModContainer();
 	}
-	
+
 	/**
 	 * @return The constants used by this Amun mod.
 	 */

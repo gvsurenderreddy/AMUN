@@ -13,21 +13,21 @@ import net.minecraftforge.fml.common.ModMetadata;
  * @author tim4242
  */
 public class AmunCore extends DummyModContainer
-{	
+{
 	public AmunCore()
 	{
 		super(new ModMetadata());
-		
-		//Same as the normal mod, just append with a appended "core"
+
+		// Same as the normal mod, just append with a appended "core"
 		AmunConsts.createMetadata(super.getMetadata());
-		
+
 		super.getMetadata().modId += "_core";
 		super.getMetadata().name += "|Core";
 	}
-	
+
 	public boolean registerBus(EventBus bus, LoadController controller)
 	{
-		//I don't use them but I have them so that's good
+		// I don't use them but I have them so that's good
 		bus.register(this);
 		return true;
 	}

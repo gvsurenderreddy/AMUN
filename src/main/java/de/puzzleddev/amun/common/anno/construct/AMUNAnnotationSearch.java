@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 @AmunAnnotationHolder
 public @interface AmunAnnotationSearch
 {
-	Class<?>[] searchClasses() default {};
-	String[] searchPackages() default {};
+	Class<?>[]searchClasses() default {};
+
+	String[]searchPackages() default {};
 }

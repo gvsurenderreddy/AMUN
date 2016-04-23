@@ -7,17 +7,17 @@ public class PositionedRecipePartImpl<RECIPE extends IAmunRecipe> implements IPo
 {
 	private int m_x;
 	private int m_y;
-	
+
 	private IPositionedStackInfo<RECIPE> m_id;
-	
+
 	public PositionedRecipePartImpl(int x, int y, IPositionedStackInfo<RECIPE> id)
 	{
 		m_x = 0;
 		m_y = y;
-		
+
 		m_id = id;
 	}
-	
+
 	@Override
 	public int getX()
 	{

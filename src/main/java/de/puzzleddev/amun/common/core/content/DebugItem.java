@@ -17,13 +17,13 @@ public class DebugItem extends AmunItem implements IAmunItemTextured
 {
 	public static String NAME = "debugItem";
 	public static ResourceLocation TEXTURE;
-	
+
 	public DebugItem()
 	{
 		super(Amun.instance(), NAME, null);
-		
+
 		super.setCreativeTab(CreativeTabs.tabTools);
-		
+
 		TEXTURE = new ResourceLocation(getOwningMod().getContainer().getModId(), "items/debugItem");
 	}
 

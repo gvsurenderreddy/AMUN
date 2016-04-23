@@ -18,5 +18,5 @@ import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 @AmunAnnotation(value = AmunRegAnnoCallback.class, toCall = 0)
 public @interface AmunRegisterAnnotations
 {
-	Class<? extends Annotation>[] value();
+	Class<? extends Annotation>[]value();
 }

@@ -46,8 +46,9 @@ public class AmunModData
 		{
 			if(mc.getModId().equals(id))
 			{
-				if(!Helper.contains(mc.getMod().getClass().getInterfaces(), IAmunMod.class)) break;
-				
+				if(!Helper.contains(mc.getMod().getClass().getInterfaces(), IAmunMod.class))
+					break;
+
 				m_mc = mc;
 
 				break;
@@ -56,7 +57,7 @@ public class AmunModData
 	}
 
 	/**
-	 * @return The amun mods mod container or null if no mod was loaded. 
+	 * @return The amun mods mod container or null if no mod was loaded.
 	 */
 	public ModContainer getModContainer()
 	{

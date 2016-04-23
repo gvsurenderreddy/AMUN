@@ -15,18 +15,19 @@ import de.puzzleddev.amun.common.config.anno.callback.ConfigHolderCallback;
  * @author tim4242
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
+@Target({ ElementType.TYPE })
 @AmunAnnotationHolder
-@AmunAnnotation(value = ConfigHolderCallback.class, toCall = {5, 9})
+@AmunAnnotation(value = ConfigHolderCallback.class, toCall = { 5, 9 })
 public @interface AMUNConfigHolder
 {
 	/**
 	 * The type of provider to use.
 	 */
 	String type();
-	
+
 	/**
-	 * The local path to place the config file at, relative to minecrafts config folder.
+	 * The local path to place the config file at, relative to minecrafts config
+	 * folder.
 	 */
 	String path();
 }

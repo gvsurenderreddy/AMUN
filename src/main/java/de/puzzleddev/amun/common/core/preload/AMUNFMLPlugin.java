@@ -14,7 +14,7 @@ import de.puzzleddev.amun.common.core.AmunConsts;
  * @author tim4242
  */
 @Name(AmunConsts.FML_PLUGIN_NAME)
-@MCVersion("1.8.9") //This will have to be updated independently
+@MCVersion("1.8.9") // This will have to be updated independently
 public class AmunFMLPlugin implements IFMLLoadingPlugin
 {
 	/**
@@ -22,7 +22,7 @@ public class AmunFMLPlugin implements IFMLLoadingPlugin
 	 * Currently I don't need any bytecode manipulation.
 	 */
 	public static final String[] TRANSFORMER_CLASSES = new String[] {};
-	
+
 	@Override
 	public String[] getASMTransformerClass()
 	{

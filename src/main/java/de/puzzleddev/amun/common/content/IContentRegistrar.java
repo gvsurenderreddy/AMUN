@@ -11,7 +11,8 @@ public interface IContentRegistrar<T>
 	/**
 	 * Registers an object.
 	 * 
-	 * @param obj The object,
+	 * @param obj
+	 *            The object,
 	 */
 	public void register(T obj);
 }

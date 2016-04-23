@@ -34,12 +34,14 @@ public class AmunSetup implements IFMLCallHook
 
 	/**
 	 * The prefix all interpreters must have.<br>
-	 * This means they have to be in the package {@code interpreter} in the package {@code amun}.
+	 * This means they have to be in the package {@code interpreter} in the
+	 * package {@code amun}.
 	 */
 	public static final String INTERPRETER_PREFIX = "amun.interpreter";
-	
+
 	/**
-	 * The folder in which all data that has to be interpreted has to be placed.<br>
+	 * The folder in which all data that has to be interpreted has to be placed.
+	 * <br>
 	 * It has to be inside the classpath.
 	 */
 	public static final String RESOURCE_LOCATION_PREFIX = "amun/data";
@@ -47,15 +49,20 @@ public class AmunSetup implements IFMLCallHook
 	@Override
 	public void injectData(Map<String, Object> data)
 	{
-		AmunConsts.CLASS_LOADER = (LaunchClassLoader) data.get("classLoader"); //Set the classloader
-		AmunConsts.MINECRAFT_DIRECTORY = (File) data.get("mcLocation"); //Set the minecraft location
+		AmunConsts.CLASS_LOADER = (LaunchClassLoader) data.get("classLoader"); // Set
+																				// the
+																				// classloader
+		AmunConsts.MINECRAFT_DIRECTORY = (File) data.get("mcLocation"); // Set
+																		// the
+																		// minecraft
+																		// location
 
-		List<String> lst = new ArrayList<String>(); //Output box list
+		List<String> lst = new ArrayList<String>(); // Output box list
 
 		lst.add("Injected data");
 		lst.add(AMUNLog.BOX_SPERATOR);
 
-		//Write everything in data to the console.
+		// Write everything in data to the console.
 		for(Map.Entry<String, Object> ent : data.entrySet())
 		{
 			lst.add(ent.getKey() + ": " + ent.getValue());
@@ -65,46 +72,59 @@ public class AmunSetup implements IFMLCallHook
 		lst.add("Loaded interpreters");
 		lst.add(AMUNLog.BOX_SPERATOR);
 
-		List<String> dataFiles = Lists.newArrayList(); //Found data files
-		List<ClassInfo> classFiles = Lists.newArrayList(); //Found interpreter candidates
+		List<String> dataFiles = Lists.newArrayList(); // Found data files
+		List<ClassInfo> classFiles = Lists.newArrayList(); // Found interpreter
+															// candidates
 
 		try
 		{
-			ClassPath path = ClassPath.from(AmunConsts.CLASS_LOADER); //Get a classpath
-			Set<ResourceInfo> resources = path.getResources(); //Get all resources from the classpath
+			ClassPath path = ClassPath.from(AmunConsts.CLASS_LOADER); // Get a
+																		// classpath
+			Set<ResourceInfo> resources = path.getResources(); // Get all
+																// resources
+																// from the
+																// classpath
 
 			for(ClassInfo info : path.getTopLevelClassesRecursive(INTERPRETER_PREFIX))
 			{
-				//If it is in the right package, add the class to the candidates
+				// If it is in the right package, add the class to the
+				// candidates
 				classFiles.add(info);
-				lst.add(info.getName()); //Also write it out
+				lst.add(info.getName()); // Also write it out
 			}
-			
+
 			lst.add(AMUNLog.BOX_SPERATOR);
 			lst.add("Loaded resources");
 			lst.add(AMUNLog.BOX_SPERATOR);
-			
+
 			for(ResourceInfo info : resources)
 			{
 				if(info.getResourceName().startsWith(RESOURCE_LOCATION_PREFIX))
 				{
-					//If the resource is in the right folder, add it to the resources
+					// If the resource is in the right folder, add it to the
+					// resources
 					dataFiles.add(info.getResourceName());
-					lst.add(info.toString()); //Also write it out
+					lst.add(info.toString()); // Also write it out
 				}
 			}
 
-			AmunDataInterpreter.collectInterpreters(AmunConsts.CLASS_LOADER, classFiles); //Get all the interpreters
+			AmunDataInterpreter.collectInterpreters(AmunConsts.CLASS_LOADER, classFiles); // Get
+																							// all
+																							// the
+																							// interpreters
 
-			AmunDataInterpreter.processResources(path, AmunConsts.CLASS_LOADER, dataFiles); //Run the interpreters
+			AmunDataInterpreter.processResources(path, AmunConsts.CLASS_LOADER, dataFiles); // Run
+																							// the
+																							// interpreters
 
 		} catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		
-		AMUNLog.logBoxed(Level.INFO, lst.toArray()); //Write the out list
-		
-		AmunDataInterpreter.finalizeInterpreter(); //Run the finalizes on all interpreters
+
+		AMUNLog.logBoxed(Level.INFO, lst.toArray()); // Write the out list
+
+		AmunDataInterpreter.finalizeInterpreter(); // Run the finalizes on all
+													// interpreters
 	}
 }

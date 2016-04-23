@@ -15,7 +15,7 @@ public class ConfigValueCallback implements IAmunAnnotationCallback<AMUNConfigVa
 
 		if(holder == null)
 			return;
-		
+
 		holder.bind(data.getWrappedField(), data);
 	}
 }

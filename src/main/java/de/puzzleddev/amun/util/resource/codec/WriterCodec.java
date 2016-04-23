@@ -35,4 +35,4 @@ public class WriterCodec extends AbstractResourceCodec<Writer>
 	{
 		return new WriterOutputStream(obj);
 	}
-}	
+}

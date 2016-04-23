@@ -45,17 +45,17 @@ public class SpritesDescription
 	{
 		m_sprites = Maps.newHashMap();
 	}
-	
+
 	public SpritesDescription(Map<String, SpriteDescription> data)
 	{
 		m_sprites = data;
 	}
-	
+
 	public static class SpritesDescriptionTypeAdapter extends TypeAdapter<SpritesDescription>
 	{
 
 		public static final TypeAdapter<SpritesDescription> INSTANCE = new SpritesDescriptionTypeAdapter();
-		
+
 		@Override
 		public void write(JsonWriter out, SpritesDescription value) throws IOException
 		{

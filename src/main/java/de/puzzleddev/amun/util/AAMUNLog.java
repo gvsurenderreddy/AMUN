@@ -13,11 +13,12 @@ public abstract class AAMUNLog
 	 * If this should print debug output.
 	 */
 	private boolean m_doDebugOut = false;
-	
+
 	/**
 	 * Sets debug output.
 	 * 
-	 * @param debug If it should do debug output.
+	 * @param debug
+	 *            If it should do debug output.
 	 * @return this.
 	 */
 	public AAMUNLog setDebug(boolean debug)
@@ -26,46 +27,58 @@ public abstract class AAMUNLog
 
 		return this;
 	}
-	
+
 	/**
 	 * Prints a simple message.
 	 * 
-	 * @param level The level to print at.
-	 * @param debug If this message is a debug message.
-	 * @param msgs The messages to print. These are printed in subsequent lines.
+	 * @param level
+	 *            The level to print at.
+	 * @param debug
+	 *            If this message is a debug message.
+	 * @param msgs
+	 *            The messages to print. These are printed in subsequent lines.
 	 * @return this.
 	 */
 	public abstract AAMUNLog log(Level level, boolean debug, Object... msgs);
-	
+
 	/**
 	 * Prints a formatted message.
 	 * 
-	 * @param level The level to print at.
-	 * @param debug If this message is a debug message.
-	 * @param msg The massage.
-	 * @param data The data to format.
+	 * @param level
+	 *            The level to print at.
+	 * @param debug
+	 *            If this message is a debug message.
+	 * @param msg
+	 *            The massage.
+	 * @param data
+	 *            The data to format.
 	 * @return this.
 	 */
 	public abstract AAMUNLog logf(Level level, boolean debug, String msg, Object... data);
-	
+
 	/**
 	 * Prints a simple message.
 	 * 
-	 * @param level The level to print at.
-	 * @param msgs The messages to print. These are printed in subsequent lines.
+	 * @param level
+	 *            The level to print at.
+	 * @param msgs
+	 *            The messages to print. These are printed in subsequent lines.
 	 * @return this.
 	 */
 	public AAMUNLog log(Level level, Object... msgs)
 	{
 		return log(level, m_doDebugOut, msgs);
 	}
-	
+
 	/**
 	 * Prints a formatted message.
 	 * 
-	 * @param level The level to print at.
-	 * @param msg The massage.
-	 * @param data The data to format.
+	 * @param level
+	 *            The level to print at.
+	 * @param msg
+	 *            The massage.
+	 * @param data
+	 *            The data to format.
 	 * @return this.
 	 */
 	public AAMUNLog logf(Level level, String msg, Object... data)
@@ -76,19 +89,22 @@ public abstract class AAMUNLog
 	/**
 	 * Prints a simple message at info level.
 	 * 
-	 * @param msgs The messages to print. These are printed in subsequent lines.
+	 * @param msgs
+	 *            The messages to print. These are printed in subsequent lines.
 	 * @return this.
 	 */
 	public AAMUNLog info(Object... msgs)
 	{
 		return log(Level.INFO, msgs);
 	}
-	
+
 	/**
 	 * Prints a formatted message at info level.
 	 * 
-	 * @param msg The massage.
-	 * @param data The data to format.
+	 * @param msg
+	 *            The massage.
+	 * @param data
+	 *            The data to format.
 	 * @return this.
 	 */
 	public AAMUNLog infof(String msg, Object... data)
@@ -99,19 +115,22 @@ public abstract class AAMUNLog
 	/**
 	 * Prints a simple message at error level.
 	 * 
-	 * @param msgs The messages to print. These are printed in subsequent lines.
+	 * @param msgs
+	 *            The messages to print. These are printed in subsequent lines.
 	 * @return this.
 	 */
 	public AAMUNLog error(Object... msgs)
 	{
 		return log(Level.ERROR, msgs);
 	}
-	
+
 	/**
 	 * Prints a formatted message at error level.
 	 * 
-	 * @param msg The massage.
-	 * @param data The data to format.
+	 * @param msg
+	 *            The massage.
+	 * @param data
+	 *            The data to format.
 	 * @return this.
 	 */
 	public AAMUNLog errorf(String msg, Object... data)
@@ -122,19 +141,22 @@ public abstract class AAMUNLog
 	/**
 	 * Prints a simple message at fatal level.
 	 * 
-	 * @param msgs The messages to print. These are printed in subsequent lines.
+	 * @param msgs
+	 *            The messages to print. These are printed in subsequent lines.
 	 * @return this.
 	 */
 	public AAMUNLog fatal(Object... msgs)
 	{
 		return log(Level.FATAL, msgs);
 	}
-	
+
 	/**
 	 * Prints a formatted message at fatal level.
 	 * 
-	 * @param msg The massage.
-	 * @param data The data to format.
+	 * @param msg
+	 *            The massage.
+	 * @param data
+	 *            The data to format.
 	 * @return this.
 	 */
 	public AAMUNLog fatalf(String msg, Object... data)
@@ -145,19 +167,22 @@ public abstract class AAMUNLog
 	/**
 	 * Prints a simple message at warning level.
 	 * 
-	 * @param msgs The messages to print. These are printed in subsequent lines.
+	 * @param msgs
+	 *            The messages to print. These are printed in subsequent lines.
 	 * @return this.
 	 */
 	public AAMUNLog warn(Object... msgs)
 	{
 		return log(Level.WARN, msgs);
 	}
-	
+
 	/**
 	 * Prints a formatted message at warning level.
 	 * 
-	 * @param msg The massage.
-	 * @param data The data to format.
+	 * @param msg
+	 *            The massage.
+	 * @param data
+	 *            The data to format.
 	 * @return this.
 	 */
 	public AAMUNLog warnf(String msg, Object... data)
@@ -168,42 +193,48 @@ public abstract class AAMUNLog
 	/**
 	 * Prints a simple message at debug level.
 	 * 
-	 * @param msgs The messages to print. These are printed in subsequent lines.
+	 * @param msgs
+	 *            The messages to print. These are printed in subsequent lines.
 	 * @return this.
 	 */
 	public AAMUNLog debug(Object... msgs)
 	{
 		return log(Level.DEBUG, msgs);
 	}
-	
+
 	/**
 	 * Prints a formatted message at debug level.
 	 * 
-	 * @param msg The massage.
-	 * @param data The data to format.
+	 * @param msg
+	 *            The massage.
+	 * @param data
+	 *            The data to format.
 	 * @return this.
 	 */
 	public AAMUNLog debugf(String msg, Object... data)
 	{
 		return logf(Level.DEBUG, msg, data);
 	}
-	
+
 	/**
 	 * Prints a simple message at trace level.
 	 * 
-	 * @param msgs The messages to print. These are printed in subsequent lines.
+	 * @param msgs
+	 *            The messages to print. These are printed in subsequent lines.
 	 * @return this.
 	 */
 	public AAMUNLog trace(Object... msgs)
 	{
 		return log(Level.TRACE, msgs);
 	}
-	
+
 	/**
 	 * Prints a formatted message at trace level.
 	 * 
-	 * @param msg The massage.
-	 * @param data The data to format.
+	 * @param msg
+	 *            The massage.
+	 * @param data
+	 *            The data to format.
 	 * @return this.
 	 */
 	public AAMUNLog tracef(String msg, Object... data)
@@ -219,8 +250,10 @@ public abstract class AAMUNLog
 	/**
 	 * Prints simple boxed in strings.
 	 * 
-	 * @param level The level to print at.
-	 * @param msgs THe messages to print.
+	 * @param level
+	 *            The level to print at.
+	 * @param msgs
+	 *            THe messages to print.
 	 * @return this.
 	 */
 	public AAMUNLog logBoxed(Level level, Object... msgs)

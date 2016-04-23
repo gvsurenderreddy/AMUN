@@ -8,12 +8,12 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 public class AmunRecipeHandler<RECIPE extends IAmunRecipe> implements IRecipeHandler<RECIPE>
 {
 	private IAmunRecipeType<RECIPE, ?> m_type;
-	
+
 	public AmunRecipeHandler(IAmunRecipeType<RECIPE, ?> type)
 	{
 		m_type = type;
 	}
-	
+
 	@Override
 	public Class<RECIPE> getRecipeClass()
 	{

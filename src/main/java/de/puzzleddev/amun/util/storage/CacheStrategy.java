@@ -73,13 +73,14 @@ public enum CacheStrategy
 		{
 			return new HashMap<K, V>(maxSize);
 		}
-		
+
 	};
 
 	/**
 	 * Creates a cache map.
 	 * 
-	 * @param maxSize The max cache size.
+	 * @param maxSize
+	 *            The max cache size.
 	 * @return The cache map.
 	 */
 	public abstract <K, V> Map<K, V> createCache(int maxSize);

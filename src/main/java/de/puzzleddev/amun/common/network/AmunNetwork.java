@@ -15,16 +15,16 @@ public class AmunNetwork
 {
 	private static int m_networkIndex = 0;
 	public static final String BASE_NAME = "AMUN_NETWORK_CHANNEL_";
-	
+
 	private SimpleNetworkWrapper m_wrapper;
 	private int m_index;
-	
+
 	public AmunNetwork()
 	{
 		m_wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(BASE_NAME + m_networkIndex);
 		m_networkIndex++;
 	}
-	
+
 	public <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Class<REQ> requestMessageType, Side side)
 	{
 		m_wrapper.registerMessage(messageHandler, requestMessageType, m_index, side);

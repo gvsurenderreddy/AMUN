@@ -8,8 +8,10 @@ import de.puzzleddev.amun.util.storage.CacheStrategy;
  * Function that caches its results.
  * 
  * @author tim4242
- * @param <RETURN> Return value.
- * @param <ARG1> Argument.
+ * @param <RETURN>
+ *            Return value.
+ * @param <ARG1>
+ *            Argument.
  */
 public class CachedFunction<RETURN, ARG1> implements Function.OneArg<RETURN, ARG1>
 {
@@ -17,7 +19,7 @@ public class CachedFunction<RETURN, ARG1> implements Function.OneArg<RETURN, ARG
 	 * The cache map.
 	 */
 	private Map<ARG1, RETURN> m_cache;
-	
+
 	/**
 	 * The function.
 	 */
@@ -26,8 +28,10 @@ public class CachedFunction<RETURN, ARG1> implements Function.OneArg<RETURN, ARG
 	/**
 	 * Creates a cached function with a cache map.
 	 * 
-	 * @param func The function.
-	 * @param cache The cache.
+	 * @param func
+	 *            The function.
+	 * @param cache
+	 *            The cache.
 	 */
 	public CachedFunction(Function.OneArg<RETURN, ARG1> func, Map<ARG1, RETURN> cache)
 	{
@@ -35,13 +39,16 @@ public class CachedFunction<RETURN, ARG1> implements Function.OneArg<RETURN, ARG
 
 		m_cache = cache;
 	}
-	
+
 	/**
 	 * Creates a cached function with a {@link CacheStrategy} and a cache size.
 	 * 
-	 * @param func The function.
-	 * @param cs The CacheStrategy.
-	 * @param cacheSize The cache size.
+	 * @param func
+	 *            The function.
+	 * @param cs
+	 *            The CacheStrategy.
+	 * @param cacheSize
+	 *            The cache size.
 	 */
 	public CachedFunction(Function.OneArg<RETURN, ARG1> func, CacheStrategy cs, int cacheSize)
 	{
@@ -49,10 +56,13 @@ public class CachedFunction<RETURN, ARG1> implements Function.OneArg<RETURN, ARG
 	}
 
 	/**
-	 * Creates a cached function with a {@link CacheStrategy} and the default cache size.
+	 * Creates a cached function with a {@link CacheStrategy} and the default
+	 * cache size.
 	 * 
-	 * @param func The function.
-	 * @param cs The CacheStrategy.
+	 * @param func
+	 *            The function.
+	 * @param cs
+	 *            The CacheStrategy.
 	 */
 	public CachedFunction(Function.OneArg<RETURN, ARG1> func, CacheStrategy cs)
 	{
@@ -60,15 +70,17 @@ public class CachedFunction<RETURN, ARG1> implements Function.OneArg<RETURN, ARG
 	}
 
 	/**
-	 * Creates a cached function with the default {@link CacheStrategy} and the default cache size.
+	 * Creates a cached function with the default {@link CacheStrategy} and the
+	 * default cache size.
 	 * 
-	 * @param func The function.
+	 * @param func
+	 *            The function.
 	 */
 	public CachedFunction(Function.OneArg<RETURN, ARG1> func)
 	{
 		this(func, CacheStrategy.LFU);
 	}
-	
+
 	/**
 	 * Clears the cache.
 	 */

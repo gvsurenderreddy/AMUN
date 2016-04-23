@@ -22,5 +22,5 @@ public @interface AmunRegistrar
 	/**
 	 * @return The type this registers.
 	 */
-	Class<?> value();
+	Class<?>value();
 }

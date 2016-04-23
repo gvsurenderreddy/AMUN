@@ -6,7 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation that identifies an annotation holder, also reaches through one abstraction level.
+ * Annotation that identifies an annotation holder, also reaches through one
+ * abstraction level.
  * 
  * @author tim4242
  */
@@ -15,5 +16,5 @@ import java.lang.annotation.Target;
 @AmunAnnotationHolder
 public @interface AmunAnnotationHolder
 {
-	
+
 }

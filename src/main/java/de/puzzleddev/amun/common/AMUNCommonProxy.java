@@ -11,7 +11,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * Base class for amuns proxies.
  * 
  * @author tim4242
- * @param <PROXY> This type.
+ * @param <PROXY>
+ *            This type.
  */
 public class AmunCommonProxy<PROXY extends AmunCommonProxy<PROXY>> implements IAMUNLoadHook
 {

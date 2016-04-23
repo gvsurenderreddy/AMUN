@@ -24,10 +24,10 @@ public class ItemRegistrar implements IContentRegistrar<IAmunItem>
 	public void register(IAmunItem obj)
 	{
 		GameRegistry.registerItem(obj.getItem(), obj.getUniqueName());
-		
+
 		if(Amun.PROXY.getSide().isClient())
 			ModelBakery.registerItemVariants(obj.getItem(), obj.getVariants().toArray(new ResourceLocation[obj.getVariants().size()]));
-		
+
 		if(obj instanceof IAmunItemTextured)
 		{
 			ResourceEventHandler.instance().registerModelJob(new ResourceJobs.RegisterTexturedItem(obj.getItem(), 0, ((IAmunItemTextured) obj).getTexture()));

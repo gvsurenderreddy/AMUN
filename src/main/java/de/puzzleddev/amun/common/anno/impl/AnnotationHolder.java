@@ -29,8 +29,9 @@ public class AnnotationHolder
 
 		for(Method me : cls.getMethods())
 		{
-			if(!AmunAnnotationManagerImpl.isAllowed(me.getAnnotations())) continue;
-			
+			if(!AmunAnnotationManagerImpl.isAllowed(me.getAnnotations()))
+				continue;
+
 			for(Annotation an : me.getAnnotations())
 			{
 				m_data.add(new AnnotationData(an, me));
@@ -39,8 +40,9 @@ public class AnnotationHolder
 
 		for(Field fi : cls.getFields())
 		{
-			if(!AmunAnnotationManagerImpl.isAllowed(fi.getAnnotations())) continue;
-			
+			if(!AmunAnnotationManagerImpl.isAllowed(fi.getAnnotations()))
+				continue;
+
 			for(Annotation an : fi.getAnnotations())
 			{
 				m_data.add(new AnnotationData(an, fi));

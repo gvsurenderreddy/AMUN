@@ -12,20 +12,24 @@ public interface IDataInterpreter
 	/**
 	 * Check if this resource can be used by this interpreter.
 	 * 
-	 * @param dataLocation The resource to check.
+	 * @param dataLocation
+	 *            The resource to check.
 	 * @return If the resource is appropriate.
 	 */
 	public boolean accepts(String dataLocation);
-	
+
 	/**
 	 * Interprets a resource.
 	 * 
-	 * @param loader The current class loader.
-	 * @param dataLocation The resource to interpret.
-	 * @throws Exception Misc exception.
+	 * @param loader
+	 *            The current class loader.
+	 * @param dataLocation
+	 *            The resource to interpret.
+	 * @throws Exception
+	 *             Misc exception.
 	 */
 	public void interpret(LaunchClassLoader loader, String dataLocation) throws Exception;
-	
+
 	/**
 	 * Called once after every interpreter has finished.
 	 */

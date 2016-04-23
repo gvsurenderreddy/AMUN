@@ -13,7 +13,7 @@ public class RegistrantCallback implements IAmunAnnotationCallback<AmunRegistrar
 	{
 		if(IContentRegistrar.class.isAssignableFrom(data.getWrappedClass()) && FactoryCallback.has(data.getWrappedClass()))
 		{
-			ContentRegisterCallback.<Object>registerRegistrar((Class<Object>) data.getAnnotation().value(), (IContentRegistrar<Object>) FactoryCallback.get(data.getWrappedClass()));
+			ContentRegisterCallback.<Object> registerRegistrar((Class<Object>) data.getAnnotation().value(), (IContentRegistrar<Object>) FactoryCallback.get(data.getWrappedClass()));
 		}
 	}
 

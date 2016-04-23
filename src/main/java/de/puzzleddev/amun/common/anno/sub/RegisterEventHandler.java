@@ -21,7 +21,7 @@ import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 public @interface RegisterEventHandler
 {
 	public static final String FORGE_EVENT_BUS = "FORGE_EVENT_BUS";
-	
+
 	/**
 	 * @return The busses to register at separated by semicolons.
 	 */

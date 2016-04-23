@@ -1,6 +1,9 @@
 package de.puzzleddev.amun.compat.mods.jei;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.collect.Lists;
 
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipe;
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipeType;
@@ -13,10 +16,12 @@ import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.IRecipeRegistry;
+import net.minecraft.item.ItemStack;
 
 public class JEIAPIImpl implements JEIAPI, IModPlugin
 {
 	private AMUNJEIPlugin m_plugin;
+	private List<ItemStack> m_hidden = Lists.newArrayList();
 
 	public JEIAPIImpl()
 	{
@@ -52,7 +57,7 @@ public class JEIAPIImpl implements JEIAPI, IModPlugin
 	}
 
 	@Override
-	public void onItemRegistryAvailable(IItemRegistry itemRegistry)
+	public void onItemRegistryAvailable(IItemRegistry registry)
 	{
 	}
 
@@ -60,12 +65,15 @@ public class JEIAPIImpl implements JEIAPI, IModPlugin
 	@Override
 	public void register(IModRegistry registry)
 	{
+		for(ItemStack s : m_hidden)
+			getHelpers().getItemBlacklist().addItemToBlacklist(s);
+
 		for(IAmunRecipeType<?, ?> type : Amun.RECIPE.getAllRecipeTypes())
 		{
 			if(type.getVisualization() != null && type.getVisualization().shouldIntegrateWithMod("JEI"))
 			{
 				System.out.println("Registered recipe type " + type.getUniqueName() + " : " + type.getClass());
-				
+
 				registry.addRecipeHandlers(new AmunRecipeHandler<IAmunRecipe>((IAmunRecipeType<IAmunRecipe, ?>) type));
 				registry.addRecipeCategories(new AmunRecipeCategory(m_helpers.getGuiHelper(), type));
 				registry.addRecipes(new ArrayList<Object>(type.getRecipes()));
@@ -76,11 +84,17 @@ public class JEIAPIImpl implements JEIAPI, IModPlugin
 	@Override
 	public void onRecipeRegistryAvailable(IRecipeRegistry reg)
 	{
-		
+
 	}
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime)
 	{
+	}
+
+	@Override
+	public void addHiddenItem(ItemStack stack)
+	{
+		m_hidden.add(stack);
 	}
 }

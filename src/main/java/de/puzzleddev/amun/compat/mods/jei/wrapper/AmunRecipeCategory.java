@@ -17,23 +17,23 @@ public class AmunRecipeCategory<RECIPE extends IAmunRecipe, BUILDER extends IBui
 	private String m_uid;
 	private String m_locTitle;
 	private IDrawable m_drawable;
-	
+
 	private IAmunRecipeType<RECIPE, BUILDER> m_type;
-	
+
 	public AmunRecipeCategory(IGuiHelper helper, IAmunRecipeType<RECIPE, BUILDER> type)
 	{
 		m_uid = type.getUniqueName();
 		m_locTitle = Helper.localize(type.getVisualization().getName());
 		m_drawable = new SpriteDrawable(type.getVisualization().getSprite());
-		
+
 		m_type = type;
 	}
-	
+
 	public IAmunRecipeType<RECIPE, BUILDER> getType()
 	{
 		return m_type;
 	}
-	
+
 	@Override
 	public String getUid()
 	{
@@ -67,14 +67,14 @@ public class AmunRecipeCategory<RECIPE extends IAmunRecipe, BUILDER extends IBui
 	public void setRecipe(IRecipeLayout layout, IRecipeWrapper recipeWrapper)
 	{
 		AmunRecipeWrapper<RECIPE> wrapper = (AmunRecipeWrapper<RECIPE>) recipeWrapper;
-		
+
 		int index = 0;
-		
+
 		for(IPositionedRecipePart<RECIPE> part : m_type.getVisualization().getStacks())
 		{
 			layout.getItemStacks().init(index, part.getStackInfo().isInput(), part.getX(), part.getY());
 			layout.getItemStacks().set(index, part.getStackInfo().createItemStack(wrapper.m_recipe));
-			
+
 			index++;
 		}
 	}

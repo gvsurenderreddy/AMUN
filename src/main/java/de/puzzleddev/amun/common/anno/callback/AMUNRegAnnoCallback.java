@@ -20,7 +20,7 @@ public class AmunRegAnnoCallback implements IAmunAnnotationCallback<AmunRegister
 				IAmunAnnotationCallback<?> obj = an.getAnnotation(AmunAnnotation.class).value().newInstance();
 
 				AMUNLog.console().info("Registering annotation " + an.getSimpleName());
-				
+
 				Amun.ANNOTATION.getRegistry().setRaw(an, obj);
 			}
 		}

@@ -14,25 +14,25 @@ public class ScriptInterfaceCallback implements IAmunAnnotationCallback<ScriptIn
 	public void call(int state, AnnotationData<ScriptInterface> data) throws Exception
 	{
 		AMUNLog.console().infof("Found script interface candidate {} for {}", data.getWrappedClass(), data.getAnnotation().value());
-		
+
 		Object inter = FactoryCallback.get(data.getWrappedClass());
-		
+
 		if(!FactoryCallback.has(data.getWrappedClass()))
 		{
 			AMUNLog.console().infof("Rejected {} because it is null", data.getWrappedClass());
-			
+
 			return;
 		}
-		
+
 		if(!IScriptInterface.class.isAssignableFrom(data.getWrappedClass()))
 		{
 			AMUNLog.console().infof("Rejected {} because it isn't an interface", data.getWrappedClass());
-			
+
 			return;
 		}
-		
+
 		Amun.SCRIPT.addScriptInterface(data.getAnnotation().value(), (IScriptInterface) inter);
-		
+
 		AMUNLog.console().infof("Found script interface {} for {}", data.getWrappedClass(), data.getAnnotation().value());
 	}
 

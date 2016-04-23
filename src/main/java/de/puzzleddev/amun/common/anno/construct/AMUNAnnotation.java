@@ -19,10 +19,10 @@ public @interface AmunAnnotation
 	/**
 	 * @return The class of the annotation callback to use.
 	 */
-	Class<? extends IAmunAnnotationCallback<?>> value(); 
-	
+	Class<? extends IAmunAnnotationCallback<?>>value();
+
 	/**
 	 * @return When to call the callback.
 	 */
-	int[] toCall() default {1, 2, 3};
+	int[]toCall() default { 1, 2, 3 };
 }

@@ -15,8 +15,10 @@ import de.puzzleddev.amun.util.functional.Function;
  * Base implementation of {@link IAmunRecipeType}.
  * 
  * @author tim4242
- * @param <RECIPE> The type of recipe this defines.
- * @param <BUILDER> A builder for that type of recipe.
+ * @param <RECIPE>
+ *            The type of recipe this defines.
+ * @param <BUILDER>
+ *            A builder for that type of recipe.
  */
 public class AmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBuilder<RECIPE>> extends BaseAmunContent implements IAmunRecipeType<RECIPE, BUILDER>
 {
@@ -24,17 +26,17 @@ public class AmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBuilder
 	 * Class of RECIPE.
 	 */
 	private Class<RECIPE> m_recCls;
-	
+
 	/**
 	 * The {@link IRecipeTypeVisualization} instance.
 	 */
 	private IRecipeTypeVisualization<RECIPE> m_visualization;
-	
+
 	/**
 	 * Function to construct a new builder instance, should be a constructor.
 	 */
 	private Function.OneArg<BUILDER, IAmunRecipeType<RECIPE, BUILDER>> m_builderConstructor;
-	
+
 	/**
 	 * A collection of all added recipes.
 	 */

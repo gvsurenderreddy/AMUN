@@ -23,7 +23,7 @@ public class AmunDebugRecipeType extends AmunRecipeType<AmunDebugRecipe, AmunDeb
 	{
 		super(Amun.instance(), AmunDebugRecipe.class, "amun_debug_recipe", new Visualization(), AmunDebugRecipe.Builder::new);
 	}
-	
+
 	public static class Visualization implements IRecipeTypeVisualization<AmunDebugRecipe>
 	{
 		private Collection<IPositionedRecipePart<AmunDebugRecipe>> m_parts = Arrays.asList(new PositionedRecipePartImpl<AmunDebugRecipe>(0, 0, new IPositionedStackInfo<AmunDebugRecipe>()
@@ -46,7 +46,7 @@ public class AmunDebugRecipeType extends AmunRecipeType<AmunDebugRecipe, AmunDeb
 				return recipe.getInput();
 			}
 		}));
-		
+
 		@Override
 		public String getName()
 		{
@@ -69,17 +69,6 @@ public class AmunDebugRecipeType extends AmunRecipeType<AmunDebugRecipe, AmunDeb
 		public boolean shouldIntegrateWithMod(String id)
 		{
 			return true;
-		}
-
-		@Override
-		public boolean overrideModVisualization(String id)
-		{
-			return false;
-		}
-
-		@Override
-		public void visualizationForMod(String id, Object... args)
-		{
 		}
 	}
 

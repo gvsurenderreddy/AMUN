@@ -13,7 +13,7 @@ public interface IAmunContent
 	 * @return A name that is unique.
 	 */
 	public String getUniqueName();
-	
+
 	/**
 	 * @return The {@link IAmunMod} that created this.
 	 */

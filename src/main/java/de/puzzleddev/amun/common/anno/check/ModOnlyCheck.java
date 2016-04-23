@@ -22,9 +22,10 @@ public class ModOnlyCheck implements IAmunAnnoCheck
 
 		for(String s : data)
 		{
-			if(!(Loader.isModLoaded(s) || ModAPIManager.INSTANCE.hasAPI(s))) return false;
+			if(!(Loader.isModLoaded(s) || ModAPIManager.INSTANCE.hasAPI(s)))
+				return false;
 		}
-		
+
 		return true;
 	}
 

@@ -12,12 +12,12 @@ public class AmunModManagerImpl implements IAmunModManager
 {
 
 	private List<IAmunMod> m_mods;
-	
+
 	@Override
 	public void construction(FMLConstructionEvent event)
 	{
 		m_mods = new ArrayList<IAmunMod>();
-		
+
 		for(ModContainer mc : Loader.instance().getModList())
 		{
 			if(mc.getMod() == null)
@@ -28,13 +28,13 @@ public class AmunModManagerImpl implements IAmunModManager
 				if(mc.getMod().getClass().isAnnotationPresent(AmunMod.class))
 				{
 					AmunModData data = new AmunModData(mc.getMod().getClass());
-					
+
 					if(data.getModContainer() != null)
 					{
 						IAmunMod mod = (IAmunMod) mc.getMod();
-						
+
 						mod.getConstants().m_modData = data;
-						
+
 						m_mods.add(mod);
 					}
 				}
@@ -57,9 +57,10 @@ public class AmunModManagerImpl implements IAmunModManager
 	{
 		for(IAmunMod m : m_mods)
 		{
-			if(m.getConstants().getModContainer().getModId().equals(id)) return m;
+			if(m.getConstants().getModContainer().getModId().equals(id))
+				return m;
 		}
-		
+
 		return null;
 	}
 

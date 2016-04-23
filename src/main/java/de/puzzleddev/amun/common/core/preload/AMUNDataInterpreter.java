@@ -23,10 +23,13 @@ public class AmunDataInterpreter
 	private static Collection<IDataInterpreter> m_interpreter = Lists.newArrayList();
 
 	/**
-	 * Adds all interpreters from the given collection of classes to the internal list.
+	 * Adds all interpreters from the given collection of classes to the
+	 * internal list.
 	 * 
-	 * @param loader The class loader to use.
-	 * @param resourceLocations The classes to check.
+	 * @param loader
+	 *            The class loader to use.
+	 * @param resourceLocations
+	 *            The classes to check.
 	 */
 	public static void collectInterpreters(LaunchClassLoader loader, Collection<ClassInfo> resourceLocations)
 	{
@@ -34,11 +37,18 @@ public class AmunDataInterpreter
 		{
 			try
 			{
-				Class<?> cls = loader.loadClass(res.getName()); //Load the class
+				Class<?> cls = loader.loadClass(res.getName()); // Load the
+																// class
 
-				if(IDataInterpreter.class.isAssignableFrom(cls)) //If the class is a interpreter
+				if(IDataInterpreter.class.isAssignableFrom(cls)) // If the class
+																	// is a
+																	// interpreter
 				{
-					m_interpreter.add((IDataInterpreter) cls.newInstance()); //Add it to the list
+					m_interpreter.add((IDataInterpreter) cls.newInstance()); // Add
+																				// it
+																				// to
+																				// the
+																				// list
 				}
 			} catch(Exception e)
 			{
@@ -48,12 +58,18 @@ public class AmunDataInterpreter
 	}
 
 	/**
-	 * Runs all the interpreters, calls {@link IDataInterpreter#accepts(String) accepts} and {@link IDataInterpreter#interpret(LaunchClassLoader, String) interpret} methods.
+	 * Runs all the interpreters, calls {@link IDataInterpreter#accepts(String)
+	 * accepts} and {@link IDataInterpreter#interpret(LaunchClassLoader, String)
+	 * interpret} methods.
 	 * 
-	 * @param cassPath The class path from which the data came.
-	 * @param loader The class loader to use.
-	 * @param resourceLocations The locations of the data to interpret.
-	 * @throws Exception Misc exceptions.
+	 * @param cassPath
+	 *            The class path from which the data came.
+	 * @param loader
+	 *            The class loader to use.
+	 * @param resourceLocations
+	 *            The locations of the data to interpret.
+	 * @throws Exception
+	 *             Misc exceptions.
 	 */
 	public static void processResources(ClassPath cassPath, LaunchClassLoader loader, Collection<String> resourceLocations) throws Exception
 	{
@@ -63,9 +79,10 @@ public class AmunDataInterpreter
 
 			for(IDataInterpreter i : m_interpreter)
 			{
-				if(i.accepts(res)) //Check if this interpreter accepts this resource
+				if(i.accepts(res)) // Check if this interpreter accepts this
+									// resource
 				{
-					//No ambiguous resources, only one interpreter per file
+					// No ambiguous resources, only one interpreter per file
 					if(interpreter != null)
 						throw new UnexpectedException(interpreter + " and " + i + " accept the same resource " + res);
 
@@ -75,17 +92,19 @@ public class AmunDataInterpreter
 
 			if(interpreter == null)
 			{
-				//If no interpreter is found for any resource, warn but not crash
+				// If no interpreter is found for any resource, warn but not
+				// crash
 				AMUNLog.warnf("Skipping resource {} because no interpreter was found for it", res);
 				continue;
 			}
 
-			interpreter.interpret(loader, res); //Interpret
+			interpreter.interpret(loader, res); // Interpret
 		}
 	}
 
 	/**
-	 * Calls the {@link IDataInterpreter#finalzeCall() finalzeCall} method on all loaded interpreters.
+	 * Calls the {@link IDataInterpreter#finalzeCall() finalzeCall} method on
+	 * all loaded interpreters.
 	 */
 	public static void finalizeInterpreter()
 	{

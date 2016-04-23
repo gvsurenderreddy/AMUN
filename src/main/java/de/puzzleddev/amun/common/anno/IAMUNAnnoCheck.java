@@ -10,7 +10,8 @@ public interface IAmunAnnoCheck
 	/**
 	 * The check.
 	 * 
-	 * @param data The data given by the annotation.
+	 * @param data
+	 *            The data given by the annotation.
 	 * @return If the annotation should run.
 	 */
 	public boolean check(String[] data);

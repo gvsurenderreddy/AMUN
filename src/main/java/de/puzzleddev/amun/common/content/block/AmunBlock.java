@@ -16,18 +16,18 @@ public class AmunBlock extends Block implements IAmunBlock
 	 * The {@link ModelResourceLocation} used to render this block.
 	 */
 	private ModelResourceLocation m_renderer;
-	
+
 	/**
 	 * The mod owning this block.
 	 */
 	private IAmunMod m_ownerMod;
-	
+
 	public AmunBlock(Material m, IAmunMod mod, String name, ModelResourceLocation renderer)
 	{
 		super(m);
-		
+
 		setUnlocalizedName(mod.getConstants().getUniquifier().call(mod, name));
-		
+
 		m_ownerMod = mod;
 		m_renderer = renderer;
 	}

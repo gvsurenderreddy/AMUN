@@ -8,7 +8,8 @@ import java.io.OutputStream;
  * Default implementation of {@link IResourceCodec}.
  * 
  * @author tim4242
- * @param <FROM> The kind of object.
+ * @param <FROM>
+ *            The kind of object.
  */
 public abstract class AbstractResourceCodec<FROM> implements IResourceCodec<FROM>
 {
@@ -16,21 +17,22 @@ public abstract class AbstractResourceCodec<FROM> implements IResourceCodec<FROM
 	 * The kind of object.
 	 */
 	private Class<FROM> m_accept;
-	
+
 	protected AbstractResourceCodec(Class<FROM> accept)
 	{
 		m_accept = accept;
 	}
-	
+
 	/**
-	 * @param obj The object.
+	 * @param obj
+	 *            The object.
 	 * @return If the object can be used.
 	 */
 	public boolean isAcceptable(Object obj)
 	{
 		return m_accept.isAssignableFrom(obj.getClass());
 	}
-	
+
 	@Override
 	public InputStream openInput(FROM obj)
 	{
@@ -47,7 +49,7 @@ public abstract class AbstractResourceCodec<FROM> implements IResourceCodec<FROM
 				e.printStackTrace();
 			}
 		}
-		
+
 		throw new ClassCastException(obj.getClass().getSimpleName() + " is not acceptable");
 	}
 
@@ -67,16 +69,16 @@ public abstract class AbstractResourceCodec<FROM> implements IResourceCodec<FROM
 				e.printStackTrace();
 			}
 		}
-		
+
 		throw new ClassCastException(obj.getClass().getSimpleName() + " is not acceptable");
 	}
-	
+
 	@Override
 	public Class<FROM> getCodecClass()
 	{
 		return m_accept;
 	}
-	
+
 	/**
 	 * Raw open method to be overwritten.
 	 */

@@ -59,11 +59,11 @@ public class GuiModification
 					Optional<GuiButton> b = buttons.stream().max((o1, o2) -> {
 						return Integer.compare(o1.id, o2.id);
 					});
-					
+
 					if(b.isPresent())
 					{
 						i.m_id = b.get().id + 1;
-						
+
 						buttons.add(new GuiButton(i.m_id, i.m_x, i.m_y, 20, screen.mc.fontRendererObj.getStringWidth(i.m_title) + 20, i.m_title));
 					}
 				}

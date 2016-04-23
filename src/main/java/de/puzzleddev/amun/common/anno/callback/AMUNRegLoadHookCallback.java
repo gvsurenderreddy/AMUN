@@ -16,30 +16,32 @@ public class AmunRegLoadHookCallback implements IAmunAnnotationCallback<AmunRegi
 	{
 		for(String search : data.getAnnotation().hooks())
 		{
-			if(search.isEmpty()) continue;
-			
+			if(search.isEmpty())
+				continue;
+
 			try
 			{
-				
+
 				tryClass(search);
-				
+
 			} catch(Throwable t)
 			{
 				t.printStackTrace();
 			}
 		}
 	}
-	
+
 	public void tryClass(String search) throws Throwable
 	{
 		Class<?> cls = Loader.instance().getModClassLoader().loadClass(search);
-		
-		if(!FactoryCallback.has(cls)) return;
-		
+
+		if(!FactoryCallback.has(cls))
+			return;
+
 		IAMUNLoadHook obj = (IAMUNLoadHook) FactoryCallback.get(cls);
-		
+
 		Amun.instance().addLoadHook(obj);
-		
+
 		AMUNLog.console().info("Registered load hook " + cls.getSimpleName());
 	}
 

@@ -8,7 +8,7 @@ public abstract class BaseSprite implements ISprite
 	private final int m_y;
 	private final int m_w;
 	private final int m_h;
-	
+
 	public BaseSprite(int x, int y, int w, int h)
 	{
 		m_x = x;
@@ -16,7 +16,7 @@ public abstract class BaseSprite implements ISprite
 		m_w = w;
 		m_h = h;
 	}
-	
+
 	@Override
 	public int getX()
 	{

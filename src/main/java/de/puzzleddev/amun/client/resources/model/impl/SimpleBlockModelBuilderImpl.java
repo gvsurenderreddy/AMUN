@@ -19,7 +19,7 @@ public class SimpleBlockModelBuilderImpl implements ISimpleBlockModelBuilder
 	public SimpleBlockModelBuilderImpl setTexture(ResourceLocation loc)
 	{
 		m_loc = loc;
-		
+
 		return this;
 	}
 }

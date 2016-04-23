@@ -17,7 +17,7 @@ public class ConfigHolderCallback implements IAmunAnnotationCallback<AMUNConfigH
 			{
 				return;
 			}
-			
+
 			Amun.CONFIG.registerHolder(data.getAnnotation(), FactoryCallback.get(data.getWrappedClass()));
 		}
 		else if(state == 9)

@@ -22,7 +22,8 @@ public interface IScript
 	/**
 	 * Adds a string to the script.
 	 * 
-	 * @param s The string to add.
+	 * @param s
+	 *            The string to add.
 	 * @return this.
 	 */
 	public IScript append(String s);
@@ -30,7 +31,8 @@ public interface IScript
 	/**
 	 * Adds a char to the script.
 	 * 
-	 * @param c The char to add.
+	 * @param c
+	 *            The char to add.
 	 * @return this.
 	 */
 	public default IScript append(char c)
@@ -41,7 +43,8 @@ public interface IScript
 	/**
 	 * Adds a Reader to the script.
 	 * 
-	 * @param in The Reader to add.
+	 * @param in
+	 *            The Reader to add.
 	 * @return this.
 	 */
 	public default IScript append(Reader in)
@@ -61,7 +64,8 @@ public interface IScript
 	/**
 	 * Adds an InputStream to the script.
 	 * 
-	 * @param in The InputStream to add.
+	 * @param in
+	 *            The InputStream to add.
 	 * @return this.
 	 */
 	public default IScript append(InputStream in)
@@ -81,8 +85,10 @@ public interface IScript
 	/**
 	 * Adds an {@link IScriptLibrary} instance to this script.
 	 * 
-	 * @param name The name of the library.
-	 * @param lib The library instance.
+	 * @param name
+	 *            The name of the library.
+	 * @param lib
+	 *            The library instance.
 	 */
 	public void addLibrary(String name, IScriptLibrary lib);
 }

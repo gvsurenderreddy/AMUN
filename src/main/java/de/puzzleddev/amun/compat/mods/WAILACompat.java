@@ -31,7 +31,7 @@ public class WAILACompat implements IAMUNLoadHook
 
 		return m_instance;
 	}
-	
+
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{

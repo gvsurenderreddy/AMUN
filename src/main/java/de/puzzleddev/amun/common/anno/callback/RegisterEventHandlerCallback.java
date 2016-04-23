@@ -36,13 +36,13 @@ public class RegisterEventHandlerCallback implements IAmunAnnotationCallback<Reg
 				AMUNLog.warnf("Could not register {0} in {1} because the event bus {1} doesn't exists", data.getWrappedClass(), id);
 				return;
 			}
-			
+
 			if(!FactoryCallback.has(data.getWrappedClass()))
 			{
 				AMUNLog.warnf("No valid factory on type {}", data.getWrappedClass());
 				return;
 			}
-			
+
 			m_busRegisters.get(id).call(FactoryCallback.get(data.getWrappedClass()));
 		}
 	}

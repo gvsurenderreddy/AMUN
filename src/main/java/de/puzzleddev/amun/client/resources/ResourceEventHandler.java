@@ -22,7 +22,7 @@ public class ResourceEventHandler
 	 * Instance.
 	 */
 	private static ResourceEventHandler m_instance;
-	
+
 	/**
 	 * Singleton getter.
 	 * 
@@ -35,56 +35,60 @@ public class ResourceEventHandler
 		{
 			m_instance = new ResourceEventHandler();
 		}
-		
+
 		return m_instance;
 	}
-	
+
 	/**
 	 * Texture job queue.
 	 */
 	private List<ITextureJob> m_texjobs;
-	
+
 	/**
 	 * Model job queue.
 	 */
 	private List<IModelJob> m_modjobs;
-	
+
 	private ResourceEventHandler()
 	{
 		m_texjobs = Lists.newArrayList();
 		m_modjobs = Lists.newArrayList();
 	}
-	
+
 	/**
-	 * Queues a texture job. 
+	 * Queues a texture job.
 	 * 
-	 * @param job The job to queue.
+	 * @param job
+	 *            The job to queue.
 	 */
 	public void registerTextureJob(ITextureJob job)
 	{
 		m_texjobs.add(job);
 	}
-	
+
 	/**
-	 * Queues a model job. 
+	 * Queues a model job.
 	 * 
-	 * @param job The job to queue.
+	 * @param job
+	 *            The job to queue.
 	 */
 	public void registerModelJob(IModelJob job)
 	{
 		m_modjobs.add(job);
 	}
-	
+
 	@SubscribeEvent
 	public void onTexture(TextureStitchEvent.Pre event)
 	{
-		for(ITextureJob j : m_texjobs) j.onTexture(event);
+		for(ITextureJob j : m_texjobs)
+			j.onTexture(event);
 	}
-	
+
 	@SubscribeEvent
 	public void onModel(ModelBakeEvent event)
 	{
-		for(IModelJob j : m_modjobs) j.onModel(event);
+		for(IModelJob j : m_modjobs)
+			j.onModel(event);
 	}
-	
+
 }

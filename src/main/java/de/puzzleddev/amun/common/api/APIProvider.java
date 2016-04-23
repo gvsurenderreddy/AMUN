@@ -17,5 +17,5 @@ import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 @AmunAnnotation(value = APIProviderCallback.class, toCall = 0)
 public @interface APIProvider
 {
-	
+
 }

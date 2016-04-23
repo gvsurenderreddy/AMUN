@@ -11,8 +11,10 @@ import java.util.Set;
  * Map with least frequently used behavior.
  * 
  * @author tim4242
- * @param <K> The key type.
- * @param <V> The value type.
+ * @param <K>
+ *            The key type.
+ * @param <V>
+ *            The value type.
  */
 public class LFUMap<K, V> implements Map<K, V>
 {
@@ -27,43 +29,43 @@ public class LFUMap<K, V> implements Map<K, V>
 		 * The data.
 		 */
 		private V m_data;
-		
+
 		/**
 		 * The frequency.
 		 */
 		private int m_freq;
 	}
-	
+
 	/**
 	 * Backing map.
 	 */
 	private LinkedHashMap<K, CacheEntry> m_map;
-	
+
 	/**
 	 * Maximum size.
 	 */
 	private int m_maxSize;
-	
+
 	/**
 	 * Value cache.
 	 */
 	private Collection<V> m_valueCache = new ArrayList<V>();
-	
+
 	/**
 	 * If the value cache should be rebuild next time it's requested.
 	 */
 	private boolean m_valueCacheRebuild = true;
-	
+
 	/**
 	 * Entry cache.
 	 */
 	private Set<Map.Entry<K, V>> m_entriesCache = new HashSet<Map.Entry<K, V>>();
-	
+
 	/**
 	 * If the entry cache should be rebuild next time it's requested.
 	 */
 	private boolean m_entriesCacheRebuild = true;
-	
+
 	public LFUMap(int maxSize)
 	{
 		m_map = new LinkedHashMap<K, CacheEntry>();
@@ -100,12 +102,12 @@ public class LFUMap<K, V> implements Map<K, V>
 		if(m_map.containsKey(key))
 		{
 			CacheEntry e = m_map.get(key);
-			
+
 			e.m_freq++;
-			
+
 			return e.m_data;
 		}
-		
+
 		return null;
 	}
 
@@ -113,15 +115,15 @@ public class LFUMap<K, V> implements Map<K, V>
 	public V put(K key, V value)
 	{
 		rebuildCaches();
-		
+
 		CacheEntry e = new CacheEntry();
-		
+
 		if(size() > m_maxSize)
 		{
 			K lfuKey = null;
-			
+
 			int minFreq = Integer.MAX_VALUE;
-			
+
 			for(Map.Entry<K, CacheEntry> ent : m_map.entrySet())
 			{
 				if(minFreq > ent.getValue().m_freq)
@@ -130,15 +132,15 @@ public class LFUMap<K, V> implements Map<K, V>
 					minFreq = ent.getValue().m_freq;
 				}
 			}
-			
+
 			m_map.remove(lfuKey);
 		}
-		
+
 		e.m_data = value;
 		e.m_freq = 0;
-		
+
 		e = m_map.put(key, e);
-		
+
 		return (e == null ? null : e.m_data);
 	}
 
@@ -146,9 +148,9 @@ public class LFUMap<K, V> implements Map<K, V>
 	public V remove(Object key)
 	{
 		rebuildCaches();
-		
+
 		CacheEntry e = m_map.remove(key);
-		
+
 		return (e == null ? null : e.m_data);
 	}
 
@@ -180,15 +182,15 @@ public class LFUMap<K, V> implements Map<K, V>
 		if(m_valueCacheRebuild)
 		{
 			m_valueCacheRebuild = false;
-			
+
 			m_valueCache.clear();
-			
+
 			for(Map.Entry<K, CacheEntry> ent : m_map.entrySet())
 			{
 				m_valueCache.add(ent.getValue().m_data);
 			}
 		}
-		
+
 		return m_valueCache;
 	}
 
@@ -202,7 +204,7 @@ public class LFUMap<K, V> implements Map<K, V>
 
 		private K m_key;
 		private V m_value;
-		
+
 		@Override
 		public K getKey()
 		{
@@ -219,14 +221,14 @@ public class LFUMap<K, V> implements Map<K, V>
 		public V setValue(V value)
 		{
 			V t = m_value;
-			
+
 			m_value = value;
-			
+
 			return t;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Rebuilds the value and entry cache.
 	 */
@@ -235,25 +237,25 @@ public class LFUMap<K, V> implements Map<K, V>
 		m_valueCacheRebuild = true;
 		m_entriesCacheRebuild = true;
 	}
-	
+
 	@Override
 	public Set<Map.Entry<K, V>> entrySet()
 	{
 		if(m_entriesCacheRebuild)
 		{
 			m_entriesCacheRebuild = false;
-			
+
 			m_entriesCache.clear();
-			
+
 			for(Map.Entry<K, CacheEntry> ent : m_map.entrySet())
 			{
 				EntryImpl i = new EntryImpl();
-				
+
 				i.m_key = ent.getKey();
 				i.m_value = ent.getValue().m_data;
 			}
 		}
-		
+
 		return m_entriesCache;
 	}
 }

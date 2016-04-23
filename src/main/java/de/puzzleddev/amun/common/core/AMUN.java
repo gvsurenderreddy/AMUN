@@ -50,17 +50,18 @@ import net.minecraftforge.oredict.RecipeSorter;
 /**
  * Main mod file of Amun.<br>
  * <br>
- * This contains most of the initialization of Amun, just the preloading is in {@link de.puzzleddev.amun.common.core.preload.AmunSetup AmunSetup}.
+ * This contains most of the initialization of Amun, just the preloading is in
+ * {@link de.puzzleddev.amun.common.core.preload.AmunSetup AmunSetup}.
  * 
  * @author tim4242
  */
 @AmunMod
-@AmunAnnotationHolder //AmunMod isn't actually a annotation holder
+@AmunAnnotationHolder // AmunMod isn't actually a annotation holder
 @Mod(modid = AmunConsts.MOD_ID, name = AmunConsts.MOD_NAME, version = AmunConsts.MOD_VERSION)
 public class Amun implements IAmunMod
 {
 	/**
-	 * <b>The</b> Amun instance. 
+	 * <b>The</b> Amun instance.
 	 */
 	private static Amun m_instance;
 
@@ -72,7 +73,7 @@ public class Amun implements IAmunMod
 	@Mod.InstanceFactory
 	public static Amun instance()
 	{
-		//Standard simple singleton
+		// Standard simple singleton
 		if(m_instance == null)
 		{
 			m_instance = new Amun();
@@ -98,24 +99,25 @@ public class Amun implements IAmunMod
 	 * TODO: Out source this to China.
 	 */
 	private Collection<IAMUNLoadHook> m_loadHooks;
-	
+
 	/**
 	 * The {@link IAmunMod.AmunModConstants} instance.
 	 */
 	private AmunModConstants m_constants;
-	
+
 	/**
 	 * The standard uniquifier.<br>
 	 * Example: f(Amun, test) = pd_mc_amun_test
 	 */
 	public static Function.TwoArg<String, IAmunMod, String> DEFAULT_UNIQUIFIER = (mod, str) -> mod.getConstants().getModContainer().getModId() + "_" + str;
-	
+
 	/**
-	 * Like the standard uniquifier, just that the input string is placed first.<br>
+	 * Like the standard uniquifier, just that the input string is placed first.
+	 * <br>
 	 * Example: f(Amun, test) = test_pd_mc_amun
 	 */
 	public static Function.TwoArg<String, IAmunMod, String> INVERS_UNIQUIFIER = (mod, str) -> str + "_" + mod.getConstants().getModContainer().getModId();
-	
+
 	/**
 	 * A litle like the resource location uniqifier.<br>
 	 * Example: f(Amun, test) = pd_mc_amun:test
@@ -131,7 +133,7 @@ public class Amun implements IAmunMod
 	 * <b>The</b> {@link IAmunConfigAPI} instance.
 	 */
 	public static IAmunConfigAPI CONFIG;
-	
+
 	/**
 	 * <b>The</b> {@link IAPIManager} instance.
 	 */
@@ -141,17 +143,17 @@ public class Amun implements IAmunMod
 	 * <b>The</b> {@link IScriptAPI} instance.
 	 */
 	public static IScriptAPI SCRIPT;
-	
+
 	/**
 	 * <b>The</b> {@link IAmunModManager} instance.
 	 */
 	public static IAmunModManager MODS;
-	
+
 	/**
 	 * <b>The</b> {@link IAmunRecipeRegistry} instance.
 	 */
 	public static IAmunRecipeRegistry RECIPE;
-	
+
 	/**
 	 * The debug item instance, it makes little sense to out source this.
 	 */
@@ -163,7 +165,7 @@ public class Amun implements IAmunMod
 	 */
 	private Amun()
 	{
-		//I don't know what it does but it look important
+		// I don't know what it does but it look important
 		m_loadHooks = new ArrayList<IAMUNLoadHook>();
 	}
 
@@ -174,24 +176,29 @@ public class Amun implements IAmunMod
 	 */
 	@Mod.EventHandler
 	public void construct(FMLConstructionEvent event)
-	{	
-		//Initialize the APIs, except for the API API, that has to be created after the annotations have run
+	{
+		// Initialize the APIs, except for the API API, that has to be created
+		// after the annotations have run
 		ANNOTATION = new AmunAnnotationManagerImpl();
 		CONFIG = new AMUNConfigAPI();
 		SCRIPT = new ScriptAPIImpl();
 		MODS = new AmunModManagerImpl();
 		RECIPE = new AmunRecipeRegistryImpl();
 
-		addLoadHook(PROXY); //Make the proxy a load hook
+		addLoadHook(PROXY); // Make the proxy a load hook
 		addLoadHook(RECIPE);
 
-		MODS.construction(event); //Search for Amun mods
-		
-		Set<Class<?>> clss = new HashSet<Class<?>>(); //Annotations to check for being an amun annotations
-		Set<String> sAnnos = new HashSet<String>(); //Annotations that should register a class as a holder 
-		sAnnos.add(AmunAnnotation.class.getName()); //This is the first one
+		MODS.construction(event); // Search for Amun mods
 
-		//All annotations that have this as an annotation are also in
+		Set<Class<?>> clss = new HashSet<Class<?>>(); // Annotations to check
+														// for being an amun
+														// annotations
+		Set<String> sAnnos = new HashSet<String>(); // Annotations that should
+													// register a class as a
+													// holder
+		sAnnos.add(AmunAnnotation.class.getName()); // This is the first one
+
+		// All annotations that have this as an annotation are also in
 		for(ASMData c : event.getASMHarvestedData().getAll(AmunAnnotation.class.getName()))
 		{
 			try
@@ -209,14 +216,14 @@ public class Amun implements IAmunMod
 			}
 		}
 
-		Set<ASMData> asmData = new HashSet<ASMData>(); //All holder classes
+		Set<ASMData> asmData = new HashSet<ASMData>(); // All holder classes
 
 		for(String anno : sAnnos)
 		{
 			asmData.addAll(event.getASMHarvestedData().getAll(anno));
 		}
 
-		//Load all possible holders
+		// Load all possible holders
 		for(ASMData c : asmData)
 		{
 			try
@@ -230,16 +237,19 @@ public class Amun implements IAmunMod
 				e.printStackTrace();
 			}
 		}
-		
-		ANNOTATION.constructAnnotations(clss.toArray(new Class<?>[clss.size()])); //Construct the annotations
 
-		APIS = new APIManagerImpl(); //Finally initialize the API API
+		ANNOTATION.constructAnnotations(clss.toArray(new Class<?>[clss.size()])); // Construct
+																					// the
+																					// annotations
+
+		APIS = new APIManagerImpl(); // Finally initialize the API API
 	}
 
 	/**
 	 * Registers an {@link IAMUNLoadHook}.
 	 * 
-	 * @param lh The {@link IAMUNLoadHook}.
+	 * @param lh
+	 *            The {@link IAMUNLoadHook}.
 	 */
 	public void addLoadHook(IAMUNLoadHook lh)
 	{
@@ -249,21 +259,20 @@ public class Amun implements IAmunMod
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		AMUNLog.info("Starting AMUN pre initialization"); //Notify the user
-		
-		AmunConsts.createMetadata(METADATA); //Set the metadata
+		AMUNLog.info("Starting AMUN pre initialization"); // Notify the user
 
-		AMUNLog.infof("Could{} disable disable button", (Helper.setDisableable(AmunConsts.MOD_ID, Disableable.NEVER) ? "" : "'t")); //Disabling the "disable" button
-		
+		AmunConsts.createMetadata(METADATA); // Set the metadata
+
+		AMUNLog.infof("Could{} disable disable button", (Helper.setDisableable(AmunConsts.MOD_ID, Disableable.NEVER) ? "" : "'t")); // Disabling
+																																	// the
+																																	// "disable"
+																																	// button
+
 		Collection<String> outStrs = new ArrayList<String>();
 
-		//Writes a lot of useful data to the console, what exactly?
+		// Writes a lot of useful data to the console, what exactly?
 		/*
-		 * Running AMUN
-		 * ---
-		 * Version: @VERSION@
-		 * Authors: tim4242 / PuzzledDev
-		 * ---
+		 * Running AMUN --- Version: @VERSION@ Authors: tim4242 / PuzzledDev ---
 		 * All found mods supporting Amun
 		 */
 		//@formatter:off
@@ -276,16 +285,25 @@ public class Amun implements IAmunMod
 				"Found " + MODS.getAllMods().size() + " mod" + (MODS.getAllMods().size() == 1 ? "" : "s") + " supporting AMUN:")
 		);
 		//@formatter:on
-		
+
 		for(IAmunMod amd : MODS.getAllMods())
 			outStrs.add("    " + amd.getConstants().getModContainer().getName() + " (" + amd.getConstants().getModContainer().getModId() + ")");
 
 		AMUNLog.logBoxed(Level.INFO, outStrs.toArray());
-		
-		String scriptText = "amun.print(amun.log.info, amun.type, \"Hello World!!!\")"; //May not work with all languages, but with most
-		scriptText = ""; //This works with every language
 
-		//Runs every script interface once to load the classes to get the System.exit errors out of the way
+		String scriptText = "amun.print(amun.log.info, amun.type, \"Hello World!!!\")"; // May
+																						// not
+																						// work
+																						// with
+																						// all
+																						// languages,
+																						// but
+																						// with
+																						// most
+		scriptText = ""; // This works with every language
+
+		// Runs every script interface once to load the classes to get the
+		// System.exit errors out of the way
 		for(String type : SCRIPT.getScriptTypes())
 		{
 			try
@@ -297,7 +315,7 @@ public class Amun implements IAmunMod
 			}
 		}
 
-		//Runs the loading hooks
+		// Runs the loading hooks
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.preInit(event);
 	}
@@ -305,14 +323,18 @@ public class Amun implements IAmunMod
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		AMUNLog.info("Starting AMUN initialization"); //Notify the user
-		
+		AMUNLog.info("Starting AMUN initialization"); // Notify the user
+
 		RECIPE.getRecipeType(AmunFurnaceRecipeType.class).newBuilder().setInput(new ItemStack(Items.coal)).setOutput(new ItemStack(Items.diamond)).build();
 		RECIPE.getRecipeType(AmunCraftingTableRecipeType.class).newBuilder().setRecipeType(RecipeSorter.Category.SHAPELESS).setInput(new ItemStack(Items.coal)).setOutput(new ItemStack(Items.diamond)).build();
-		//RECIPE.getRecipeType(AmunGrinderRecipeType.class).newBuilder().setInput(new ItemStack(Items.coal)).setOutput(new ItemStack(Items.diamond)).build();
+		// RECIPE.getRecipeType(AmunGrinderRecipeType.class).newBuilder().setInput(new
+		// ItemStack(Items.coal)).setOutput(new
+		// ItemStack(Items.diamond)).build();
 		RECIPE.getRecipeType(AmunDebugRecipeType.class).newBuilder().setInput(new ItemStack(Items.coal)).build();
-		
-		//Runs the loading hooks
+
+		RECIPE.addHiddenItem(new ItemStack(DEBUG_ITEM));
+
+		// Runs the loading hooks
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.init(event);
 	}
@@ -320,14 +342,14 @@ public class Amun implements IAmunMod
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		AMUNLog.info("Starting AMUN post initialization"); //Notify the user
-		
-		//Runs the loading hooks
+		AMUNLog.info("Starting AMUN post initialization"); // Notify the user
+
+		// Runs the loading hooks
 		for(IAMUNLoadHook lh : m_loadHooks)
 			lh.postInit(event);
 	}
 
-	//IAmunMod implementation
+	// IAmunMod implementation
 
 	@Override
 	public AmunModConstants getConstants()
@@ -336,8 +358,8 @@ public class Amun implements IAmunMod
 		{
 			m_constants = new IAmunMod.AmunModConstantsImpl(DEFAULT_UNIQUIFIER);
 		}
-		
+
 		return m_constants;
 	}
-	
+
 }

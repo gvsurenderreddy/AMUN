@@ -31,15 +31,15 @@ public class ResourceLocationSpriteLoader implements ISpriteLoader
 		String meta = null;
 
 		int rw, rh;
-		
+
 		try
 		{
 			IResource metar = Minecraft.getMinecraft().getResourceManager().getResource(metaLoc);
 
 			meta = IOUtils.toString(metar.getInputStream());
-			
+
 			BufferedImage img = ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream());
-			
+
 			rw = img.getWidth();
 			rh = img.getWidth();
 		} catch(IOException e)

@@ -42,11 +42,11 @@ public class AMUNClientProxy extends AmunCommonProxy<AMUNClientProxy>
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
-		
+
 		ResourceLocationSpriteLoader loader = new ResourceLocationSpriteLoader();
-		
+
 		m_stdSprites = loader.load("pd_mc_amun:textures/gui/common.png");
-		
+
 		System.out.println(m_stdSprites);
 	}
 

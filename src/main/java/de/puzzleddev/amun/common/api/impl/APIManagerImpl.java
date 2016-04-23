@@ -11,12 +11,12 @@ public class APIManagerImpl implements IAPIManager
 {
 
 	private Map<Class<?>, Object> m_map;
-	
+
 	public APIManagerImpl()
 	{
 		m_map = Collections.unmodifiableMap(APIProviderCallback.getMap());
 	}
-	
+
 	@Override
 	public <T> boolean has(Class<T> cls)
 	{

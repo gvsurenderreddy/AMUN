@@ -12,13 +12,13 @@ public class AMUNConfigAPI implements IAmunConfigAPI
 {
 	private Map<String, IConfigProvider<?, ?>> m_providers;
 	private Map<Class<?>, ConfigHolder> m_holders;
-	
+
 	public AMUNConfigAPI()
 	{
 		m_providers = Maps.newHashMap();
 		m_holders = Maps.newHashMap();
 	}
-	
+
 	@Override
 	public IConfigProvider<?, ?> getProvider(String type)
 	{

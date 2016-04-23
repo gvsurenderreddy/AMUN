@@ -8,7 +8,7 @@ import de.puzzleddev.amun.common.config.anno.AMUNConfigValue;
 public class AmunConfig
 {
 	private static AmunConfig m_instance;
-	
+
 	@AmunFactory
 	public static AmunConfig instance()
 	{
@@ -16,13 +16,13 @@ public class AmunConfig
 		{
 			m_instance = new AmunConfig();
 		}
-	
+
 		return m_instance;
 	}
-	
+
 	@AMUNConfigValue(path = "development.debug", comment = "Debug Mode")
 	public Boolean m_debug = false;
-	
+
 	@AMUNConfigValue(path = "property", comment = "Property in the main category")
 	public Integer m_property = 14;
 }

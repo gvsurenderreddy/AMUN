@@ -112,7 +112,7 @@ public class ResourceJobs
 		{
 			m_state = state;
 			m_tex = tex;
-			
+
 			ResourceEventHandler.instance().registerTextureJob(new RegisterTexturesJob(tex));
 		}
 
@@ -137,7 +137,7 @@ public class ResourceJobs
 			m_item = item;
 			m_dam = dam;
 			m_tex = tex;
-			
+
 			ResourceEventHandler.instance().registerTextureJob(new RegisterTexturesJob(tex));
 		}
 
@@ -146,9 +146,9 @@ public class ResourceJobs
 		{
 			IBakedModel model = new TexturedModel(event.modelManager.getTextureMap().getTextureExtry(m_tex.toString()), event);
 			ModelResourceLocation loc = new ModelResourceLocation(new ResourceLocation(GameData.getItemRegistry().getNameForObject(m_item) + "_" + m_dam), "inventory");
-			
+
 			event.modelRegistry.putObject(loc, model);
-			
+
 			if(Minecraft.getMinecraft().getRenderItem() != null)
 			{
 				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(m_item, m_dam, loc);

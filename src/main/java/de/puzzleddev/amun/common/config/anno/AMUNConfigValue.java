@@ -24,7 +24,7 @@ public @interface AMUNConfigValue
 	 * @return The in-config path of the value.
 	 */
 	String path();
-	
+
 	/**
 	 * @return The comment to add to newly created values.
 	 */

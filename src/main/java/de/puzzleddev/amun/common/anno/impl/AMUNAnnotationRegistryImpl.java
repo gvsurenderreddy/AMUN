@@ -13,7 +13,7 @@ public class AmunAnnotationRegistryImpl implements IAmunAnnotationRegistry
 {
 
 	private Map<Class<? extends Annotation>, IAmunAnnotationCallback<?>> m_map;
-	
+
 	public AmunAnnotationRegistryImpl()
 	{
 		m_map = Maps.newHashMap();

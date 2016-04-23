@@ -18,19 +18,20 @@ public class Sprites
 	 * All known {@link ISpriteLoader ISpriteLoaders}.
 	 */
 	public static Map<String, ISpriteLoader> m_loader = Maps.newHashMap();
-	
+
 	public static Map<String, Function.OneArg<ISprite, Object>> m_spriteConstructors = Maps.newHashMap();
-	
+
 	/**
 	 * Combines a number of {@link ISpriteCollection ISpriteCollections}.
 	 * 
-	 * @param colls The collections.
+	 * @param colls
+	 *            The collections.
 	 * @return The combined collections.
 	 */
 	public static ISpriteCollection combine(ISpriteCollection... colls)
 	{
 		Map<String, ISprite> res = Maps.newHashMap();
-		
+
 		for(ISpriteCollection c : colls)
 		{
 			for(Map.Entry<String, ISprite> e : c)
@@ -38,7 +39,7 @@ public class Sprites
 				res.put(e.getKey(), e.getValue());
 			}
 		}
-		
+
 		return new SimpleSpriteCollection(res);
 	}
 }

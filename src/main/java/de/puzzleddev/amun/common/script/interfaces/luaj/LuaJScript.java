@@ -142,7 +142,7 @@ public class LuaJScript implements IScript
 					{
 						callArgs[i] = toObject(args.arg(i + 1));
 					}
-					
+
 					return LuaValue.varargsOf(new LuaValue[] { toLuaValue(((Function.VarArg<Object, Object>) obj).call(callArgs)) });
 				}
 

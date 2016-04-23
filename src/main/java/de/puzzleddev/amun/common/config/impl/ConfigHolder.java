@@ -38,8 +38,10 @@ public class ConfigHolder
 	/**
 	 * Creates a holder from an object and an annotation on it.
 	 * 
-	 * @param holder The annotation.
-	 * @param wrapped The object.
+	 * @param holder
+	 *            The annotation.
+	 * @param wrapped
+	 *            The object.
 	 */
 	public ConfigHolder(AMUNConfigHolder holder, Object wrapped)
 	{
@@ -49,7 +51,7 @@ public class ConfigHolder
 		{
 			return;
 		}
-		
+
 		m_config = prov.getConfig(holder.path());
 
 		m_wrapped = wrapped;
@@ -74,10 +76,13 @@ public class ConfigHolder
 	}
 
 	/**
-	 * Binds a field to an {@link AMUNConfigValue} instance for dynamic injection.
+	 * Binds a field to an {@link AMUNConfigValue} instance for dynamic
+	 * injection.
 	 * 
-	 * @param f The field.
-	 * @param anno The annotation.
+	 * @param f
+	 *            The field.
+	 * @param anno
+	 *            The annotation.
 	 */
 	public void bind(Field f, AnnotationData<AMUNConfigValue> anno)
 	{
@@ -94,7 +99,7 @@ public class ConfigHolder
 	public <T> void populate()
 	{
 		System.out.println("Populating for " + m_wrapped);
-		
+
 		m_config.load();
 
 		for(Map.Entry<Field, AnnotationData<AMUNConfigValue>> ent : m_fields.entrySet())
@@ -103,7 +108,7 @@ public class ConfigHolder
 			{
 
 				ConfigValue<?> res = m_config.get((Class<T>) ent.getKey().getType(), ent.getValue().getAnnotation().path(), ent.getValue().getAnnotation().comment(), (ConfigValue<T>) ConfigValue.create(ent.getKey().get(m_wrapped)));
-				
+
 				ent.getKey().set(m_wrapped, res.getData());
 
 			} catch(IllegalArgumentException e)

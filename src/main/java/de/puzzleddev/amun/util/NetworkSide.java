@@ -19,17 +19,17 @@ public class NetworkSide<PROXY extends AmunCommonProxy>
 	 * Client side.
 	 */
 	public static final NetworkSide<AMUNClientProxy> CLIENT = new NetworkSide(AMUNClientProxy.class, "client", Side.CLIENT);
-	
+
 	/**
 	 * Server side.
 	 */
 	public static final NetworkSide<AMUNServerProxy> SERVER = new NetworkSide(AMUNServerProxy.class, "server", Side.SERVER);
-	
+
 	/**
 	 * Both.
 	 */
 	public static final NetworkSide<AmunCommonProxy> COMMON = new NetworkSide(AmunCommonProxy.class, "common", Side.SERVER, Side.CLIENT);
-	
+
 	/**
 	 * None.
 	 */
@@ -49,7 +49,7 @@ public class NetworkSide<PROXY extends AmunCommonProxy>
 	 * Human readable name of this side.
 	 */
 	private String m_name;
-	
+
 	private int m_side;
 
 	private NetworkSide(Class<PROXY> proxyCls, String name, Side... sides)
@@ -59,7 +59,7 @@ public class NetworkSide<PROXY extends AmunCommonProxy>
 		SIDES = sides;
 
 		m_name = name;
-		
+
 		m_side = -1;
 
 		for(Side s : sides)
@@ -73,7 +73,7 @@ public class NetworkSide<PROXY extends AmunCommonProxy>
 			m_side = s.ordinal();
 		}
 	}
-	
+
 	/**
 	 * @return A human readable side name.
 	 */

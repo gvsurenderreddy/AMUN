@@ -19,22 +19,25 @@ public interface IScriptLibrary extends Iterable<String>
 	public Collection<String> keys();
 
 	/**
-	 * @param str The key.
+	 * @param str
+	 *            The key.
 	 * @return If this library contains the given key.
 	 */
 	public boolean has(String str);
 
 	/**
-	 * @param str The key.
-	 * @return The object with the given key or null if nothing with that key was found.
+	 * @param str
+	 *            The key.
+	 * @return The object with the given key or null if nothing with that key
+	 *         was found.
 	 */
 	public Object get(String str);
-	
+
 	/**
 	 * @return A map representation of this library.
 	 */
 	public Map<String, Object> toMap();
-	
+
 	/**
 	 * Library builder.
 	 * 
@@ -52,17 +55,21 @@ public interface IScriptLibrary extends Iterable<String>
 		/**
 		 * Adds a value to the library.
 		 * 
-		 * @param str The key to add it at.
-		 * @param obj The object to add.
+		 * @param str
+		 *            The key to add it at.
+		 * @param obj
+		 *            The object to add.
 		 * @return this.
 		 */
 		public Builder add(String str, Object obj);
-		
+
 		/**
 		 * Helper function to make it easier to add functions.
 		 * 
-		 * @param str The key to add it at.
-		 * @param func The function to add.
+		 * @param str
+		 *            The key to add it at.
+		 * @param func
+		 *            The function to add.
 		 * @return this.
 		 */
 		public default Builder addFunction(String str, Function.VarArg<?, ?> func)

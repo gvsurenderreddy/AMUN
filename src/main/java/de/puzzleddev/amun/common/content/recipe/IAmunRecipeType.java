@@ -11,8 +11,10 @@ import de.puzzleddev.amun.util.IBuilder;
  * It's kept intentionally generic to support all types of recipes.
  * 
  * @author tim4242
- * @param <RECIPE> The type of recipe this defines.
- * @param <BUILDER> A builder for that type of recipe.
+ * @param <RECIPE>
+ *            The type of recipe this defines.
+ * @param <BUILDER>
+ *            A builder for that type of recipe.
  */
 public interface IAmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBuilder<RECIPE>> extends IAmunContent
 {
@@ -20,26 +22,29 @@ public interface IAmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBu
 	 * @return The specific class of recipes this accepts.
 	 */
 	public Class<RECIPE> getRecipeClass();
-	
+
 	/**
 	 * Adds a recipe to this type.
 	 * 
-	 * @param recipe The recipe to add.
+	 * @param recipe
+	 *            The recipe to add.
 	 */
 	public void addRecipe(RECIPE recipe);
-	
+
 	/**
 	 * @return All added recipes.
 	 */
 	public Collection<RECIPE> getRecipes();
-	
+
 	/**
-	 * @return The {@link IRecipeTypeVisualization} instance for this type, may be null.
+	 * @return The {@link IRecipeTypeVisualization} instance for this type, may
+	 *         be null.
 	 */
 	public IRecipeTypeVisualization<RECIPE> getVisualization();
-	
+
 	/**
-	 * When the "build" method is called the result is automatically added to this.
+	 * When the "build" method is called the result is automatically added to
+	 * this.
 	 * 
 	 * @return A new builder instance for this type.
 	 */

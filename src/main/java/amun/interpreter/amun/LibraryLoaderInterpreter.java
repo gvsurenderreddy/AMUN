@@ -74,7 +74,9 @@ public class LibraryLoaderInterpreter implements IDataInterpreter
 
 	/**
 	 * Reads all libraries from a file.<br>
-	 * @param dataLocation File which passes {@link LibraryLoaderInterpreter#accepts}
+	 * 
+	 * @param dataLocation
+	 *            File which passes {@link LibraryLoaderInterpreter#accepts}
 	 */
 	@Override
 	public void interpret(LaunchClassLoader loader, String dataLocation) throws Exception
@@ -109,7 +111,8 @@ public class LibraryLoaderInterpreter implements IDataInterpreter
 	}
 
 	/**
-	 * Can only be called once after all {@link LibraryLoaderInterpreter#interpret} calls have been completed.
+	 * Can only be called once after all
+	 * {@link LibraryLoaderInterpreter#interpret} calls have been completed.
 	 */
 	@Override
 	public void finalzeCall()

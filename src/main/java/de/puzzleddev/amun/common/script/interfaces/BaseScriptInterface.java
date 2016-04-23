@@ -14,7 +14,8 @@ import de.puzzleddev.amun.util.storage.CacheStrategy;
  * Standard implementation of a script interface.
  * 
  * @author tim4242
- * @param <T> The type of script this creates.
+ * @param <T>
+ *            The type of script this creates.
  */
 public class BaseScriptInterface<T extends IScript> implements IScriptInterface
 {
@@ -22,14 +23,14 @@ public class BaseScriptInterface<T extends IScript> implements IScriptInterface
 	 * Function to create a {@link IScript} instance.
 	 */
 	private final Function.NoArg<T> m_construct;
-	
+
 	/**
 	 * Function to check if this interface is available.
 	 */
 	private final Function.OneArg<Boolean, Boolean> m_checkAvail;
-	
+
 	/**
-	 * The current standard libraries. 
+	 * The current standard libraries.
 	 */
 	private final Map<String, IScriptLibrary> m_stdLibs;
 

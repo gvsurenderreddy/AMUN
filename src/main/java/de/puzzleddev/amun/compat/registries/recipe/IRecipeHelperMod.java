@@ -1,25 +1,33 @@
 package de.puzzleddev.amun.compat.registries.recipe;
 
+import de.puzzleddev.amun.common.core.Amun;
+import de.puzzleddev.amun.compat.CompatibilityMod;
 import net.minecraft.item.ItemStack;
 
 /**
- * Representation of a mod that adds the ability to look at recipes and maybe shows a list of items.
+ * Representation of a mod that adds the ability to look at recipes and maybe
+ * shows a list of items.
  * 
  * @author tim4242
  */
+@CompatibilityMod("register")
 public interface IRecipeHelperMod
 {
 	/**
 	 * Hides an item in the mod.
 	 * 
-	 * @param stack The stack to hide.
+	 * @param stack
+	 *            The stack to hide.
 	 */
 	public void addHiddenItem(ItemStack stack);
-	
+
 	/**
-	 * Adds a visualization of a recipe type to the mod.
+	 * Registration function for @CompatibilityMod.
 	 * 
-	 * @param vis The visualization to add.
+	 * @param obj
 	 */
-	public void addRecipeVisualization(IRecipeTypeVisualization<?> vis);
+	public static void register(Object obj)
+	{
+		Amun.RECIPE.addRecipeMod((IRecipeHelperMod) obj);
+	}
 }

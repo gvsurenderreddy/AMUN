@@ -25,7 +25,7 @@ public class APIProviderCallback implements IAmunAnnotationCallback<APIProvider>
 	public void call(int state, AnnotationData<APIProvider> data) throws Exception
 	{
 		Method m = data.getWrappedMethod();
-		
+
 		if(!Modifier.isStatic(m.getModifiers()))
 			return;
 
@@ -37,7 +37,7 @@ public class APIProviderCallback implements IAmunAnnotationCallback<APIProvider>
 		if(o == null)
 		{
 			AMUNLog.console().infof("Creating proxy api for {}", m.getReturnType().getSimpleName());
-			
+
 			Proxy.newProxyInstance(APIProviderCallback.class.getClassLoader(), new Class<?>[] { m.getReturnType() }, (proxy, method, args) -> {
 				return null;
 			});

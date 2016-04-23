@@ -26,7 +26,8 @@ public class AMUNResource<FROM>
 	/**
 	 * Registers a {@link IResourceCodec}.
 	 * 
-	 * @param codec The {@link IResourceCodec}.
+	 * @param codec
+	 *            The {@link IResourceCodec}.
 	 */
 	public static void registerCodec(IResourceCodec<?> codec)
 	{
@@ -37,7 +38,7 @@ public class AMUNResource<FROM>
 	 * The data.
 	 */
 	private FROM m_data;
-	
+
 	/**
 	 * The used {@link IResourceCodec}.
 	 */
@@ -47,7 +48,8 @@ public class AMUNResource<FROM>
 	 * Creates a AMUNResource instance from an object.<br>
 	 * Not secure, use {@link AMUNResource#create(Object)} instead.
 	 * 
-	 * @param obj The object.
+	 * @param obj
+	 *            The object.
 	 */
 	@SuppressWarnings("unchecked")
 	public AMUNResource(FROM obj)
@@ -59,7 +61,8 @@ public class AMUNResource<FROM>
 	/**
 	 * Creates a new AMUNResource instance for an object.
 	 * 
-	 * @param from The object.
+	 * @param from
+	 *            The object.
 	 * @return The new instance or null if no appropriate codec is found.
 	 */
 	public static <FROM> AMUNResource<FROM> create(FROM from)
@@ -79,7 +82,7 @@ public class AMUNResource<FROM>
 	{
 		return m_codec.getCodecClass();
 	}
-	
+
 	/**
 	 * @return The data this is based on.
 	 */
@@ -87,7 +90,7 @@ public class AMUNResource<FROM>
 	{
 		return m_data;
 	}
-	
+
 	/**
 	 * @return A newly opened input stream.
 	 */

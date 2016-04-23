@@ -10,12 +10,12 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
  * @author tim4242
  */
 public interface IAmunBlock extends IAmunContent
-{	
+{
 	/**
 	 * @return This block instance.
 	 */
-	public Block getBlock(); 
-	
+	public Block getBlock();
+
 	/**
 	 * @return The {@link ModelResourceLocation} used to render this block.
 	 */

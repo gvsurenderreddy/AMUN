@@ -19,20 +19,20 @@ public class AmunItem extends Item implements IAmunItem
 	 * The {@link ModelResourceLocation} used to render this item.
 	 */
 	private ModelResourceLocation m_renderer;
-	
+
 	/**
 	 * The mod owning this item.
 	 */
 	private IAmunMod m_ownerMod;
-	
+
 	public AmunItem(IAmunMod mod, String name, ModelResourceLocation renderer)
 	{
 		setUnlocalizedName(mod.getConstants().getUniquifier().call(mod, name));
-		
+
 		m_ownerMod = mod;
 		m_renderer = renderer;
 	}
-	
+
 	@Override
 	public String getUniqueName()
 	{

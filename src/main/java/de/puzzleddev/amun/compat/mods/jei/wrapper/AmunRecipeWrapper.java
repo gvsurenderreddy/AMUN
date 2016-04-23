@@ -11,21 +11,21 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.FluidStack;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class AmunRecipeWrapper<RECIPE extends IAmunRecipe> implements IRecipeWrapper
 {
 	private List m_inputs;
 	private List m_output;
-	
+
 	public RECIPE m_recipe;
-	
+
 	public AmunRecipeWrapper(IRecipeTypeVisualization<RECIPE> vis, RECIPE recipe)
 	{
 		m_inputs = Lists.newArrayList();
 		m_output = Lists.newArrayList();
-		
+
 		m_recipe = recipe;
-		
+
 		for(IPositionedRecipePart<RECIPE> part : vis.getStacks())
 		{
 			if(part.getStackInfo().isInput())
@@ -38,12 +38,12 @@ public class AmunRecipeWrapper<RECIPE extends IAmunRecipe> implements IRecipeWra
 			}
 		}
 	}
-	
+
 	public RECIPE getRecipe()
 	{
 		return m_recipe;
 	}
-	
+
 	@Override
 	public List getInputs()
 	{

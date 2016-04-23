@@ -20,7 +20,8 @@ import net.minecraftforge.fml.common.ModContainer.Disableable;
 public class Helper
 {
 	/**
-	 * @param id The id to search for.
+	 * @param id
+	 *            The id to search for.
 	 * @return The mod with the given id or null if none are found.
 	 */
 	public static ModContainer getModContainer(String id)
@@ -42,8 +43,10 @@ public class Helper
 	/**
 	 * Sets the disable ability of a FMLModContainer.
 	 * 
-	 * @param id The id to search for.
-	 * @param d The Disableable to set to.
+	 * @param id
+	 *            The id to search for.
+	 * @param d
+	 *            The Disableable to set to.
 	 * @return If it was successful.
 	 */
 	public static boolean setDisableable(String id, Disableable d)
@@ -84,9 +87,10 @@ public class Helper
 
 		return false;
 	}
-	
+
 	/**
-	 * @param lst The native list.
+	 * @param lst
+	 *            The native list.
 	 * @return The same list but boxed.
 	 */
 	public static Boolean[] toBoxed(boolean[] lst)
@@ -102,7 +106,8 @@ public class Helper
 	}
 
 	/**
-	 * @param lst The native list.
+	 * @param lst
+	 *            The native list.
 	 * @return The same list but boxed.
 	 */
 	public static Double[] toBoxed(double[] lst)
@@ -118,7 +123,8 @@ public class Helper
 	}
 
 	/**
-	 * @param lst The native list.
+	 * @param lst
+	 *            The native list.
 	 * @return The same list but boxed.
 	 */
 	public static Integer[] toBoxed(int[] lst)
@@ -134,7 +140,8 @@ public class Helper
 	}
 
 	/**
-	 * @param lst The native list.
+	 * @param lst
+	 *            The native list.
 	 * @return The same list but boxed.
 	 */
 	public static Float[] toBoxed(float[] lst)
@@ -148,47 +155,52 @@ public class Helper
 
 		return res;
 	}
-	
+
 	/**
-	 * @param haystack The array to search.
-	 * @param needle The value to search for.
+	 * @param haystack
+	 *            The array to search.
+	 * @param needle
+	 *            The value to search for.
 	 * @return If the haystack contains the needle.
 	 */
 	public static <T> boolean contains(T[] haystack, T needle)
 	{
 		for(T t : haystack)
 		{
-			if(t == needle) return true;
+			if(t == needle)
+				return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
-	 * @param arrs The arrays to merge.
-	 * @return A newly created array containing all the values in the given arrays in order.
+	 * @param arrs
+	 *            The arrays to merge.
+	 * @return A newly created array containing all the values in the given
+	 *         arrays in order.
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T[] merge(T[]... arrs)
 	{
 		int len = 0;
-		
+
 		for(T[] t : arrs)
 		{
 			len += t.length;
 		}
-		
-		T[] res = (T[])Array.newInstance(arrs[0].getClass(), len);
-		
+
+		T[] res = (T[]) Array.newInstance(arrs[0].getClass(), len);
+
 		int off = 0;
-		
+
 		for(int i = 0; i < arrs.length; i++)
 		{
 			System.arraycopy(arrs[i], 0, res, off, arrs[i].length);
-			
+
 			off += arrs[i].length;
 		}
-		
+
 		return res;
 	}
 
@@ -216,7 +228,7 @@ public class Helper
 
 		return GSON;
 	}
-	
+
 	public static String localize(String key)
 	{
 		return StatCollector.translateToLocal(key);

@@ -86,14 +86,16 @@ public class AMUNLog
 
 	static
 	{
-		console(); //Creates the console logger
+		console(); // Creates the console logger
 	}
-	
+
 	/**
 	 * Adds a logger.
 	 * 
-	 * @param id The name.
-	 * @param log The logger to add.
+	 * @param id
+	 *            The name.
+	 * @param log
+	 *            The logger to add.
 	 * @return The registered logger.
 	 */
 	public static AAMUNLog addLog(String id, AAMUNLog log)
@@ -111,7 +113,8 @@ public class AMUNLog
 	/**
 	 * Sets the default logger.
 	 * 
-	 * @param def The string to set as default logger.
+	 * @param def
+	 *            The string to set as default logger.
 	 */
 	public static void setDefault(String def)
 	{
@@ -128,27 +131,27 @@ public class AMUNLog
 	{
 		return m_logs.get(m_default);
 	}
-	
+
 	public static AAMUNLog setDebug(boolean debug)
 	{
 		return getDefault().setDebug(debug);
 	}
-	
+
 	public static AAMUNLog log(Level level, boolean debug, Object... msgs)
 	{
 		return getDefault().log(level, debug, msgs);
 	}
-	
+
 	public static AAMUNLog logf(Level level, boolean debug, String msg, Object... data)
 	{
 		return getDefault().logf(level, debug, msg, data);
 	}
-	
+
 	public static AAMUNLog log(Level level, Object... msgs)
 	{
 		return getDefault().log(level, msgs);
 	}
-	
+
 	public static AAMUNLog logf(Level level, String msg, Object... data)
 	{
 		return getDefault().logf(level, msg, data);
@@ -158,7 +161,7 @@ public class AMUNLog
 	{
 		return getDefault().info(msgs);
 	}
-	
+
 	public static AAMUNLog infof(String msg, Object... data)
 	{
 		return getDefault().infof(msg, data);
@@ -168,7 +171,7 @@ public class AMUNLog
 	{
 		return getDefault().log(Level.ERROR, msgs);
 	}
-	
+
 	public static AAMUNLog errorf(String msg, Object... data)
 	{
 		return getDefault().logf(Level.ERROR, msg, data);
@@ -178,7 +181,7 @@ public class AMUNLog
 	{
 		return getDefault().log(Level.FATAL, msgs);
 	}
-	
+
 	public static AAMUNLog fatalf(String msg, Object... data)
 	{
 		return getDefault().logf(Level.FATAL, msg, data);
@@ -188,7 +191,7 @@ public class AMUNLog
 	{
 		return getDefault().log(Level.WARN, msgs);
 	}
-	
+
 	public static AAMUNLog warnf(String msg, Object... data)
 	{
 		return getDefault().logf(Level.WARN, msg, data);
@@ -198,24 +201,24 @@ public class AMUNLog
 	{
 		return getDefault().log(Level.DEBUG, msgs);
 	}
-	
+
 	public static AAMUNLog debugf(String msg, Object... data)
 	{
 		return getDefault().logf(Level.DEBUG, msg, data);
 	}
-	
+
 	public static AAMUNLog trace(Object... msgs)
 	{
 		return getDefault().log(Level.TRACE, msgs);
 	}
-	
+
 	public static AAMUNLog tracef(String msg, Object... data)
 	{
 		return getDefault().logf(Level.TRACE, msg, data);
 	}
 
 	public static final String BOX_SPERATOR = AAMUNLog.BOX_SPERATOR;
-	
+
 	public static AAMUNLog logBoxed(Level level, Object... msgs)
 	{
 		return getDefault().logBoxed(level, msgs);

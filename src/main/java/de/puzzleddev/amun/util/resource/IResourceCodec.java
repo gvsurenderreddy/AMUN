@@ -14,19 +14,21 @@ public interface IResourceCodec<FROM>
 	/**
 	 * Open an InputStream from an object.
 	 * 
-	 * @param from The object.
+	 * @param from
+	 *            The object.
 	 * @return The opened input stream or null.
 	 */
 	public InputStream openInput(FROM from);
-	
+
 	/**
 	 * Open an OutputStream from an object.
 	 * 
-	 * @param from The object.
+	 * @param from
+	 *            The object.
 	 * @return The opened output stream or null.
 	 */
 	public OutputStream openOutput(FROM from);
-	
+
 	/**
 	 * @return The class this can open from.
 	 */

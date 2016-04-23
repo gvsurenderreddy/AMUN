@@ -7,10 +7,10 @@ import mcp.mobius.waila.api.IWailaRegistrar;
 public interface WailaAPI
 {
 	public void setRegistrar(IWailaRegistrar reg);
-	
+
 	public IWailaRegistrar getRegistrar();
-	
+
 	public boolean registerDataProvider(IWailaDataProvider provider, Class<?> block);
-	
+
 	public boolean registerEntityProvider(IWailaEntityProvider provider, Class<?> entity);
 }

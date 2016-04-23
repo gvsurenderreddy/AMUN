@@ -28,66 +28,78 @@ public class DummyWailaRegistrar implements IWailaRegistrar
 	public LinkedHashMap<Class, ArrayList<IWailaEntityProvider>> NBTEntityProviders = new LinkedHashMap<Class, ArrayList<IWailaEntityProvider>>();
 
 	@Override
-	public void registerHeadProvider(IWailaDataProvider dataProvider, Class block) {
-		this.registerProvider(dataProvider, block, this.headBlockProviders);		
-	}	
-
-	@Override
-	public void registerBodyProvider(IWailaDataProvider dataProvider, Class block) {
-		this.registerProvider(dataProvider, block, this.bodyBlockProviders);
-	}	
-	
-	@Override
-	public void registerTailProvider(IWailaDataProvider dataProvider, Class block) {
-		this.registerProvider(dataProvider, block, this.tailBlockProviders);
-	}		
-	
-	@Override
-	public void registerStackProvider(IWailaDataProvider dataProvider, Class block) {
-		this.registerProvider(dataProvider, block, this.stackBlockProviders);
-	}		
-
-	@Override
-	public void registerNBTProvider(IWailaDataProvider dataProvider, Class entity) {
-		this.registerProvider(dataProvider, entity, this.NBTDataProviders);	
-	}	
-	
-	@Override
-	public void registerHeadProvider(IWailaEntityProvider dataProvider, Class entity) {
-		this.registerProvider(dataProvider, entity, this.headEntityProviders);		
-	}	
-
-	@Override
-	public void registerBodyProvider(IWailaEntityProvider dataProvider, Class entity) {
-		this.registerProvider(dataProvider, entity, this.bodyEntityProviders);			
-	}	
-	
-	@Override
-	public void registerTailProvider(IWailaEntityProvider dataProvider, Class entity) {
-		this.registerProvider(dataProvider, entity, this.tailEntityProviders);		
-	}	
-	
-	@Override
-	public void registerNBTProvider(IWailaEntityProvider dataProvider, Class entity) {
-		this.registerProvider(dataProvider, entity, this.NBTEntityProviders);	
-	}	
-	
-	@Override
-	public void registerOverrideEntityProvider (IWailaEntityProvider dataProvider, Class entity){
-		this.registerProvider(dataProvider, entity, this.overrideEntityProviders);			
+	public void registerHeadProvider(IWailaDataProvider dataProvider, Class block)
+	{
+		this.registerProvider(dataProvider, block, this.headBlockProviders);
 	}
-	
-	private <T, V> void registerProvider(T dataProvider, V clazz, LinkedHashMap<V, ArrayList<T>> target) {
-		if (clazz == null || dataProvider == null)
+
+	@Override
+	public void registerBodyProvider(IWailaDataProvider dataProvider, Class block)
+	{
+		this.registerProvider(dataProvider, block, this.bodyBlockProviders);
+	}
+
+	@Override
+	public void registerTailProvider(IWailaDataProvider dataProvider, Class block)
+	{
+		this.registerProvider(dataProvider, block, this.tailBlockProviders);
+	}
+
+	@Override
+	public void registerStackProvider(IWailaDataProvider dataProvider, Class block)
+	{
+		this.registerProvider(dataProvider, block, this.stackBlockProviders);
+	}
+
+	@Override
+	public void registerNBTProvider(IWailaDataProvider dataProvider, Class entity)
+	{
+		this.registerProvider(dataProvider, entity, this.NBTDataProviders);
+	}
+
+	@Override
+	public void registerHeadProvider(IWailaEntityProvider dataProvider, Class entity)
+	{
+		this.registerProvider(dataProvider, entity, this.headEntityProviders);
+	}
+
+	@Override
+	public void registerBodyProvider(IWailaEntityProvider dataProvider, Class entity)
+	{
+		this.registerProvider(dataProvider, entity, this.bodyEntityProviders);
+	}
+
+	@Override
+	public void registerTailProvider(IWailaEntityProvider dataProvider, Class entity)
+	{
+		this.registerProvider(dataProvider, entity, this.tailEntityProviders);
+	}
+
+	@Override
+	public void registerNBTProvider(IWailaEntityProvider dataProvider, Class entity)
+	{
+		this.registerProvider(dataProvider, entity, this.NBTEntityProviders);
+	}
+
+	@Override
+	public void registerOverrideEntityProvider(IWailaEntityProvider dataProvider, Class entity)
+	{
+		this.registerProvider(dataProvider, entity, this.overrideEntityProviders);
+	}
+
+	private <T, V> void registerProvider(T dataProvider, V clazz, LinkedHashMap<V, ArrayList<T>> target)
+	{
+		if(clazz == null || dataProvider == null)
 			throw new RuntimeException(String.format("Trying to register a null provider or null block ! Please check the stacktrace to know what was the original registration method. [Provider : %s, Target : %s]", dataProvider.getClass().getName(), clazz));
-		
-		if (!target.containsKey(clazz))
+
+		if(!target.containsKey(clazz))
 			target.put(clazz, new ArrayList<T>());
-		
-		ArrayList<T> providers =target.get(clazz);
-		if (providers.contains(dataProvider)) return;		
-		
-		target.get(clazz).add(dataProvider);		
+
+		ArrayList<T> providers = target.get(clazz);
+		if(providers.contains(dataProvider))
+			return;
+
+		target.get(clazz).add(dataProvider);
 	}
 
 	// UNIMPLEMENTED

@@ -12,8 +12,9 @@ public class ClassLoadedCheck implements IAmunAnnoCheck
 	@Override
 	public boolean check(String[] data)
 	{
-		if(data.length < 1) return true;
-		
+		if(data.length < 1)
+			return true;
+
 		for(String s : data)
 		{
 			try
@@ -24,7 +25,7 @@ public class ClassLoadedCheck implements IAmunAnnoCheck
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 }
