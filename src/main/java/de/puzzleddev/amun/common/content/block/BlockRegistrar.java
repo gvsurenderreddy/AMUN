@@ -19,7 +19,7 @@ public class BlockRegistrar implements IContentRegistrar<IAmunBlock>
 	@Override
 	public void register(IAmunBlock obj)
 	{
-		GameRegistry.registerBlock(obj.getBlock(), obj.getUniqueName());
+		GameRegistry.register(obj.getBlock());
 
 		if(obj instanceof IAmunBlockTextured)
 		{

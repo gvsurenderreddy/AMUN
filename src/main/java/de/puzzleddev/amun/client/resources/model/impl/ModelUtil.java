@@ -6,34 +6,32 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.vecmath.Matrix4f;
-
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.Map;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
+import de.puzzleddev.amun.common.core.AmunConsts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.block.model.SimpleBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
-import net.minecraftforge.client.model.IModelPart;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
-import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 /**
@@ -42,101 +40,26 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 @SuppressWarnings("deprecation")
 public class ModelUtil
 {
-	public static class PerspectiveWrapper implements IPerspectiveAwareModel
+	public static Map<EnumFacing, List<BakedQuad>> newBlankFacingMap()
 	{
-		final IFlexibleBakedModel model;
-		final IPerspectiveAwareModel parentPerspective;
-
-		public PerspectiveWrapper(IBakedModel model, IPerspectiveAwareModel parentPerspective)
+		Map<EnumFacing, List<BakedQuad>> res = Maps.newHashMap();
+		
+		for(EnumFacing face : EnumFacing.values())
 		{
-			if(model instanceof IFlexibleBakedModel)
-			{
-				this.model = (IFlexibleBakedModel) model;
-			}
-			else
-			{
-				this.model = new IFlexibleBakedModel.Wrapper(model, parentPerspective.getFormat());
-			}
-			this.parentPerspective = parentPerspective;
+			res.put(face, Lists.newArrayList());
 		}
 
-		@Override
-		public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType)
-		{
-			Pair<? extends IFlexibleBakedModel, Matrix4f> pair = parentPerspective.handlePerspective(cameraTransformType);
-			return Pair.of(model, pair.getRight());
-		}
-
-		@Override
-		public VertexFormat getFormat()
-		{
-			return parentPerspective.getFormat();
-		}
-
-		@Override
-		public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_)
-		{
-			return model.getFaceQuads(p_177551_1_);
-		}
-
-		@Override
-		public List<BakedQuad> getGeneralQuads()
-		{
-			return model.getGeneralQuads();
-		}
-
-		@Override
-		public boolean isAmbientOcclusion()
-		{
-			return model.isAmbientOcclusion();
-		}
-
-		@Override
-		public boolean isGui3d()
-		{
-			return model.isGui3d();
-		}
-
-		@Override
-		public boolean isBuiltInRenderer()
-		{
-			return model.isBuiltInRenderer();
-		}
-
-		@Override
-		public TextureAtlasSprite getParticleTexture()
-		{
-			return model.getParticleTexture();
-		}
-
-		@Override
-		@Deprecated
-		public ItemCameraTransforms getItemCameraTransforms()
-		{
-			return model.getItemCameraTransforms();
-		}
-
+		return ImmutableMap.copyOf(res);
 	}
 
-	public static List<?> newBlankFacingLists()
+	public static BakedQuad copyQuad(BakedQuad quad, VertexFormat format)
 	{
-		Object[] list = new Object[EnumFacing.values().length];
-		for(int i = 0; i < EnumFacing.values().length; ++i)
-		{
-			list[i] = Lists.newArrayList();
-		}
-
-		return ImmutableList.copyOf(list);
+		return new BakedQuad(Arrays.copyOf(quad.getVertexData(), quad.getVertexData().length), quad.getTintIndex(), quad.getFace(), quad.getSprite(), false, format);
 	}
 
-	public static BakedQuad copyQuad(BakedQuad quad)
+	public static BakedQuad changeTexture(BakedQuad quad, VertexFormat format, TextureAtlasSprite tex)
 	{
-		return new BakedQuad(Arrays.copyOf(quad.getVertexData(), quad.getVertexData().length), quad.getTintIndex(), quad.getFace());
-	}
-
-	public static BakedQuad changeTexture(BakedQuad quad, TextureAtlasSprite tex)
-	{
-		quad = copyQuad(quad);
+		quad = copyQuad(quad, format);
 
 		// 4 vertexes on each quad
 		for(int i = 0; i < 4; ++i)
@@ -193,34 +116,21 @@ public class ModelUtil
 		return quad;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static IBakedModel changeIcon(IBakedModel model, TextureAtlasSprite texture)
 	{
-		SimpleBakedModel bakedModel = new SimpleBakedModel(new LinkedList<BakedQuad>(), (List<List<BakedQuad>>) newBlankFacingLists(), model.isGui3d(), model.isAmbientOcclusion(), texture, model.getItemCameraTransforms());
+		SimpleBakedModel bakedModel = new SimpleBakedModel(new LinkedList<BakedQuad>(), newBlankFacingMap(), model.isGui3d(), model.isAmbientOcclusion(), texture, model.getItemCameraTransforms(), ItemOverrideList.NONE);
 
-		for(BakedQuad o : model.getGeneralQuads())
-		{
-			bakedModel.getGeneralQuads().add(changeTexture(o, texture));
-		}
+		long rand = AmunConsts.RANDOM.nextLong();
 
 		for(EnumFacing facing : EnumFacing.values())
 		{
-			for(BakedQuad o : model.getFaceQuads(facing))
+			for(BakedQuad o : model.getQuads(null, facing, rand))
 			{
-				bakedModel.getFaceQuads(facing).add(changeTexture(o, texture));
+				bakedModel.getQuads(null, facing, rand).add(changeTexture(o, DefaultVertexFormats.BLOCK, texture));
 			}
 		}
 
 		IBakedModel result = bakedModel;
-
-		if(model instanceof IPerspectiveAwareModel)
-		{
-			result = new PerspectiveWrapper(result, (IPerspectiveAwareModel) model);
-		}
-		else if(model instanceof IFlexibleBakedModel)
-		{
-			result = new IFlexibleBakedModel.Wrapper(bakedModel, ((IFlexibleBakedModel) model).getFormat());
-		}
 
 		return result;
 	}
@@ -254,7 +164,7 @@ public class ModelUtil
 					}
 				}
 
-				BIM_CONSTRUCT = cls.getDeclaredConstructor(ImmutableList.class, TextureAtlasSprite.class, VertexFormat.class, ImmutableMap.class, IFlexibleBakedModel.class);
+				BIM_CONSTRUCT = cls.getDeclaredConstructor(ImmutableList.class, TextureAtlasSprite.class, ImmutableMap.class, ItemOverrideList.class, IBakedModel.class);
 				BIM_CONSTRUCT.setAccessible(true);
 
 				Field f = ReflectionHelper.findField(cls, "transforms");
@@ -272,12 +182,13 @@ public class ModelUtil
 
 		for(int i = 0; i < mod.getTextures().size(); i++)
 		{
-			builder.addAll(mod.getQuadsForSprite(i, sprite, DefaultVertexFormats.ITEM, transform));
+			builder.addAll(ItemLayerModel.getQuadsForSprite(i, sprite, DefaultVertexFormats.ITEM, transform));
 		}
 
 		try
 		{
-			return (IBakedModel) BIM_CONSTRUCT.newInstance(builder.build(), sprite, DefaultVertexFormats.ITEM, STD_TRANS, null);
+			return (IBakedModel) BIM_CONSTRUCT.newInstance(builder.build(), sprite, STD_TRANS, ItemOverrideList.NONE, null);
+			//return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getMissingModel();
 		} catch(Exception e)
 		{
 			e.printStackTrace();
@@ -301,6 +212,6 @@ public class ModelUtil
 
 	public static IBakedModel newEmptyModel()
 	{
-		return new SimpleBakedModel(Collections.emptyList(), Collections.emptyList(), false, false, Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite(), ItemCameraTransforms.DEFAULT);
+		return new SimpleBakedModel(Collections.emptyList(), Collections.emptyMap(), false, false, Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite(), ItemCameraTransforms.DEFAULT, ItemOverrideList.NONE);
 	}
 }

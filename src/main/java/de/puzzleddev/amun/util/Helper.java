@@ -2,11 +2,12 @@ package de.puzzleddev.amun.util;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.FMLModContainer;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
@@ -231,6 +232,49 @@ public class Helper
 
 	public static String localize(String key)
 	{
-		return StatCollector.translateToLocal(key);
+		if(I18n.canTranslate(key))
+		{
+			return I18n.translateToLocal(key);
+		}
+		else
+		{
+			return I18n.translateToFallback(key);
+		}
+	}
+
+	public static boolean setFinalNonFinal(Field field)
+	{
+		try
+		{
+
+			field.setAccessible(true);
+
+			Field modifiersField = Field.class.getDeclaredField("modifiers");
+			modifiersField.setAccessible(true);
+			modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+			return true;
+
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public static boolean setFinalStatic(Field field, Object value)
+	{
+		try
+		{
+			setFinalNonFinal(field);
+			field.set(null, value);
+
+			return true;
+
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

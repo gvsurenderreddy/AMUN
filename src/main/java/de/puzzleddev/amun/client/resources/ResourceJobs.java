@@ -4,19 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import de.puzzleddev.amun.client.resources.model.impl.SimpleBlockModelBuilderImpl;
-import de.puzzleddev.amun.client.resources.model.impl.SimpleItemModelBuilderImpl;
 import de.puzzleddev.amun.client.resources.model.impl.TexturedModel;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent.Pre;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameData;
 
 @SuppressWarnings("unused")
@@ -40,7 +40,7 @@ public class ResourceJobs
 		{
 			for(ResourceLocation r : m_rls)
 			{
-				event.map.registerSprite(r);
+				event.getMap().registerSprite(r);
 			}
 		}
 	}
@@ -59,7 +59,7 @@ public class ResourceJobs
 		@Override
 		public void onModel(ModelBakeEvent event)
 		{
-			event.modelRegistry.putObject(m_loc, m_model);
+			event.getModelRegistry().putObject(m_loc, m_model);
 		}
 	}
 
@@ -79,7 +79,7 @@ public class ResourceJobs
 		{
 			Map<IBlockState, ModelResourceLocation> map = new DefaultStateMapper().putStateModelLocations(m_state.getBlock());
 
-			event.modelRegistry.putObject(map.get(m_state), event.modelRegistry.getObject(m_loc));
+			event.getModelRegistry().putObject(map.get(m_state), event.getModelRegistry().getObject(m_loc));
 		}
 	}
 
@@ -120,8 +120,10 @@ public class ResourceJobs
 		public void onModel(ModelBakeEvent event)
 		{
 			Map<IBlockState, ModelResourceLocation> map = new DefaultStateMapper().putStateModelLocations(m_state.getBlock());
-			IBakedModel model = new TexturedModel(event.modelManager.getTextureMap().getTextureExtry(m_tex.toString()), event);
-			event.modelRegistry.putObject(map.get(m_state), model);
+			TexturedModel model = new TexturedModel(event.getModelManager().getTextureMap().getTextureExtry(m_tex.toString()), event);
+			IBakedModel res = model.handleBlockState(m_state);
+			if(res != null)
+				event.getModelRegistry().putObject(map.get(m_state), res);
 		}
 
 	}
@@ -144,10 +146,13 @@ public class ResourceJobs
 		@Override
 		public void onModel(ModelBakeEvent event)
 		{
-			IBakedModel model = new TexturedModel(event.modelManager.getTextureMap().getTextureExtry(m_tex.toString()), event);
-			ModelResourceLocation loc = new ModelResourceLocation(new ResourceLocation(GameData.getItemRegistry().getNameForObject(m_item) + "_" + m_dam), "inventory");
+			TexturedModel model = new TexturedModel(event.getModelManager().getTextureMap().getTextureExtry(m_tex.toString()), event);
 
-			event.modelRegistry.putObject(loc, model);
+			ModelResourceLocation loc = new ModelResourceLocation(new ResourceLocation(ForgeRegistries.ITEMS.getKey(m_item).toString() + "_" + m_dam), "inventory");
+
+			IBakedModel res = model.handleItemState(new ItemStack(m_item, 1, m_dam));
+			if(res != null)
+				event.getModelRegistry().putObject(loc, res);
 
 			if(Minecraft.getMinecraft().getRenderItem() != null)
 			{

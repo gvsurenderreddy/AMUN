@@ -45,7 +45,7 @@ public interface IAmunRecipeRegistry extends IAMUNLoadHook, IRecipeHelperMod
 	 *            The type of {@link IAmunRecipeType} to search for.
 	 * @return All recipes build by this type.
 	 */
-	public <RECIPE extends IAmunRecipe> Collection<RECIPE> getAllRecipes(Class<? extends IAmunRecipeType<RECIPE, ?>> type);
+	public <RECIPE extends IAmunRecipe, BUILDER extends IBuilder<RECIPE>> Collection<RECIPE> getAllRecipes(Class<? extends IAmunRecipeType<RECIPE, BUILDER>> type);
 
 	public void addRecipeMod(IRecipeHelperMod mod);
 

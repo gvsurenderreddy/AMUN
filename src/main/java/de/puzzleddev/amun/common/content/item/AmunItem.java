@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import de.puzzleddev.amun.common.mod.IAmunMod;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
@@ -28,6 +28,7 @@ public class AmunItem extends Item implements IAmunItem
 	public AmunItem(IAmunMod mod, String name, ModelResourceLocation renderer)
 	{
 		setUnlocalizedName(mod.getConstants().getUniquifier().call(mod, name));
+		setRegistryName(mod.getConstants().getUniquifier().call(mod, name));
 
 		m_ownerMod = mod;
 		m_renderer = renderer;

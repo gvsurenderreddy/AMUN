@@ -2,11 +2,10 @@ package de.puzzleddev.amun.common.core.preload;
 
 import java.util.Map;
 
+import de.puzzleddev.amun.common.core.AmunConsts;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.Name;
-
-import de.puzzleddev.amun.common.core.AmunConsts;
 
 /**
  * The first entry point, from here the preloading is run.
@@ -14,7 +13,7 @@ import de.puzzleddev.amun.common.core.AmunConsts;
  * @author tim4242
  */
 @Name(AmunConsts.FML_PLUGIN_NAME)
-@MCVersion("1.8.9") // This will have to be updated independently
+@MCVersion("1.9") // This will have to be updated independently
 public class AmunFMLPlugin implements IFMLLoadingPlugin
 {
 	/**

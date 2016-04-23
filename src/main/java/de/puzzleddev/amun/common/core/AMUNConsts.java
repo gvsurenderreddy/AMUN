@@ -3,6 +3,7 @@ package de.puzzleddev.amun.common.core;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.common.ModMetadata;
@@ -125,6 +126,8 @@ public class AmunConsts
 
 		return md;
 	}
+	
+	public static final Random RANDOM = new Random();
 
 	// Who am I even talking to. I knew I was insane!
 	// Hey neighbor I won the bet.

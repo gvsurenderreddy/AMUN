@@ -3,7 +3,7 @@ package de.puzzleddev.amun.common.content.block;
 import de.puzzleddev.amun.common.mod.IAmunMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 /**
  * Default {@link IAmunBlock} implementation.
@@ -27,6 +27,7 @@ public class AmunBlock extends Block implements IAmunBlock
 		super(m);
 
 		setUnlocalizedName(mod.getConstants().getUniquifier().call(mod, name));
+		setRegistryName(mod.getConstants().getUniquifier().call(mod, name));
 
 		m_ownerMod = mod;
 		m_renderer = renderer;

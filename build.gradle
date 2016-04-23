@@ -40,9 +40,7 @@ minecraft {
     version = config.MC_version + "-" + config.FORGE_version
     runDir = "run"
 
-	  useDepAts = true
-
-    mappings = "stable_20"
+    mappings = "snapshot_20160312"
     makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     replace "@VERSION@", project.version
@@ -52,7 +50,7 @@ minecraft {
 dependencies {
 	compile "org.luaj:luaj-jse:${config.LUAJ_version}"
 	compile "org.codehaus.groovy:groovy:${config.GROOVY_version}"
-	compile "li.cil.oc:OpenComputers:MC${config.MC_version}-${config.OC_version}:api"
+	//compile "li.cil.oc:OpenComputers:MC${config.MC_version}-${config.OC_version}:api" //Wait until it gets updated to 1.9 
 	compile "mcp.mobius.waila:Waila:${config.WAILA_version}:dev"
 	deobfCompile "mezz.jei:jei_${config.MC_version}:${config.JEI_version}"
 }

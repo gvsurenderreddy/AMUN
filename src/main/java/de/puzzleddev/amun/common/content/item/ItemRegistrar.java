@@ -6,7 +6,7 @@ import de.puzzleddev.amun.common.anno.sub.AmunFactory;
 import de.puzzleddev.amun.common.content.AmunRegistrar;
 import de.puzzleddev.amun.common.content.IContentRegistrar;
 import de.puzzleddev.amun.common.core.Amun;
-import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -23,7 +23,7 @@ public class ItemRegistrar implements IContentRegistrar<IAmunItem>
 	@Override
 	public void register(IAmunItem obj)
 	{
-		GameRegistry.registerItem(obj.getItem(), obj.getUniqueName());
+		GameRegistry.register(obj.getItem());
 
 		if(Amun.PROXY.getSide().isClient())
 			ModelBakery.registerItemVariants(obj.getItem(), obj.getVariants().toArray(new ResourceLocation[obj.getVariants().size()]));

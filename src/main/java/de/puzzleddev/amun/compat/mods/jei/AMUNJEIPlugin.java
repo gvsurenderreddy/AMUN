@@ -5,12 +5,9 @@ import java.util.Collection;
 import com.google.common.collect.Lists;
 
 import de.puzzleddev.amun.compat.mods.JEICompat;
-import mezz.jei.api.IItemRegistry;
-import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
-import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.JEIPlugin;
 
 @JEIPlugin
@@ -29,26 +26,9 @@ public class AMUNJEIPlugin implements IModPlugin
 	}
 
 	@Override
-	public void onJeiHelpersAvailable(IJeiHelpers helper)
-	{
-		m_runnable.stream().forEach((i) -> i.onJeiHelpersAvailable(helper));
-	}
-
-	@Override
-	public void onItemRegistryAvailable(IItemRegistry registry)
-	{
-		m_runnable.stream().forEach((i) -> i.onItemRegistryAvailable(registry));
-	}
-
-	@Override
 	public void register(IModRegistry registry)
 	{
 		m_runnable.stream().forEach((i) -> i.register(registry));
-	}
-
-	@Override
-	public void onRecipeRegistryAvailable(IRecipeRegistry registry)
-	{
 	}
 
 	@Override

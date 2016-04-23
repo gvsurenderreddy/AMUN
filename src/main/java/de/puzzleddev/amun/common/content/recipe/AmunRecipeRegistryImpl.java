@@ -33,17 +33,14 @@ public class AmunRecipeRegistryImpl implements IAmunRecipeRegistry
 	{
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		for(IAmunRecipeType<?, ?> t : m_types)
+		for(IAmunRecipeType<?, ?> type : m_types)
 		{
-			Collection<IAmunRecipe> c = (Collection<IAmunRecipe>) getAllRecipes((Class<? extends IAmunRecipeType<?, ?>>) t.getClass());
-
-			for(IAmunRecipe r : c)
+			for(IAmunRecipe res : type.getRecipes())
 			{
-				r.register();
+				res.register();
 			}
 		}
 	}
@@ -90,7 +87,7 @@ public class AmunRecipeRegistryImpl implements IAmunRecipeRegistry
 	}
 
 	@Override
-	public <RECIPE extends IAmunRecipe> Collection<RECIPE> getAllRecipes(Class<? extends IAmunRecipeType<RECIPE, ?>> type)
+	public <RECIPE extends IAmunRecipe, BUILDER extends IBuilder<RECIPE>> Collection<RECIPE> getAllRecipes(Class<? extends IAmunRecipeType<RECIPE, BUILDER>> type)
 	{
 		if(has(type))
 			return getRecipeType(type).getRecipes();

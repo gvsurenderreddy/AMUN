@@ -13,8 +13,8 @@ import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagShort;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.Vec3i;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.common.util.Constants.NBT;
 
 /**

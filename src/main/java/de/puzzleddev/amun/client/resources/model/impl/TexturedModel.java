@@ -4,17 +4,15 @@ import java.util.Collections;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.block.model.SimpleBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.ISmartBlockModel;
-import net.minecraftforge.client.model.ISmartItemModel;
 
-@SuppressWarnings("deprecation")
-public class TexturedModel extends SimpleBakedModel implements ISmartBlockModel, ISmartItemModel
+public class TexturedModel extends SimpleBakedModel //implements ISmartBlockModel, ISmartItemModel
 {
 	private TextureAtlasSprite m_sprite;
 	private IBakedModel m_blockModel;
@@ -22,8 +20,8 @@ public class TexturedModel extends SimpleBakedModel implements ISmartBlockModel,
 
 	public TexturedModel(TextureAtlasSprite sprite, ModelBakeEvent event)
 	{
-		super(Collections.emptyList(), Collections.emptyList(), false, false, Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite(), ItemCameraTransforms.DEFAULT);
-
+		super(Collections.emptyList(), Collections.emptyMap(), false, false, Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite(), ItemCameraTransforms.DEFAULT, ItemOverrideList.NONE);
+		
 		m_sprite = sprite;
 
 		if(Minecraft.getMinecraft().getRenderItem() != null)
@@ -39,13 +37,11 @@ public class TexturedModel extends SimpleBakedModel implements ISmartBlockModel,
 		return m_sprite;
 	}
 
-	@Override
 	public IBakedModel handleBlockState(IBlockState state)
 	{
 		return m_blockModel;
 	}
 
-	@Override
 	public IBakedModel handleItemState(ItemStack stack)
 	{
 		return m_itemModel;

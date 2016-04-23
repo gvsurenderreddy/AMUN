@@ -87,7 +87,7 @@ public class GuiModification
 	{
 		for(IGuiOpenHandler r : m_openers)
 		{
-			r.onOpen(event.gui, event.buttonList);
+			r.onOpen(event.getGui(), event.getButtonList());
 		}
 	}
 
@@ -96,7 +96,7 @@ public class GuiModification
 	{
 		for(IGuiScreenRenderable r : m_renderable)
 		{
-			r.renderInGui(event.gui, event.mouseX, event.mouseY);
+			r.renderInGui(event.getGui(), event.getMouseX(), event.getMouseY());
 		}
 	}
 
@@ -105,13 +105,13 @@ public class GuiModification
 	{
 		for(IncludedButton i : m_buttons)
 		{
-			if(i.m_type.equals(event.gui.getClass()))
+			if(i.m_type.equals(event.getGui().getClass()))
 			{
 				if(i.m_id > 0)
 				{
-					if(event.button.id == i.m_id)
+					if(event.getButton().id == i.m_id)
 					{
-						i.m_func.call(event.gui.mc);
+						i.m_func.call(event.getGui().mc);
 
 						return;
 					}

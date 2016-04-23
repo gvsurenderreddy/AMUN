@@ -69,11 +69,6 @@ public class AmunRecipeWrapper<RECIPE extends IAmunRecipe> implements IRecipeWra
 	}
 
 	@Override
-	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight)
-	{
-	}
-
-	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY)
 	{
 	}

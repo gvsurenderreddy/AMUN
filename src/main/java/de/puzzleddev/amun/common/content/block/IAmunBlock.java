@@ -2,7 +2,7 @@ package de.puzzleddev.amun.common.content.block;
 
 import de.puzzleddev.amun.common.content.IAmunContent;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 
 /**
  * Interface implemented by all blocks handled by amun.
