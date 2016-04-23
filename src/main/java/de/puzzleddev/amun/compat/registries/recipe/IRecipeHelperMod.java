@@ -21,5 +21,5 @@ public interface IRecipeHelperMod
 	 * 
 	 * @param vis The visualization to add.
 	 */
-	public void addRecipeVisualization(IRecipeTypeVisualization vis);
+	public void addRecipeVisualization(IRecipeTypeVisualization<?> vis);
 }

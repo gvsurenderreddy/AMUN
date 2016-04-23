@@ -20,6 +20,9 @@ import de.puzzleddev.amun.common.config.impl.AMUNConfigAPI;
 import de.puzzleddev.amun.common.content.RegisterContent;
 import de.puzzleddev.amun.common.content.recipe.AmunRecipeRegistryImpl;
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipeRegistry;
+import de.puzzleddev.amun.common.content.recipe.crafting.AmunCraftingTableRecipeType;
+import de.puzzleddev.amun.common.content.recipe.debug.AmunDebugRecipeType;
+import de.puzzleddev.amun.common.content.recipe.furnace.AmunFurnaceRecipeType;
 import de.puzzleddev.amun.common.core.content.DebugItem;
 import de.puzzleddev.amun.common.mod.AmunMod;
 import de.puzzleddev.amun.common.mod.AmunModManagerImpl;
@@ -31,6 +34,8 @@ import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.Helper;
 import de.puzzleddev.amun.util.IAMUNLoadHook;
 import de.puzzleddev.amun.util.functional.Function;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer.Disableable;
 import net.minecraftforge.fml.common.ModMetadata;
@@ -40,6 +45,7 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.oredict.RecipeSorter;
 
 /**
  * Main mod file of Amun.<br>
@@ -244,7 +250,7 @@ public class Amun implements IAmunMod
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		AMUNLog.info("Starting AMUN pre initialization"); //Notify the user
-
+		
 		AmunConsts.createMetadata(METADATA); //Set the metadata
 
 		AMUNLog.infof("Could{} disable disable button", (Helper.setDisableable(AmunConsts.MOD_ID, Disableable.NEVER) ? "" : "'t")); //Disabling the "disable" button
@@ -300,6 +306,11 @@ public class Amun implements IAmunMod
 	public void init(FMLInitializationEvent event)
 	{
 		AMUNLog.info("Starting AMUN initialization"); //Notify the user
+		
+		RECIPE.getRecipeType(AmunFurnaceRecipeType.class).newBuilder().setInput(new ItemStack(Items.coal)).setOutput(new ItemStack(Items.diamond)).build();
+		RECIPE.getRecipeType(AmunCraftingTableRecipeType.class).newBuilder().setRecipeType(RecipeSorter.Category.SHAPELESS).setInput(new ItemStack(Items.coal)).setOutput(new ItemStack(Items.diamond)).build();
+		//RECIPE.getRecipeType(AmunGrinderRecipeType.class).newBuilder().setInput(new ItemStack(Items.coal)).setOutput(new ItemStack(Items.diamond)).build();
+		RECIPE.getRecipeType(AmunDebugRecipeType.class).newBuilder().setInput(new ItemStack(Items.coal)).build();
 		
 		//Runs the loading hooks
 		for(IAMUNLoadHook lh : m_loadHooks)

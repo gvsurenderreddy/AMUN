@@ -17,6 +17,11 @@ import de.puzzleddev.amun.util.IBuilder;
 public interface IAmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBuilder<RECIPE>> extends IAmunContent
 {
 	/**
+	 * @return The specific class of recipes this accepts.
+	 */
+	public Class<RECIPE> getRecipeClass();
+	
+	/**
 	 * Adds a recipe to this type.
 	 * 
 	 * @param recipe The recipe to add.
@@ -31,7 +36,7 @@ public interface IAmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBu
 	/**
 	 * @return The {@link IRecipeTypeVisualization} instance for this type, may be null.
 	 */
-	public IRecipeTypeVisualization getVisualization();
+	public IRecipeTypeVisualization<RECIPE> getVisualization();
 	
 	/**
 	 * When the "build" method is called the result is automatically added to this.

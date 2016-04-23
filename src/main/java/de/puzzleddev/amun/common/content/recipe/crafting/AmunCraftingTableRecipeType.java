@@ -5,6 +5,7 @@ import de.puzzleddev.amun.common.content.RegisterContent;
 import de.puzzleddev.amun.common.content.recipe.AmunRecipeType;
 import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.common.core.AmunConsts;
+import net.minecraftforge.oredict.RecipeSorter;
 
 /**
  * Recipe type for the vanilla crafting table.
@@ -17,6 +18,9 @@ public class AmunCraftingTableRecipeType extends AmunRecipeType<AmunCraftingTabl
 {
 	public AmunCraftingTableRecipeType()
 	{
-		super(Amun.instance(), AmunConsts.VANILLA_CRAFTING_RECIPE_ID, null, AmunCraftingTableRecipe.Builder::new);
+		super(Amun.instance(), AmunCraftingTableRecipe.class, AmunConsts.VANILLA_CRAFTING_RECIPE_ID, null, AmunCraftingTableRecipe.Builder::new);
+		
+		RecipeSorter.register(this.getUniqueName(), AmunCraftingTableRecipe.Shaped.class, RecipeSorter.Category.SHAPED, "");
+		RecipeSorter.register(this.getUniqueName(), AmunCraftingTableRecipe.Shapeless.class, RecipeSorter.Category.SHAPELESS, "");
 	}
 }

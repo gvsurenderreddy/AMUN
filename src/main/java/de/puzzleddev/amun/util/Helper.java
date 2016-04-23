@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.common.FMLModContainer;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
@@ -214,5 +215,10 @@ public class Helper
 			updateGson();
 
 		return GSON;
+	}
+	
+	public static String localize(String key)
+	{
+		return StatCollector.translateToLocal(key);
 	}
 }

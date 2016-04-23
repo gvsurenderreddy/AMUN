@@ -21,9 +21,14 @@ import de.puzzleddev.amun.util.functional.Function;
 public class AmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBuilder<RECIPE>> extends BaseAmunContent implements IAmunRecipeType<RECIPE, BUILDER>
 {
 	/**
+	 * Class of RECIPE.
+	 */
+	private Class<RECIPE> m_recCls;
+	
+	/**
 	 * The {@link IRecipeTypeVisualization} instance.
 	 */
-	private IRecipeTypeVisualization m_visualization;
+	private IRecipeTypeVisualization<RECIPE> m_visualization;
 	
 	/**
 	 * Function to construct a new builder instance, should be a constructor.
@@ -35,13 +40,20 @@ public class AmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBuilder
 	 */
 	private List<RECIPE> m_recipes;
 
-	public AmunRecipeType(IAmunMod mod, String name, IRecipeTypeVisualization vis, Function.OneArg<BUILDER, IAmunRecipeType<RECIPE, BUILDER>> cons)
+	public AmunRecipeType(IAmunMod mod, Class<RECIPE> cls, String name, IRecipeTypeVisualization<RECIPE> vis, Function.OneArg<BUILDER, IAmunRecipeType<RECIPE, BUILDER>> cons)
 	{
 		super(mod, name);
 
+		m_recCls = cls;
 		m_visualization = vis;
 		m_builderConstructor = cons;
 		m_recipes = Lists.newArrayList();
+	}
+
+	@Override
+	public Class<RECIPE> getRecipeClass()
+	{
+		return m_recCls;
 	}
 
 	@Override
@@ -57,7 +69,7 @@ public class AmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBuilder
 	}
 
 	@Override
-	public IRecipeTypeVisualization getVisualization()
+	public IRecipeTypeVisualization<RECIPE> getVisualization()
 	{
 		return m_visualization;
 	}
@@ -67,5 +79,4 @@ public class AmunRecipeType<RECIPE extends IAmunRecipe, BUILDER extends IBuilder
 	{
 		return m_builderConstructor.call(this);
 	}
-
 }

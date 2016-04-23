@@ -6,6 +6,7 @@ import de.puzzleddev.amun.util.IBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -17,24 +18,13 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
  */
 public interface AmunCraftingTableRecipe extends IAmunRecipe, IRecipe
 {
-	/**
-	 * Types of recipes.
-	 * 
-	 * @author tim4242
-	 */
-	public static enum RecipeType
-	{
-		SHAPED,
-		SHAPELESS
-	}
-	
 	@Override
 	public default void register()
 	{
 		GameRegistry.addRecipe(this);
 	}
 	
-	public RecipeType getRecipeType();
+	public RecipeSorter.Category getRecipeType();
 	
 	/**
 	 * Recipe implementation for shaped recipes.
@@ -49,9 +39,9 @@ public interface AmunCraftingTableRecipe extends IAmunRecipe, IRecipe
 		}
 
 		@Override
-		public RecipeType getRecipeType()
+		public RecipeSorter.Category getRecipeType()
 		{
-			return RecipeType.SHAPED;
+			return RecipeSorter.Category.SHAPED;
 		}
 	}
 	
@@ -68,9 +58,9 @@ public interface AmunCraftingTableRecipe extends IAmunRecipe, IRecipe
 		}
 
 		@Override
-		public RecipeType getRecipeType()
+		public RecipeSorter.Category getRecipeType()
 		{
-			return RecipeType.SHAPELESS;
+			return RecipeSorter.Category.SHAPELESS;
 		}
 	}
 	
@@ -89,7 +79,7 @@ public interface AmunCraftingTableRecipe extends IAmunRecipe, IRecipe
 		/**
 		 * The type to build.
 		 */
-		private RecipeType m_recType = RecipeType.SHAPED;
+		private RecipeSorter.Category m_recType = RecipeSorter.Category.SHAPED;
 		
 		/**
 		 * Output item stack.
@@ -111,11 +101,11 @@ public interface AmunCraftingTableRecipe extends IAmunRecipe, IRecipe
 		{
 			AmunCraftingTableRecipe rec = null;
 			
-			if(m_recType == RecipeType.SHAPED)
+			if(m_recType == RecipeSorter.Category.SHAPED)
 			{
 				rec = new Shaped(m_out, m_in);
 			}
-			else if(m_recType == RecipeType.SHAPELESS)
+			else if(m_recType == RecipeSorter.Category.SHAPELESS)
 			{
 				rec = new Shapeless(m_out, m_in); 
 			}
@@ -134,7 +124,7 @@ public interface AmunCraftingTableRecipe extends IAmunRecipe, IRecipe
 		 * @param type The type to set to.
 		 * @return this.
 		 */
-		public Builder setRecipeType(RecipeType type)
+		public Builder setRecipeType(RecipeSorter.Category type)
 		{
 			m_recType = type;
 			

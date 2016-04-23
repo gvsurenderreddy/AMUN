@@ -9,6 +9,4 @@ public interface JEIAPI
 	public AMUNJEIPlugin getPlugin();
 	
 	public IJeiHelpers getHelpers();
-	
-	public void registerRecipeType(IRecipeType type);
 }

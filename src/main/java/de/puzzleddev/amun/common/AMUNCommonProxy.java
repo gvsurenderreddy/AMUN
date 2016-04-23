@@ -50,5 +50,4 @@ public class AmunCommonProxy<PROXY extends AmunCommonProxy<PROXY>> implements IA
 	{
 		return m_side;
 	}
-
 }

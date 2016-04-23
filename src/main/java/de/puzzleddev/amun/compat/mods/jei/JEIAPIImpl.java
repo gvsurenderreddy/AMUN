@@ -1,5 +1,12 @@
 package de.puzzleddev.amun.compat.mods.jei;
 
+import java.util.ArrayList;
+
+import de.puzzleddev.amun.common.content.recipe.IAmunRecipe;
+import de.puzzleddev.amun.common.content.recipe.IAmunRecipeType;
+import de.puzzleddev.amun.common.core.Amun;
+import de.puzzleddev.amun.compat.mods.jei.wrapper.AmunRecipeCategory;
+import de.puzzleddev.amun.compat.mods.jei.wrapper.AmunRecipeHandler;
 import mezz.jei.api.IItemRegistry;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
@@ -33,39 +40,6 @@ public class JEIAPIImpl implements JEIAPI, IModPlugin
 	private IJeiHelpers m_helpers;
 
 	@Override
-	public void registerRecipeType(IRecipeType type)
-	{
-		m_plugin.addPlugin(new IModPlugin()
-		{
-			@Override
-			public void register(IModRegistry registry)
-			{
-				type.register(registry, m_helpers.getGuiHelper());
-			}
-
-			@Override
-			public void onRuntimeAvailable(IJeiRuntime jeiRuntime)
-			{
-			}
-
-			@Override
-			public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry)
-			{
-			}
-
-			@Override
-			public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers)
-			{
-			}
-
-			@Override
-			public void onItemRegistryAvailable(IItemRegistry itemRegistry)
-			{
-			}
-		});
-	}
-
-	@Override
 	public IJeiHelpers getHelpers()
 	{
 		return m_helpers;
@@ -82,14 +56,27 @@ public class JEIAPIImpl implements JEIAPI, IModPlugin
 	{
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void register(IModRegistry registry)
 	{
+		for(IAmunRecipeType<?, ?> type : Amun.RECIPE.getAllRecipeTypes())
+		{
+			if(type.getVisualization() != null && type.getVisualization().shouldIntegrateWithMod("JEI"))
+			{
+				System.out.println("Registered recipe type " + type.getUniqueName() + " : " + type.getClass());
+				
+				registry.addRecipeHandlers(new AmunRecipeHandler<IAmunRecipe>((IAmunRecipeType<IAmunRecipe, ?>) type));
+				registry.addRecipeCategories(new AmunRecipeCategory(m_helpers.getGuiHelper(), type));
+				registry.addRecipes(new ArrayList<Object>(type.getRecipes()));
+			}
+		}
 	}
 
 	@Override
-	public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry)
+	public void onRecipeRegistryAvailable(IRecipeRegistry reg)
 	{
+		
 	}
 
 	@Override

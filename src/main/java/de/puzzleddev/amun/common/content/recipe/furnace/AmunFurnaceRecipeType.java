@@ -17,6 +17,6 @@ public class AmunFurnaceRecipeType extends AmunRecipeType<AmunFurnaceRecipe, Amu
 {
 	public AmunFurnaceRecipeType()
 	{
-		super(Amun.instance(), AmunConsts.VANILLA_FURNACE_RECIPE_ID, null, AmunFurnaceRecipe.Builder::new);
+		super(Amun.instance(), AmunFurnaceRecipe.class, AmunConsts.VANILLA_FURNACE_RECIPE_ID, null, AmunFurnaceRecipe.Builder::new);
 	}
 }
