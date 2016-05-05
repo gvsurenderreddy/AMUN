@@ -3,8 +3,8 @@ package de.puzzleddev.amun.common.content.block;
 import de.puzzleddev.amun.client.resources.ResourceEventHandler;
 import de.puzzleddev.amun.client.resources.ResourceJobs;
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
-import de.puzzleddev.amun.common.content.AmunRegistrar;
 import de.puzzleddev.amun.common.content.IContentRegistrar;
+import de.puzzleddev.amun.common.content.anno.AmunRegistrar;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**

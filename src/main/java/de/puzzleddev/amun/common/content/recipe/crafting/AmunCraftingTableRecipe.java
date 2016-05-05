@@ -2,7 +2,7 @@ package de.puzzleddev.amun.common.content.recipe.crafting;
 
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipe;
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipeType;
-import de.puzzleddev.amun.util.IBuilder;
+import de.puzzleddev.amun.util.functional.IBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;

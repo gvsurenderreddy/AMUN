@@ -8,8 +8,8 @@ import com.google.common.collect.Lists;
 import de.puzzleddev.amun.common.content.BaseAmunContent;
 import de.puzzleddev.amun.common.mod.IAmunMod;
 import de.puzzleddev.amun.compat.registries.recipe.IRecipeTypeVisualization;
-import de.puzzleddev.amun.util.IBuilder;
 import de.puzzleddev.amun.util.functional.Function;
+import de.puzzleddev.amun.util.functional.IBuilder;
 
 /**
  * Base implementation of {@link IAmunRecipeType}.

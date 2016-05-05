@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.util;
+package de.puzzleddev.amun.util.log;
 
 import java.util.Map;
 

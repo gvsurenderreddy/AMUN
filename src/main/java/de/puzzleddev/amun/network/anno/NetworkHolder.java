@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.common.content;
+package de.puzzleddev.amun.network.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,18 +9,16 @@ import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
 /**
- * Annotation that identifies a registrar.
+ * Injects a new {@link AmunNetwork} instance into an appropriate field.
  * 
  * @author tim4242
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @AmunAnnotationHolder
-@AmunAnnotation(value = RegistrantCallback.class, toCall = 3)
-public @interface AmunRegistrar
+@AmunAnnotation(value = NetworkAnnotationCallback.class, toCall = 9)
+public @interface NetworkHolder
 {
-	/**
-	 * @return The type this registers.
-	 */
-	Class<?>value();
+	String mod();
+	String name();
 }

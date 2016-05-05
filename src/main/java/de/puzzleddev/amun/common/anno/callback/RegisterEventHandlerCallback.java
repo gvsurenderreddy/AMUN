@@ -7,8 +7,8 @@ import com.google.common.collect.Maps;
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.sub.RegisterEventHandler;
-import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.functional.Function;
+import de.puzzleddev.amun.util.log.AMUNLog;
 import net.minecraftforge.common.MinecraftForge;
 
 public class RegisterEventHandlerCallback implements IAmunAnnotationCallback<RegisterEventHandler>

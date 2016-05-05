@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Level;
 import com.google.common.collect.Maps;
 
 import de.puzzleddev.amun.common.script.impl.ScriptLibraryImpl;
-import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.functional.Function;
+import de.puzzleddev.amun.util.log.AMUNLog;
 
 public class AMUNLibrary extends ScriptLibraryImpl
 {

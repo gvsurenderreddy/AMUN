@@ -1,8 +1,9 @@
-package de.puzzleddev.amun.common.content;
+package de.puzzleddev.amun.common.content.anno;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.callback.FactoryCallback;
+import de.puzzleddev.amun.common.content.IContentRegistrar;
 
 public class RegistrantCallback implements IAmunAnnotationCallback<AmunRegistrar>
 {

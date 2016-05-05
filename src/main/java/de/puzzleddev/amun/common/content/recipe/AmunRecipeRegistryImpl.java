@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import de.puzzleddev.amun.compat.registries.recipe.IRecipeHelperMod;
-import de.puzzleddev.amun.util.IBuilder;
+import de.puzzleddev.amun.util.functional.IBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

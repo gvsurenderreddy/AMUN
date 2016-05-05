@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.util;
+package de.puzzleddev.amun.network;
 
 import de.puzzleddev.amun.client.AMUNClientProxy;
 import de.puzzleddev.amun.common.AmunCommonProxy;
@@ -113,6 +113,20 @@ public class NetworkSide<PROXY extends AmunCommonProxy>
 	{
 		return m_side == -1;
 	}
+	
+	/**
+	 * @param side The side to check.
+	 * @return If this is equivalent to the given side. 
+	 */
+	public boolean isValid(Side side)
+	{
+		for(Side s : SIDES)
+		{
+			if(s == side) return true;
+		}
+		
+		return false;
+	}
 
 	/**
 	 * @return This sides proxy or null if the callers side isn't this side.
@@ -125,5 +139,14 @@ public class NetworkSide<PROXY extends AmunCommonProxy>
 			return (PROXY) proxy;
 
 		return null;
+	}
+	
+	/**
+	 * @param side The side to check.
+	 * @return A NetworkSide instance equivalent to the given side.
+	 */
+	public static NetworkSide<?> getFromSide(Side side)
+	{
+		return (side == Side.CLIENT ? CLIENT : SERVER);
 	}
 }

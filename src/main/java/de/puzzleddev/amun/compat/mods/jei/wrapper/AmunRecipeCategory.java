@@ -4,7 +4,7 @@ import de.puzzleddev.amun.common.content.recipe.IAmunRecipe;
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipeType;
 import de.puzzleddev.amun.compat.registries.recipe.IPositionedRecipePart;
 import de.puzzleddev.amun.util.Helper;
-import de.puzzleddev.amun.util.IBuilder;
+import de.puzzleddev.amun.util.functional.IBuilder;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;

@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
 
-import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.util.log.AMUNLog;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 
 /**

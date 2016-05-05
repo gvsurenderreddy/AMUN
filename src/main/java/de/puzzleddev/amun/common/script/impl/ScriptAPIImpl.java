@@ -8,7 +8,7 @@ import com.google.common.collect.Maps;
 import de.puzzleddev.amun.common.script.IScriptAPI;
 import de.puzzleddev.amun.common.script.IScriptInterface;
 import de.puzzleddev.amun.common.script.lib.AMUNLibrary;
-import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.util.log.AMUNLog;
 
 public class ScriptAPIImpl implements IScriptAPI
 {

@@ -1,5 +1,5 @@
 
-package de.puzzleddev.amun.util;
+package de.puzzleddev.amun.util.log;
 
 import org.apache.logging.log4j.Level;
 

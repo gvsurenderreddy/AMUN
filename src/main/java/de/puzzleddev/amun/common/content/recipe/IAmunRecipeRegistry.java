@@ -2,16 +2,16 @@ package de.puzzleddev.amun.common.content.recipe;
 
 import java.util.Collection;
 
+import de.puzzleddev.amun.common.core.IAmunLoadHook;
 import de.puzzleddev.amun.compat.registries.recipe.IRecipeHelperMod;
-import de.puzzleddev.amun.util.IAMUNLoadHook;
-import de.puzzleddev.amun.util.IBuilder;
+import de.puzzleddev.amun.util.functional.IBuilder;
 
 /**
  * Registry containing all relevant {@link IAmunRecipeType} instances.
  * 
  * @author tim4242
  */
-public interface IAmunRecipeRegistry extends IAMUNLoadHook, IRecipeHelperMod
+public interface IAmunRecipeRegistry extends IAmunLoadHook, IRecipeHelperMod
 {
 	/**
 	 * Registers an {@link IAmunRecipeType} instance.

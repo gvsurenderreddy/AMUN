@@ -4,10 +4,10 @@ import de.puzzleddev.amun.common.anno.check.ModOnlyCheck;
 import de.puzzleddev.amun.common.anno.construct.AmunCheck;
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
 import de.puzzleddev.amun.common.api.APIProvider;
-import de.puzzleddev.amun.compat.Compatebility;
+import de.puzzleddev.amun.common.core.IAmunLoadHook;
+import de.puzzleddev.amun.compat.anno.Compatebility;
 import de.puzzleddev.amun.compat.mods.waila.WailaAPI;
 import de.puzzleddev.amun.compat.mods.waila.WailaAPIImpl;
-import de.puzzleddev.amun.util.IAMUNLoadHook;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @AmunFactory
 @AmunCheck(check = ModOnlyCheck.class, data = "WailaAPI")
 @Compatebility("WailaAPI")
-public class WAILACompat implements IAMUNLoadHook
+public class WAILACompat implements IAmunLoadHook
 {
 	private static WailaAPI m_instance;
 

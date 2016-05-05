@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import de.puzzleddev.amun.common.content.IAmunContent;
 import de.puzzleddev.amun.compat.registries.recipe.IRecipeTypeVisualization;
-import de.puzzleddev.amun.util.IBuilder;
+import de.puzzleddev.amun.util.functional.IBuilder;
 
 /**
  * Defines a type of recipe.<br>

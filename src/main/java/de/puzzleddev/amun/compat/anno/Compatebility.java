@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.compat;
+package de.puzzleddev.amun.compat.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

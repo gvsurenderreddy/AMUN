@@ -3,8 +3,12 @@ package de.puzzleddev.amun.client;
 import de.puzzleddev.amun.client.resources.sprite.ISpriteCollection;
 import de.puzzleddev.amun.client.resources.sprite.impl.ResourceLocationSpriteLoader;
 import de.puzzleddev.amun.common.AmunCommonProxy;
-import de.puzzleddev.amun.util.NetworkSide;
+import de.puzzleddev.amun.network.NetworkSide;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * Client proxy.
@@ -56,5 +60,17 @@ public class AMUNClientProxy extends AmunCommonProxy<AMUNClientProxy>
 	public ISpriteCollection getStdCollection()
 	{
 		return m_stdSprites;
+	}
+
+	@Override
+	public EntityPlayer getPlayer(MessageContext context)
+	{
+		return Minecraft.getMinecraft().thePlayer;
+	}
+
+	@Override
+	public IThreadListener getThreadListener(MessageContext context)
+	{
+		return Minecraft.getMinecraft();
 	}
 }

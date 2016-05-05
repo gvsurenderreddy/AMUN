@@ -2,7 +2,7 @@ package de.puzzleddev.amun.common.content.recipe.debug;
 
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipe;
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipeType;
-import de.puzzleddev.amun.util.IBuilder;
+import de.puzzleddev.amun.util.functional.IBuilder;
 import net.minecraft.item.ItemStack;
 
 public class AmunDebugRecipe implements IAmunRecipe

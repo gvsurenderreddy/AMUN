@@ -1,8 +1,8 @@
 package de.puzzleddev.amun.common.content.recipe;
 
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
-import de.puzzleddev.amun.common.content.AmunRegistrar;
 import de.puzzleddev.amun.common.content.IContentRegistrar;
+import de.puzzleddev.amun.common.content.anno.AmunRegistrar;
 import de.puzzleddev.amun.common.core.Amun;
 
 /**

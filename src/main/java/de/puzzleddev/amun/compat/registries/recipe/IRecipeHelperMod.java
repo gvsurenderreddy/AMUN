@@ -1,7 +1,7 @@
 package de.puzzleddev.amun.compat.registries.recipe;
 
 import de.puzzleddev.amun.common.core.Amun;
-import de.puzzleddev.amun.compat.CompatibilityMod;
+import de.puzzleddev.amun.compat.anno.CompatibilityMod;
 import net.minecraft.item.ItemStack;
 
 /**

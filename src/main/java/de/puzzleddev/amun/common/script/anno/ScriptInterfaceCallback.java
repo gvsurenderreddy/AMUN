@@ -5,7 +5,7 @@ import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.callback.FactoryCallback;
 import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.common.script.IScriptInterface;
-import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.util.log.AMUNLog;
 
 public class ScriptInterfaceCallback implements IAmunAnnotationCallback<ScriptInterface>
 {

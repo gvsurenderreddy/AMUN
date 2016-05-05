@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.util;
+package de.puzzleddev.amun.util.functional;
 
 public interface IBuilder<OUT>
 {

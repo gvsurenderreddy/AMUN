@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
-import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.util.log.AMUNLog;
 
 public class APIProviderCallback implements IAmunAnnotationCallback<APIProvider>
 {

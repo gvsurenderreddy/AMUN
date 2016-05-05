@@ -4,8 +4,8 @@ import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.sub.AmunRegisterLoadHooks;
 import de.puzzleddev.amun.common.core.Amun;
-import de.puzzleddev.amun.util.AMUNLog;
-import de.puzzleddev.amun.util.IAMUNLoadHook;
+import de.puzzleddev.amun.common.core.IAmunLoadHook;
+import de.puzzleddev.amun.util.log.AMUNLog;
 import net.minecraftforge.fml.common.Loader;
 
 public class AmunRegLoadHookCallback implements IAmunAnnotationCallback<AmunRegisterLoadHooks>
@@ -38,7 +38,7 @@ public class AmunRegLoadHookCallback implements IAmunAnnotationCallback<AmunRegi
 		if(!FactoryCallback.has(cls))
 			return;
 
-		IAMUNLoadHook obj = (IAMUNLoadHook) FactoryCallback.get(cls);
+		IAmunLoadHook obj = (IAmunLoadHook) FactoryCallback.get(cls);
 
 		Amun.instance().addLoadHook(obj);
 

@@ -1,21 +1,20 @@
-package de.puzzleddev.amun.util;
+package de.puzzleddev.amun.common.core;
 
-import de.puzzleddev.amun.common.core.Amun;
-import de.puzzleddev.amun.compat.CompatibilityMod;
+import de.puzzleddev.amun.compat.anno.CompatibilityMod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * Can be registered at
- * {@link de.puzzleddev.amun.common.core.Amun#addLoadHook(IAMUNLoadHook)
+ * {@link de.puzzleddev.amun.common.core.Amun#addLoadHook(IAmunLoadHook)
  * Amun.addLoadHook()}, when registered the appropriate methods are called
  * during the loading stages. These get run after Amun has finished that step.
  * 
  * @author tim4242
  */
 @CompatibilityMod("register")
-public interface IAMUNLoadHook
+public interface IAmunLoadHook
 {
 	/**
 	 * Gets called during pre initialization.
@@ -43,6 +42,6 @@ public interface IAMUNLoadHook
 	
 	public static void register(Object obj)
 	{
-		Amun.instance().addLoadHook((IAMUNLoadHook) obj);
+		Amun.instance().addLoadHook((IAmunLoadHook) obj);
 	}
 }

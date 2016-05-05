@@ -1,11 +1,14 @@
 package de.puzzleddev.amun.common;
 
-import de.puzzleddev.amun.util.AMUNLog;
-import de.puzzleddev.amun.util.IAMUNLoadHook;
-import de.puzzleddev.amun.util.NetworkSide;
+import de.puzzleddev.amun.common.core.IAmunLoadHook;
+import de.puzzleddev.amun.network.NetworkSide;
+import de.puzzleddev.amun.util.log.AMUNLog;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * Base class for amuns proxies.
@@ -14,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * @param <PROXY>
  *            This type.
  */
-public class AmunCommonProxy<PROXY extends AmunCommonProxy<PROXY>> implements IAMUNLoadHook
+public abstract class AmunCommonProxy<PROXY extends AmunCommonProxy<PROXY>> implements IAmunLoadHook
 {
 	/**
 	 * The {@link NetworkSide} this is on.
@@ -43,6 +46,10 @@ public class AmunCommonProxy<PROXY extends AmunCommonProxy<PROXY>> implements IA
 	{
 		AMUNLog.infof("Post initialization on {} side", getSide().getName());
 	}
+	
+	public abstract EntityPlayer getPlayer(MessageContext context);
+	
+	public abstract IThreadListener getThreadListener(MessageContext context);
 
 	/**
 	 * @return This {@link NetworkSide} instance.

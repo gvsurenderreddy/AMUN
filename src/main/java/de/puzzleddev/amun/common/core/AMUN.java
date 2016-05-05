@@ -13,11 +13,12 @@ import de.puzzleddev.amun.common.anno.IAmunAnnotationManager;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 import de.puzzleddev.amun.common.anno.impl.AmunAnnotationManagerImpl;
+import de.puzzleddev.amun.common.anno.sub.AmunFactory;
 import de.puzzleddev.amun.common.api.IAPIManager;
 import de.puzzleddev.amun.common.api.impl.APIManagerImpl;
 import de.puzzleddev.amun.common.config.IAmunConfigAPI;
 import de.puzzleddev.amun.common.config.impl.AMUNConfigAPI;
-import de.puzzleddev.amun.common.content.RegisterContent;
+import de.puzzleddev.amun.common.content.anno.RegisterContent;
 import de.puzzleddev.amun.common.content.recipe.AmunRecipeRegistryImpl;
 import de.puzzleddev.amun.common.content.recipe.IAmunRecipeRegistry;
 import de.puzzleddev.amun.common.content.recipe.crafting.AmunCraftingTableRecipeType;
@@ -30,10 +31,11 @@ import de.puzzleddev.amun.common.mod.IAmunMod;
 import de.puzzleddev.amun.common.mod.IAmunModManager;
 import de.puzzleddev.amun.common.script.IScriptAPI;
 import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
-import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.network.AmunNetwork;
+import de.puzzleddev.amun.network.anno.NetworkHolder;
 import de.puzzleddev.amun.util.Helper;
-import de.puzzleddev.amun.util.IAMUNLoadHook;
 import de.puzzleddev.amun.util.functional.Function;
+import de.puzzleddev.amun.util.log.AMUNLog;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -71,6 +73,7 @@ public class Amun implements IAmunMod
 	 * @return The instance.
 	 */
 	@Mod.InstanceFactory
+	@AmunFactory
 	public static Amun instance()
 	{
 		// Standard simple singleton
@@ -98,7 +101,7 @@ public class Amun implements IAmunMod
 	 * All the loading hooks.<br>
 	 * TODO: Out source this to China.
 	 */
-	private Collection<IAMUNLoadHook> m_loadHooks;
+	private Collection<IAmunLoadHook> m_loadHooks;
 
 	/**
 	 * The {@link IAmunMod.AmunModConstants} instance.
@@ -154,6 +157,9 @@ public class Amun implements IAmunMod
 	 */
 	public static IAmunRecipeRegistry RECIPE;
 
+	@NetworkHolder(mod = AmunConsts.MOD_ID, name = "default")
+	public AmunNetwork NETWORK;
+	
 	/**
 	 * The debug item instance, it makes little sense to out source this.
 	 */
@@ -166,7 +172,7 @@ public class Amun implements IAmunMod
 	private Amun()
 	{
 		// I don't know what it does but it look important
-		m_loadHooks = new ArrayList<IAMUNLoadHook>();
+		m_loadHooks = new ArrayList<IAmunLoadHook>();
 	}
 
 	/**
@@ -246,12 +252,12 @@ public class Amun implements IAmunMod
 	}
 
 	/**
-	 * Registers an {@link IAMUNLoadHook}.
+	 * Registers an {@link IAmunLoadHook}.
 	 * 
 	 * @param lh
-	 *            The {@link IAMUNLoadHook}.
+	 *            The {@link IAmunLoadHook}.
 	 */
-	public void addLoadHook(IAMUNLoadHook lh)
+	public void addLoadHook(IAmunLoadHook lh)
 	{
 		m_loadHooks.add(lh);
 	}
@@ -316,7 +322,7 @@ public class Amun implements IAmunMod
 		}
 
 		// Runs the loading hooks
-		for(IAMUNLoadHook lh : m_loadHooks)
+		for(IAmunLoadHook lh : m_loadHooks)
 			lh.preInit(event);
 	}
 
@@ -335,7 +341,7 @@ public class Amun implements IAmunMod
 		RECIPE.addHiddenItem(new ItemStack(DEBUG_ITEM));
 
 		// Runs the loading hooks
-		for(IAMUNLoadHook lh : m_loadHooks)
+		for(IAmunLoadHook lh : m_loadHooks)
 			lh.init(event);
 	}
 
@@ -345,7 +351,7 @@ public class Amun implements IAmunMod
 		AMUNLog.info("Starting AMUN post initialization"); // Notify the user
 
 		// Runs the loading hooks
-		for(IAMUNLoadHook lh : m_loadHooks)
+		for(IAmunLoadHook lh : m_loadHooks)
 			lh.postInit(event);
 	}
 

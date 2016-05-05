@@ -14,7 +14,7 @@ import com.google.common.reflect.ClassPath.ClassInfo;
 import com.google.common.reflect.ClassPath.ResourceInfo;
 
 import de.puzzleddev.amun.common.core.AmunConsts;
-import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.util.log.AMUNLog;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.relauncher.IFMLCallHook;
 

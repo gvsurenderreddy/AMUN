@@ -1,7 +1,7 @@
 package de.puzzleddev.amun.common.content.recipe.crafting;
 
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
-import de.puzzleddev.amun.common.content.RegisterContent;
+import de.puzzleddev.amun.common.content.anno.RegisterContent;
 import de.puzzleddev.amun.common.content.recipe.AmunRecipeType;
 import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.common.core.AmunConsts;

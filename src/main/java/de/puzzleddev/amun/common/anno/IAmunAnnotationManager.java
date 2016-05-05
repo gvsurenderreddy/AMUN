@@ -1,13 +1,13 @@
 package de.puzzleddev.amun.common.anno;
 
-import de.puzzleddev.amun.util.IAMUNLoadHook;
+import de.puzzleddev.amun.common.core.IAmunLoadHook;
 
 /**
  * Responsible for managing annotations.
  * 
  * @author tim4242
  */
-public interface IAmunAnnotationManager extends IAMUNLoadHook
+public interface IAmunAnnotationManager extends IAmunLoadHook
 {
 	/**
 	 * Registers annotations and holders, also runs the callbacks with the

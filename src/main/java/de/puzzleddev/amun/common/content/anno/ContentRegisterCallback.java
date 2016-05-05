@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.common.content;
+package de.puzzleddev.amun.common.content.anno;
 
 import java.lang.reflect.Modifier;
 import java.util.Map;
@@ -8,7 +8,8 @@ import com.google.common.collect.Maps;
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.callback.FactoryCallback;
-import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.common.content.IContentRegistrar;
+import de.puzzleddev.amun.util.log.AMUNLog;
 
 public class ContentRegisterCallback implements IAmunAnnotationCallback<RegisterContent>
 {

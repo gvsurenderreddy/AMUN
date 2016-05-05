@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.compat;
+package de.puzzleddev.amun.compat.anno;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -9,8 +9,8 @@ import com.google.common.collect.Maps;
 import de.puzzleddev.amun.common.anno.AnnotationData;
 import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.callback.FactoryCallback;
-import de.puzzleddev.amun.util.AMUNLog;
 import de.puzzleddev.amun.util.functional.Function;
+import de.puzzleddev.amun.util.log.AMUNLog;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModAPIManager;
 

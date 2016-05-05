@@ -5,7 +5,7 @@ import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 import de.puzzleddev.amun.common.anno.sub.AmunRegisterAnnotations;
 import de.puzzleddev.amun.common.core.Amun;
-import de.puzzleddev.amun.util.AMUNLog;
+import de.puzzleddev.amun.util.log.AMUNLog;
 
 public class AmunRegAnnoCallback implements IAmunAnnotationCallback<AmunRegisterAnnotations>
 {

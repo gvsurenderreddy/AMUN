@@ -4,11 +4,11 @@ import de.puzzleddev.amun.common.anno.check.ModOnlyCheck;
 import de.puzzleddev.amun.common.anno.construct.AmunCheck;
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
 import de.puzzleddev.amun.common.api.APIProvider;
-import de.puzzleddev.amun.compat.Compatebility;
+import de.puzzleddev.amun.common.core.IAmunLoadHook;
+import de.puzzleddev.amun.compat.anno.Compatebility;
 import de.puzzleddev.amun.compat.mods.jei.JEIAPI;
 import de.puzzleddev.amun.compat.mods.jei.JEIAPIImpl;
 import de.puzzleddev.amun.compat.registries.recipe.IRecipeHelperMod;
-import de.puzzleddev.amun.util.IAMUNLoadHook;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @AmunFactory
 @AmunCheck(check = ModOnlyCheck.class, data = "JEI")
 @Compatebility("JEI")
-public class JEICompat implements IAMUNLoadHook, IRecipeHelperMod
+public class JEICompat implements IAmunLoadHook, IRecipeHelperMod
 {
 	private static JEIAPIImpl m_instance;
 

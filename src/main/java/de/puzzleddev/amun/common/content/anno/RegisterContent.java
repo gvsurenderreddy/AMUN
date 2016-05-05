@@ -1,4 +1,4 @@
-package de.puzzleddev.amun.compat;
+package de.puzzleddev.amun.common.content.anno;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,11 +8,16 @@ import java.lang.annotation.Target;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotation;
 import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 
+/**
+ * Marks a class to be registered by the appropriate content registrar.
+ * 
+ * @author tim4242
+ */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target({ ElementType.FIELD, ElementType.TYPE })
 @AmunAnnotationHolder
-@AmunAnnotation(value = AmunCompatebilityCallback.AmunCompatebilityModCallback.class, toCall = 8)
-public @interface CompatibilityMod
+@AmunAnnotation(value = ContentRegisterCallback.class, toCall = 10)
+public @interface RegisterContent
 {
-	String value();
+
 }

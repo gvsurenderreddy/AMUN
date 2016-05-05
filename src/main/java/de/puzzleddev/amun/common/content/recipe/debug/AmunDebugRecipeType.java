@@ -5,14 +5,14 @@ import java.util.Collection;
 
 import de.puzzleddev.amun.client.resources.sprite.ISprite;
 import de.puzzleddev.amun.common.anno.sub.AmunFactory;
-import de.puzzleddev.amun.common.content.RegisterContent;
+import de.puzzleddev.amun.common.content.anno.RegisterContent;
 import de.puzzleddev.amun.common.content.recipe.AmunRecipeType;
 import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.compat.registries.recipe.IPositionedRecipePart;
 import de.puzzleddev.amun.compat.registries.recipe.IPositionedRecipePart.IPositionedStackInfo;
 import de.puzzleddev.amun.compat.registries.recipe.IRecipeTypeVisualization;
 import de.puzzleddev.amun.compat.registries.recipe.impl.PositionedRecipePartImpl;
-import de.puzzleddev.amun.util.NetworkSide;
+import de.puzzleddev.amun.network.NetworkSide;
 import net.minecraft.item.ItemStack;
 
 @AmunFactory
