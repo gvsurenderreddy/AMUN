@@ -1,0 +1,3 @@
+maven_server=http://localhost:9090/repository/internal/
+maven_name=admin
+maven_pass=*****

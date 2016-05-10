@@ -108,6 +108,47 @@ if(has_private)
           configuration = configurations.deployerJars
           repository(url: private_props.maven_server) {
               authentication(userName: private_props.maven_name, password: private_props.maven_pass)
+
+              pom.name = 'AMUN'
+
+              pom.project {
+
+                description "AMUN is a core mod that doesn't add anything itself, therefor \"The hidden one\" or AMUN in greek"
+
+                developers {
+
+                  developer {
+
+                    id 'tim4242'
+                    name 'Tim4242'
+                    email 'tim4242@gmx.de'
+
+                    roles {
+
+                      role 'developer'
+                      role 'designer'
+
+                    }
+
+                    timezone 'Europe/Berlin'
+
+                  }
+
+                }
+
+                licenses {
+
+                  license {
+
+                    name 'Apache License, Version 2.0'
+                    url 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+
+                  }
+
+                }
+
+              }
           }
       }
   }
