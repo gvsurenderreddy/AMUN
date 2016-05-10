@@ -25,14 +25,13 @@ import de.puzzleddev.amun.common.content.recipe.crafting.AmunCraftingTableRecipe
 import de.puzzleddev.amun.common.content.recipe.debug.AmunDebugRecipeType;
 import de.puzzleddev.amun.common.content.recipe.furnace.AmunFurnaceRecipeType;
 import de.puzzleddev.amun.common.core.content.DebugItem;
+import de.puzzleddev.amun.common.core.network.InternalAmunNetwork;
 import de.puzzleddev.amun.common.mod.AmunMod;
 import de.puzzleddev.amun.common.mod.AmunModManagerImpl;
 import de.puzzleddev.amun.common.mod.IAmunMod;
 import de.puzzleddev.amun.common.mod.IAmunModManager;
 import de.puzzleddev.amun.common.script.IScriptAPI;
 import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
-import de.puzzleddev.amun.network.AmunNetwork;
-import de.puzzleddev.amun.network.anno.NetworkHolder;
 import de.puzzleddev.amun.util.Helper;
 import de.puzzleddev.amun.util.functional.Function;
 import de.puzzleddev.amun.util.log.AMUNLog;
@@ -156,9 +155,8 @@ public class Amun implements IAmunMod
 	 * <b>The</b> {@link IAmunRecipeRegistry} instance.
 	 */
 	public static IAmunRecipeRegistry RECIPE;
-
-	@NetworkHolder(mod = AmunConsts.MOD_ID, name = "default")
-	public AmunNetwork NETWORK;
+	
+	public InternalAmunNetwork NETWORK;
 	
 	/**
 	 * The debug item instance, it makes little sense to out source this.
@@ -190,6 +188,7 @@ public class Amun implements IAmunMod
 		SCRIPT = new ScriptAPIImpl();
 		MODS = new AmunModManagerImpl();
 		RECIPE = new AmunRecipeRegistryImpl();
+		NETWORK = InternalAmunNetwork.instance();
 
 		addLoadHook(PROXY); // Make the proxy a load hook
 		addLoadHook(RECIPE);
@@ -294,7 +293,17 @@ public class Amun implements IAmunMod
 
 		for(IAmunMod amd : MODS.getAllMods())
 			outStrs.add("    " + amd.getConstants().getModContainer().getName() + " (" + amd.getConstants().getModContainer().getModId() + ")");
-
+		
+		//@formatter:off
+		outStrs.addAll(Arrays.asList(
+				AMUNLog.BOX_SPERATOR,
+				"Found " + SCRIPT.getScriptTypes().size() + " script interface" + (SCRIPT.getScriptTypes().size() == 1 ? "" : "s"))
+		);
+		//@formatter:on
+		
+		for(String si : SCRIPT.getScriptTypes())
+			outStrs.add("    " + si + " (" + (SCRIPT.getScriptInterface(si).isAvailable() ? "available" : "unavailable") + ")");
+		
 		AMUNLog.logBoxed(Level.INFO, outStrs.toArray());
 
 		String scriptText = "amun.print(amun.log.info, amun.type, \"Hello World!!!\")"; // May

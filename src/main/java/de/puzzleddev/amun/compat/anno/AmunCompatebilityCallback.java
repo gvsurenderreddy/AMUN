@@ -1,7 +1,5 @@
 package de.puzzleddev.amun.compat.anno;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
@@ -57,36 +55,6 @@ public class AmunCompatebilityCallback implements IAmunAnnotationCallback<Compat
 		}
 
 		AMUNLog.console().infof("Compatebility for \"{}\"{} loaded{}", data.getAnnotation().value(), (loaded ? "" : " not"), (loaded ? "" : ": " + reason));
-	}
-
-	public static class AmunCompatebilityModCallback implements IAmunAnnotationCallback<CompatibilityMod>
-	{
-		@Override
-		public void call(int state, AnnotationData<CompatibilityMod> data) throws Exception
-		{
-			if(!data.isClass())
-				return;
-
-			if(data.getAnnotation().value().length() < 2)
-				return;
-
-			Method f = data.getWrappedClass().getMethod(data.getAnnotation().value(), Object.class);
-
-			if(f == null)
-				return;
-			if(!Modifier.isStatic(f.getModifiers()))
-				return;
-
-			registerModType(data.getWrappedClass(), (obj) -> {
-				try
-				{
-					f.invoke(null, obj);
-				} catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-			});
-		}
 	}
 
 }

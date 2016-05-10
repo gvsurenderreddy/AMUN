@@ -11,7 +11,7 @@ import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @AmunAnnotationHolder
-@AmunAnnotation(value = AmunCompatebilityCallback.AmunCompatebilityModCallback.class, toCall = 8)
+@AmunAnnotation(value = AmunCompatebilityModCallback.class, toCall = 8)
 public @interface CompatibilityMod
 {
 	String value();

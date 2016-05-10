@@ -5,8 +5,6 @@ import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.sub.AmunRegisterLoadHooks;
 import de.puzzleddev.amun.common.core.Amun;
 import de.puzzleddev.amun.common.core.IAmunLoadHook;
-import de.puzzleddev.amun.util.log.AMUNLog;
-import net.minecraftforge.fml.common.Loader;
 
 public class AmunRegLoadHookCallback implements IAmunAnnotationCallback<AmunRegisterLoadHooks>
 {
@@ -14,35 +12,10 @@ public class AmunRegLoadHookCallback implements IAmunAnnotationCallback<AmunRegi
 	@Override
 	public void call(int state, AnnotationData<AmunRegisterLoadHooks> data) throws Exception
 	{
-		for(String search : data.getAnnotation().hooks())
+		if(FactoryCallback.has(data.getWrappedClass()) && IAmunLoadHook.class.isAssignableFrom(data.getWrappedClass()))
 		{
-			if(search.isEmpty())
-				continue;
-
-			try
-			{
-
-				tryClass(search);
-
-			} catch(Throwable t)
-			{
-				t.printStackTrace();
-			}
+			Amun.instance().addLoadHook((IAmunLoadHook) FactoryCallback.get(data.getWrappedClass()));
 		}
-	}
-
-	public void tryClass(String search) throws Throwable
-	{
-		Class<?> cls = Loader.instance().getModClassLoader().loadClass(search);
-
-		if(!FactoryCallback.has(cls))
-			return;
-
-		IAmunLoadHook obj = (IAmunLoadHook) FactoryCallback.get(cls);
-
-		Amun.instance().addLoadHook(obj);
-
-		AMUNLog.console().info("Registered load hook " + cls.getSimpleName());
 	}
 
 }

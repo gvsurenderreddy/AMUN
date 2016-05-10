@@ -1,1 +1,1 @@
-gradle build makeArchive buildClean
+gradle clean build makeArchive buildClean %*
