@@ -6,16 +6,20 @@ import com.google.common.collect.Maps;
 
 import de.puzzleddev.amun.common.config.IAmunConfigAPI;
 import de.puzzleddev.amun.common.config.IConfigProvider;
-import de.puzzleddev.amun.common.config.anno.AMUNConfigHolder;
+import de.puzzleddev.amun.common.config.holder.IConfigHolder;
+import de.puzzleddev.amun.common.config.holder.impl.DefaultConfigHolderFactory;
+import de.puzzleddev.amun.util.functional.IFactory;
 
 public class AMUNConfigAPI implements IAmunConfigAPI
 {
 	private Map<String, IConfigProvider<?, ?>> m_providers;
-	private Map<Class<?>, ConfigHolder> m_holders;
+	private IFactory<IConfigHolder, Object> m_holderFactory;
+	private Map<Class<?>, IConfigHolder> m_holders;
 
 	public AMUNConfigAPI()
 	{
 		m_providers = Maps.newHashMap();
+		m_holderFactory = new DefaultConfigHolderFactory();
 		m_holders = Maps.newHashMap();
 	}
 
@@ -32,13 +36,22 @@ public class AMUNConfigAPI implements IAmunConfigAPI
 	}
 
 	@Override
-	public void registerHolder(AMUNConfigHolder holder, Object obj)
+	public void setHolderFactory(IFactory<IConfigHolder, Object> factory)
 	{
-		m_holders.put(obj.getClass(), new ConfigHolder(holder, obj));
+		if(factory != null)
+		{
+			m_holderFactory = factory;
+		}
 	}
 
 	@Override
-	public ConfigHolder getHolder(Class<?> obj)
+	public void registerHolder(Object obj)
+	{
+		m_holders.put(obj.getClass(), m_holderFactory.create(obj));
+	}
+
+	@Override
+	public IConfigHolder getHolder(Class<?> obj)
 	{
 		return m_holders.get(obj);
 	}

@@ -26,8 +26,8 @@ public interface IRecipeHelperMod
 	 * 
 	 * @param obj
 	 */
-	public static void register(Object obj)
+	public static void register(IRecipeHelperMod obj)
 	{
-		Amun.RECIPE.addRecipeMod((IRecipeHelperMod) obj);
+		Amun.RECIPE.addRecipeMod(obj);
 	}
 }

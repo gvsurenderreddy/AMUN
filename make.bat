@@ -1,1 +1,1 @@
-gradle clean build makeArchive buildClean %*
+gradle incrementPatchVersion clean build makeArchive buildClean %*

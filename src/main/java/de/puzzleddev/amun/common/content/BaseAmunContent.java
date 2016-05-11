@@ -10,7 +10,7 @@ public class BaseAmunContent implements IAmunContent
 	public BaseAmunContent(IAmunMod mod, String name)
 	{
 		m_owningMod = mod;
-		m_uniqueName = mod.getConstants().getUniquifier().call(mod, name);
+		m_uniqueName = mod.getConstants().getUniquified(name);
 	}
 
 	@Override

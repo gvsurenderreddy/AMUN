@@ -38,7 +38,7 @@ public class AmunNetwork
 
 	public AmunNetwork(IAmunMod mod, String name)
 	{
-		String preName = mod.getConstants().getUniquifier().call(mod, name);
+		String preName = mod.getConstants().getUniquified(name);
 		
 		m_wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(getUniqueName(preName));
 	}

@@ -346,9 +346,9 @@ public class Amun implements IAmunMod
 		// ItemStack(Items.coal)).setOutput(new
 		// ItemStack(Items.diamond)).build();
 		RECIPE.getRecipeType(AmunDebugRecipeType.class).newBuilder().setInput(new ItemStack(Items.coal)).build();
-
+		
 		RECIPE.addHiddenItem(new ItemStack(DEBUG_ITEM));
-
+		
 		// Runs the loading hooks
 		for(IAmunLoadHook lh : m_loadHooks)
 			lh.init(event);
@@ -371,7 +371,7 @@ public class Amun implements IAmunMod
 	{
 		if(m_constants == null)
 		{
-			m_constants = new IAmunMod.AmunModConstantsImpl(DEFAULT_UNIQUIFIER);
+			m_constants = new IAmunMod.AmunModConstantsImpl(this, DEFAULT_UNIQUIFIER, IAmunMod.AmunModConstantsImpl.DEFAULT_REC_LOC_FACTORY);
 		}
 
 		return m_constants;

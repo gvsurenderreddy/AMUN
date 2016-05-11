@@ -1,0 +1,1 @@
+make incrementMajorVersion -x incrementPatchVersion

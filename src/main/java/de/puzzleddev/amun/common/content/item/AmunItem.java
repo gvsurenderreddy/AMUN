@@ -27,8 +27,8 @@ public class AmunItem extends Item implements IAmunItem
 
 	public AmunItem(IAmunMod mod, String name, ModelResourceLocation renderer)
 	{
-		setUnlocalizedName(mod.getConstants().getUniquifier().call(mod, name));
-		setRegistryName(mod.getConstants().getUniquifier().call(mod, name));
+		setUnlocalizedName(mod.getConstants().getUniquified(name));
+		setRegistryName(mod.getConstants().getUniquified(name));
 
 		m_ownerMod = mod;
 		m_renderer = renderer;

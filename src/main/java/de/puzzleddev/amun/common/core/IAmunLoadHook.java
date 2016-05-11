@@ -40,8 +40,8 @@ public interface IAmunLoadHook
 	 */
 	public void postInit(FMLPostInitializationEvent event);
 	
-	public static void register(Object obj)
+	public static void register(IAmunLoadHook obj)
 	{
-		Amun.instance().addLoadHook((IAmunLoadHook) obj);
+		Amun.instance().addLoadHook(obj);
 	}
 }

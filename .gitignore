@@ -28,6 +28,11 @@
 !init.bat
 !update
 !update.bat
+!major_make.bat
+!minor_make.bat
+
+#Version
+!version.properties
 
 #Misc
 !TODO.md

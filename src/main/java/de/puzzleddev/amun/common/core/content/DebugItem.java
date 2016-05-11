@@ -24,7 +24,7 @@ public class DebugItem extends AmunItem implements IAmunItemTextured
 
 		super.setCreativeTab(CreativeTabs.tabTools);
 
-		TEXTURE = new ResourceLocation(getOwningMod().getContainer().getModId(), "items/debugItem");
+		TEXTURE = getOwningMod().getConstants().getResourceLocation("items/debugItem");
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package de.puzzleddev.amun.common.mod;
 
-import de.puzzleddev.amun.util.functional.Function;
 import de.puzzleddev.amun.util.functional.Function.TwoArg;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.ModMetadata;
 
@@ -44,7 +44,12 @@ public interface IAmunMod
 		/**
 		 * @return The uniquifier used by this mod.
 		 */
-		public abstract Function.TwoArg<String, IAmunMod, String> getUniquifier();
+		public abstract String getUniquified(String part);
+		
+		/**
+		 * @return The factory for resource locations used by this mod.
+		 */
+		public abstract ResourceLocation getResourceLocation(String part);
 	}
 
 	/**
@@ -54,17 +59,31 @@ public interface IAmunMod
 	 */
 	public class AmunModConstantsImpl extends AmunModConstants
 	{
+		public static final TwoArg<ResourceLocation, IAmunMod, String> DEFAULT_REC_LOC_FACTORY = (m, s) -> new ResourceLocation(m.getContainer().getModId(), s);
+		
+		private final IAmunMod m_mod;
+		
 		private TwoArg<String, IAmunMod, String> m_unique;
+		private TwoArg<ResourceLocation, IAmunMod, String> m_reclocFactory;
 
-		public AmunModConstantsImpl(TwoArg<String, IAmunMod, String> unique)
+		public AmunModConstantsImpl(IAmunMod mod, TwoArg<String, IAmunMod, String> unique, TwoArg<ResourceLocation, IAmunMod, String> recloc)
 		{
+			m_mod = mod;
+			
 			m_unique = unique;
+			m_reclocFactory = recloc;
 		}
 
 		@Override
-		public TwoArg<String, IAmunMod, String> getUniquifier()
+		public String getUniquified(String part)
 		{
-			return m_unique;
+			return m_unique.call(m_mod, part);
+		}
+
+		@Override
+		public ResourceLocation getResourceLocation(String part)
+		{
+			return m_reclocFactory.call(m_mod, part);
 		}
 	}
 

@@ -1,15 +1,28 @@
-buildscript {
-    repositories {
+buildscript
+{
+
+    repositories
+    {
+
         jcenter()
-        maven {
+
+        maven
+        {
+
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
+
         }
+
     }
 
-    dependencies {
+    dependencies
+    {
+
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+
     }
+
 }
 
 apply plugin: 'java'
@@ -23,7 +36,8 @@ def __manifest = {
 
 }
 
-jar {
+jar
+{
 
   manifest __manifest
 
@@ -33,7 +47,11 @@ ext.configFile = file("build.properties")
 
 apply from: "$rootDir/gradle/scripts/common.gradle"
 
-version = "${config.MC_version}-${config.AMUN_version}"
+loadConfig('version_props', file("$projectDir/version.properties"))
+
+ext.AMUN_version = "${version_props.major}.${version_props.minor}.${version_props.patch}"
+
+version = "${config.MC_version}-${AMUN_version}"
 group = "de.puzzleddev.amun"
 archivesBaseName = "AMUN"
 
@@ -42,82 +60,115 @@ apply from: "$rootDir/gradle/scripts/repositories.gradle"
 
 ext.set('has_private', loadConfig('private_props', file("$projectDir/private.properties")))
 
-repositories {
+repositories
+{
+
   if(has_private)
   {
-    maven {
-        url private_props.maven_server
-    }
-  }
-}
 
-/*
-// for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
-plugins {
-    id "net.minecraftforge.gradle.forge" version "2.0.2"
+    maven
+    {
+
+        url private_props.maven_server
+
+    }
+
+  }
+
 }
-*/
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-minecraft {
+minecraft
+{
+
     version = config.MC_version + "-" + config.FORGE_version
     runDir = "run"
 
     mappings = "snapshot_20160312"
-    makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    makeObfSourceJar = false
 
     replace "@VERSION@", project.version
     replace "@MCVERSION@", config.MC_version
+
 }
 
-configurations {
+configurations
+{
+
     deployerJars
+
 }
 
-dependencies {
+dependencies
+{
+
   deployerJars "org.apache.maven.wagon:wagon-ssh:2.2"
+
 	compile "org.luaj:luaj-jse:${config.LUAJ_version}"
+
 	compile "org.codehaus.groovy:groovy:${config.GROOVY_version}"
+
 	//compile "li.cil.oc:OpenComputers:MC${config.MC_version}-${config.OC_version}:api" //Wait until it gets updated to 1.9
+
 	compile "mcp.mobius.waila:Waila:${config.WAILA_version}:dev"
+
 	deobfCompile "mezz.jei:jei_${config.MC_version}:${config.JEI_version}"
+
 }
 
 processResources
 {
+
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    from(sourceSets.main.resources.srcDirs) {
+    from(sourceSets.main.resources.srcDirs)
+    {
+
         include 'mcmod.info'
 
         expand 'version':project.version, 'mcversion':project.minecraft.version
+
     }
 
-    from(sourceSets.main.resources.srcDirs) {
+    from(sourceSets.main.resources.srcDirs)
+    {
+
         exclude 'mcmod.info'
+
     }
 }
 
 if(has_private)
 {
-  uploadArchives {
-      repositories.mavenDeployer {
+
+  uploadArchives
+  {
+
+      repositories.mavenDeployer
+      {
+
           configuration = configurations.deployerJars
-          repository(url: private_props.maven_server) {
+
+          repository(url: private_props.maven_server)
+          {
+
               authentication(userName: private_props.maven_name, password: private_props.maven_pass)
 
               pom.name = 'AMUN'
 
-              pom.project {
+              pom.project
+              {
 
                 description "AMUN is a core mod that doesn't add anything itself, therefor \"The hidden one\" or AMUN in greek"
 
-                developers {
+                developers
+                {
 
-                  developer {
+                  developer
+                  {
 
                     id 'tim4242'
                     name 'Tim4242'
@@ -136,9 +187,11 @@ if(has_private)
 
                 }
 
-                licenses {
+                licenses
+                {
 
-                  license {
+                  license
+                  {
 
                     name 'Apache License, Version 2.0'
                     url 'https://www.apache.org/licenses/LICENSE-2.0.txt'
@@ -149,7 +202,57 @@ if(has_private)
                 }
 
               }
+
           }
+
       }
+
+  }
+
+}
+
+def reloadVersion = { boolean rebuildStr = true ->
+
+  version_props.toProperties().store(file("$projectDir/version.properties").newWriter(), null)
+
+  if(rebuildStr)
+  {
+
+    ext.AMUN_version = "${version_props.major}.${version_props.minor}.${version_props.patch}"
+
+    version = "${config.MC_version}-${AMUN_version}"
+
   }
 }
+
+task incrementMajorVersion <<
+{
+  version_props.major = (version_props.major.toInteger() + 1)
+  version_props.minor = 0
+  version_props.patch = 0
+
+  reloadVersion();
+}
+
+task incrementMinorVersion <<
+{
+  version_props.minor = (version_props.minor.toInteger() + 1)
+  version_props.patch = 0
+
+  reloadVersion();
+}
+
+task incrementPatchVersion <<
+{
+  version_props.patch = (version_props.patch.toInteger() + 1)
+
+  reloadVersion();
+}
+
+build.shouldRunAfter(incrementMajorVersion)
+build.shouldRunAfter(incrementMinorVersion)
+build.shouldRunAfter(incrementPatchVersion)
+
+makeSrcJar.shouldRunAfter(incrementMajorVersion)
+makeSrcJar.shouldRunAfter(incrementMinorVersion)
+makeSrcJar.shouldRunAfter(incrementPatchVersion)

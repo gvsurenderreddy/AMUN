@@ -16,14 +16,22 @@ public class AmunCompatebilityModCallback implements IAmunAnnotationCallback<Com
 
 		if(data.getAnnotation().value().length() < 2)
 			return;
-
-		Method f = data.getWrappedClass().getMethod(data.getAnnotation().value(), Object.class);
-
-		if(f == null)
+		
+		Method f;
+		
+		try
+		{
+		
+			f = data.getWrappedClass().getMethod(data.getAnnotation().value(), data.getWrappedClass());
+		
+		} catch(Throwable t)
+		{
 			return;
+		}
+		
 		if(!Modifier.isStatic(f.getModifiers()))
 			return;
-
+		
 		AmunCompatebilityCallback.registerModType(data.getWrappedClass(), (obj) -> {
 			try
 			{

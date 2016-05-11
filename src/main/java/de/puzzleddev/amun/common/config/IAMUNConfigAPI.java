@@ -1,7 +1,7 @@
 package de.puzzleddev.amun.common.config;
 
-import de.puzzleddev.amun.common.config.anno.AMUNConfigHolder;
-import de.puzzleddev.amun.common.config.impl.ConfigHolder;
+import de.puzzleddev.amun.common.config.holder.IConfigHolder;
+import de.puzzleddev.amun.util.functional.IFactory;
 
 /**
  * Manages dynamic configurations.
@@ -30,6 +30,13 @@ public interface IAmunConfigAPI
 	public void registerProvider(String type, IConfigProvider<?, ?> provider);
 
 	/**
+	 * Sets the default config holder factory to factory.
+	 * 
+	 * @param factory The factory instance to set it to.
+	 */
+	public void setHolderFactory(IFactory<IConfigHolder, Object> factory);
+	
+	/**
 	 * Registers a holder by the annotation.
 	 * 
 	 * @param holder
@@ -37,14 +44,14 @@ public interface IAmunConfigAPI
 	 * @param obj
 	 *            The holder instance to register.
 	 */
-	public void registerHolder(AMUNConfigHolder holder, Object obj);
+	public void registerHolder(Object obj);
 
 	/**
 	 * Registers a holder as a class.
 	 * 
 	 * @param obj
 	 *            The class to get a holder for.
-	 * @return The {@link ConfigHolder} instance of this class or null.
+	 * @return The {@link IConfigHolder} instance of this class or null.
 	 */
-	public ConfigHolder getHolder(Class<?> obj);
+	public IConfigHolder getHolder(Class<?> obj);
 }
