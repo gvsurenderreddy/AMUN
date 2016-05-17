@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.logging.log4j.Level;
@@ -32,6 +33,8 @@ import de.puzzleddev.amun.common.mod.IAmunMod;
 import de.puzzleddev.amun.common.mod.IAmunModManager;
 import de.puzzleddev.amun.common.script.IScriptAPI;
 import de.puzzleddev.amun.common.script.impl.ScriptAPIImpl;
+import de.puzzleddev.amun.compat.registries.feature.Features;
+import de.puzzleddev.amun.compat.registries.feature.plant.IFeaturePlant;
 import de.puzzleddev.amun.util.Helper;
 import de.puzzleddev.amun.util.functional.Function;
 import de.puzzleddev.amun.util.log.AMUNLog;
@@ -359,6 +362,15 @@ public class Amun implements IAmunMod
 	{
 		AMUNLog.info("Starting AMUN post initialization"); // Notify the user
 
+		for(Map.Entry<String, Collection<IFeaturePlant>> ent : Features.instance().get(IFeaturePlant.class).getAll().entrySet())
+		{
+			for(IFeaturePlant plant : ent.getValue())
+			{
+				System.out.println(plant.getState());
+				System.out.println(plant.getStack());
+			}
+		}
+		
 		// Runs the loading hooks
 		for(IAmunLoadHook lh : m_loadHooks)
 			lh.postInit(event);

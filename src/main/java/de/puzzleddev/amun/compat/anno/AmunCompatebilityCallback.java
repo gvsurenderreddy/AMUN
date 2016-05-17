@@ -9,8 +9,6 @@ import de.puzzleddev.amun.common.anno.IAmunAnnotationCallback;
 import de.puzzleddev.amun.common.anno.callback.FactoryCallback;
 import de.puzzleddev.amun.util.functional.Function;
 import de.puzzleddev.amun.util.log.AMUNLog;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.ModAPIManager;
 
 public class AmunCompatebilityCallback implements IAmunAnnotationCallback<Compatebility>
 {
@@ -28,30 +26,23 @@ public class AmunCompatebilityCallback implements IAmunAnnotationCallback<Compat
 
 		String reason = "Unknown reason";
 
-		if(Loader.isModLoaded(data.getAnnotation().value()) || ModAPIManager.INSTANCE.hasAPI(data.getAnnotation().value()))
+		if(!FactoryCallback.has(data.getWrappedClass()))
 		{
-			if(!FactoryCallback.has(data.getWrappedClass()))
-			{
-				reason = "No factory for type " + data.getWrappedClass().getSimpleName() + " found";
-			}
-			else
-			{
-				Object lh = FactoryCallback.get(data.getWrappedClass());
-
-				loaded = true;
-
-				for(Map.Entry<Class<?>, Function.VoidOneArg<Object>> ent : m_registries.entrySet())
-				{
-					if(ent.getKey().isAssignableFrom(lh.getClass()))
-					{
-						ent.getValue().call(lh);
-					}
-				}
-			}
+			reason = "No factory for type " + data.getWrappedClass().getSimpleName() + " found";
 		}
 		else
 		{
-			reason = "No API or mod by that id found";
+			Object lh = FactoryCallback.get(data.getWrappedClass());
+
+			loaded = true;
+
+			for(Map.Entry<Class<?>, Function.VoidOneArg<Object>> ent : m_registries.entrySet())
+			{
+				if(ent.getKey().isAssignableFrom(lh.getClass()))
+				{
+					ent.getValue().call(lh);
+				}
+			}
 		}
 
 		AMUNLog.console().infof("Compatebility for \"{}\"{} loaded{}", data.getAnnotation().value(), (loaded ? "" : " not"), (loaded ? "" : ": " + reason));

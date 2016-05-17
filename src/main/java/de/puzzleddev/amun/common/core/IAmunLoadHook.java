@@ -9,7 +9,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * Can be registered at
  * {@link de.puzzleddev.amun.common.core.Amun#addLoadHook(IAmunLoadHook)
  * Amun.addLoadHook()}, when registered the appropriate methods are called
- * during the loading stages. These get run after Amun has finished that step.
+ * during the loading stages. These get run after Amun has finished that step.<br>
+ * The other way to register is using the {@link de.puzzleddev.amun.compat.anno.Compatebility @Compatebility} annotation.
  * 
  * @author tim4242
  */
