@@ -30,4 +30,16 @@ public @interface AmunConfigHolder
 	 * folder.
 	 */
 	String path();
+
+	/**
+	 * If this config file should be generated per world.
+	 */
+	boolean inWorld() default false;
+
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target({ ElementType.METHOD })
+	public static @interface Worlds
+	{
+
+	}
 }

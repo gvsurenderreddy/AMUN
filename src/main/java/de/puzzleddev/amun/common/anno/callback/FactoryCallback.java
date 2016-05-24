@@ -39,9 +39,12 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 	public void call(int state, AnnotationData<AmunFactory> data) throws Exception
 	{
 		Class<?> cls = null;
+		Class<?> wrapping = null;
 
 		if(data.isClass())
 		{
+			wrapping = data.getWrappedClass();
+
 			Constructor<?> c = data.getWrappedClass().getConstructor();
 
 			cls = c.getDeclaringClass();
@@ -60,6 +63,8 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 		}
 		else if(data.isField())
 		{
+			wrapping = data.getWrappedField().getDeclaringClass();
+
 			Field f = data.getWrappedField();
 
 			cls = f.getDeclaringClass();
@@ -81,6 +86,8 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 		}
 		else if(data.isMethod())
 		{
+			wrapping = data.getWrappedMethod().getDeclaringClass();
+
 			Method m = data.getWrappedMethod();
 
 			cls = m.getDeclaringClass();
@@ -102,6 +109,8 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 		}
 		else if(data.isConstructor())
 		{
+			wrapping = data.getWrappedConstructor().getDeclaringClass();
+
 			Constructor<?> c = data.getWrappedConstructor();
 
 			cls = c.getDeclaringClass();
@@ -119,7 +128,49 @@ public class FactoryCallback implements IAmunAnnotationCallback<AmunFactory>
 			});
 		}
 
-		m_cache.put(cls, m_lookup.get(cls).call());
+		Object obj = m_lookup.get(cls).call();
+
+		for(Method m : wrapping.getDeclaredMethods())
+		{
+			if(Modifier.isStatic(m.getModifiers()) && m.getParameterTypes().length == 1 && cls.isAssignableFrom(m.getParameterTypes()[0]))
+			{
+				boolean a = !m.isAccessible();
+
+				if(a)
+				{
+					m.setAccessible(true);
+				}
+
+				m.invoke(null, obj);
+
+				if(a)
+				{
+					m.setAccessible(false);
+				}
+			}
+		}
+
+		for(Field f : wrapping.getDeclaredFields())
+		{
+			if(Modifier.isStatic(f.getModifiers()) && cls.isAssignableFrom(f.getType()))
+			{
+				boolean a = !f.isAccessible();
+
+				if(a)
+				{
+					f.setAccessible(true);
+				}
+
+				f.set(null, obj);
+				
+				if(a)
+				{
+					f.setAccessible(false);
+				}	
+			}
+		}
+
+		m_cache.put(cls, obj);
 	}
 
 }

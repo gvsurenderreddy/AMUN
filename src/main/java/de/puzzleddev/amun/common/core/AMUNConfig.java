@@ -6,19 +6,15 @@ import de.puzzleddev.amun.common.config.holder.anno.AmunConfigHolder;
 import de.puzzleddev.amun.common.config.holder.anno.AmunConfigInstance;
 import de.puzzleddev.amun.common.config.holder.anno.AmunConfigValue;
 
+@AmunFactory
 @AmunConfigHolder(path = "AMUN/main.cfg", type = "forge")
 public class AmunConfig
 {
+	@AmunFactory.Inject
 	private static AmunConfig m_instance;
 
-	@AmunFactory
 	public static AmunConfig instance()
 	{
-		if(m_instance == null)
-		{
-			m_instance = new AmunConfig();
-		}
-
 		return m_instance;
 	}
 	

@@ -175,7 +175,7 @@ public class Amun implements IAmunMod
 		// I don't know what it does but it look important
 		m_loadHooks = new ArrayList<IAmunLoadHook>();
 	}
-
+	
 	/**
 	 * Handles the main startup and annotation registration.
 	 * 
@@ -336,6 +336,8 @@ public class Amun implements IAmunMod
 		// Runs the loading hooks
 		for(IAmunLoadHook lh : m_loadHooks)
 			lh.preInit(event);
+		
+		CONFIG.createWorldConfigs();
 	}
 
 	@Mod.EventHandler

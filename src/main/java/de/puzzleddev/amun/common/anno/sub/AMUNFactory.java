@@ -24,4 +24,11 @@ import de.puzzleddev.amun.common.anno.construct.AmunAnnotationHolder;
 public @interface AmunFactory
 {
 
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target({ ElementType.FIELD, ElementType.METHOD })
+	public static @interface Inject
+	{
+		
+	}
+	
 }
